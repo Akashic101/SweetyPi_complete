@@ -1,9 +1,12 @@
+//---------------------------------- DISCORD SETUP ---------------------------------
+
 const Discord = require('discord.js');
 require('dotenv').config();
-const client = new Discord.Client();
+var pjson = require('./package.json');
+const clientDIS = new Discord.Client();
 const Sequelize = require('sequelize');
 
-//Bot-Token that is stored in the .env-fike
+//Bot-Token that is stored in the .env-file
 const token = process.env.DISCORD_TOKEN;
 
 //Prefix that is used to call a command
@@ -71,14 +74,21 @@ var serverLogChannel = process.env.SERVER_LOG_CHANNEL;
 var artFeedbackChannel = process.env.ART_FEEDBACK_CHANNEL;
 var approvalChannel  = process.env.APPROVAL_CHANNEL;
 
+//logs the bot in with the provided token
+clientDIS.login(token);
+
+//----------------------------------------------------------------------------------
+
+//---------------------------------- DISCORD CODE ----------------------------------
+
 //Syncs or creates the table once the bot is ready. This event will only trigger one time after logging in. More info: https://discordjs.guide/sequelize/#gamma-syncing-the-model
-client.once('ready', () => {
+clientDIS.once('ready', () => {
     SocialMedia.sync();
     SweetyImages.sync();
 });
 
 //Once the bot is running he writes a message with the current time into the server-log-channel
-client.on('ready', () =>{
+clientDIS.on('ready', () =>{
 
     var date = new Date();
     console.log('SweetyPi is back online at ' + date);
@@ -88,11 +98,11 @@ client.on('ready', () =>{
     readyEmbed.setColor("009a92");
     readyEmbed.setTimestamp();
     readyEmbed.setFooter('Server Log');
-    client.channels.cache.get(serverLogChannel).send(readyEmbed);
+    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
 
 //Gets called whenever a user joins the server
-client.on('guildMemberAdd', (member) => {      
+clientDIS.on('guildMemberAdd', (member) => {      
     var date = new Date();
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member joined**');
@@ -100,11 +110,11 @@ client.on('guildMemberAdd', (member) => {
     readyEmbed.setColor("ffffff");
     readyEmbed.setTimestamp();
     readyEmbed.setFooter('Server Log');
-    client.channels.cache.get(serverLogChannel).send(readyEmbed);
+    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
   });
 
 //Gets called whenever a user leaves the server
-client.on('guildMemberRemove',(member) => {
+clientDIS.on('guildMemberRemove',(member) => {
     var date = new Date();
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member left**');
@@ -112,12 +122,12 @@ client.on('guildMemberRemove',(member) => {
     readyEmbed.setColor("000000");
     readyEmbed.setTimestamp();
     readyEmbed.setFooter('Server Log');
-    client.channels.cache.get(serverLogChannel).send(readyEmbed);
+    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
 
 
 //Get's called when a message is written and changes args into the first word minus the prefix
-client.on('message', async message => {
+clientDIS.on('message', async message => {
 	let args = message.content.substring(prefix.length).split(" ");
 
 //In case the message is written inside the critique-your-art-channel and has at least one attachement the bot will automatically react to it with 👍 and 👎
@@ -153,11 +163,11 @@ switch(args[0]){
 				embed.setColor("ff0000");
 				embed.setTimestamp();
 				embed.setFooter('Approval System V1')
-				client.channels.cache.get(approvalChannel).send(embed).then
+				clientDIS.channels.cache.get(approvalChannel).send(embed).then
 				(message => message.react('👍'))
 				break;
 			} catch (e) {
-                client.users.cache.get('320574128568401920').send('error: ' + e);
+                clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
 			}
         }
         
@@ -187,7 +197,7 @@ switch(args[0]){
             break;
             }
             else {
-                client.users.cache.get('320574128568401920').send('error: ' + e);
+                clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
             }
         }
     }
@@ -254,7 +264,7 @@ switch(args[0]){
         webtoonsEmbed.setColor("00d564");
         webtoonsEmbed.setTimestamp();
         webtoonsEmbed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(webtoonsEmbed);
+        clientDIS.channels.cache.get(serverLogChannel).send(webtoonsEmbed);
 
 		if(args.length != 2) return;
 		else {
@@ -383,7 +393,7 @@ switch(args[0]){
         websiteEmbed.setColor("ffffff");
         websiteEmbed.setTimestamp();
         websiteEmbed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(websiteEmbed);
+        clientDIS.channels.cache.get(serverLogChannel).send(websiteEmbed);
             
         if(args.length != 2) return;
         else {
@@ -465,7 +475,7 @@ switch(args[0]){
         pollEmbed.setColor("FF0000");
         pollEmbed.setTimestamp();
         pollEmbed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(pollEmbed);
+        clientDIS.channels.cache.get(serverLogChannel).send(pollEmbed);
 
         messageContent = message.content;
 
@@ -568,7 +578,7 @@ switch(args[0]){
         helpEmbed.setColor("000000");
         helpEmbed.setTimestamp();
         helpEmbed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(helpEmbed);
+        clientDIS.channels.cache.get(serverLogChannel).send(helpEmbed);
 
         if(args[1] === undefined) {
             message.channel.send('**commands** \nTo get a list with all available commands you can use !commands.\n' +
@@ -603,7 +613,7 @@ switch(args[0]){
         uptimeEmbed.setColor("f9f4df");
         uptimeEmbed.setTimestamp();
         uptimeEmbed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(uptimeEmbed);
+        clientDIS.channels.cache.get(serverLogChannel).send(uptimeEmbed);
 
     const sentences = [
         'Maybe she should take a break soon',
@@ -615,7 +625,7 @@ switch(args[0]){
         'Red really needs to up her treat-payment'
         ]
 
-        message.channel.send('SweetyPi worked without a break since ' + msToTime(client.uptime)  + ' hours. ' + (sentences[Math.floor(Math.random() * sentences.length)]));
+        message.channel.send('SweetyPi worked without a break since ' + msToTime(clientDIS.uptime)  + ' hours. ' + (sentences[Math.floor(Math.random() * sentences.length)]));
         break;
 
 //Writes a message with the name of the author, the current version and a link to the repository
@@ -640,7 +650,7 @@ function msToTime(s) {
     return hrs + ':' + mins + ':' + secs;
 }
 
-//TODO Link to channel message was send in: client.channels.cache.get(`${message.channel}`)
+//TODO Link to channel message was send in: clientDIS.channels.cache.get(`${message.channel}`)
 function sendLog(platform, color) {
     var date = new Date();
         let embed = new Discord.MessageEmbed();
@@ -649,10 +659,7 @@ function sendLog(platform, color) {
         embed.setColor(color);
         embed.setTimestamp();
         embed.setFooter('Server Log');
-        client.channels.cache.get(serverLogChannel).send(embed);
+        clientDIS.channels.cache.get(serverLogChannel).send(embed);
 }
 
 }});
-
-//logs the bot in with the provided token
-client.login(token);
