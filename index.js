@@ -699,7 +699,7 @@ clientTWI.on('connected', (address, port) => {
 });
 
 //listens to incoming chat-messages
-clientTWI.on('chat', (channel, user, message, self) => {
+clientTWI.on('chat', async (channel, user, message, self) => {
     if(self) return;
     const commandmessage = message.trim().toLowerCase();
 
@@ -758,10 +758,25 @@ clientTWI.on('chat', (channel, user, message, self) => {
     if(commandmessage === '!shake') {
         clientTWI.say('Redfur_13', 'not without a treat')
     }
+
+    if(commandmessage === '!sweety') {
+        try {
+            const match = await SweetyImages.findOne({ order: Sequelize.literal('random()') })
+            if(match) {
+                match.increment('usage_count');
+                return clientTWI.say('Redfur_13', "" + match.link);
+            }
+            else {
+                return clientTWI.say('something broke and I don\'t know what');
+            }
+        } catch (e) {
+            clientTWI.say("error: " + e);
+        }
+    }
 });
 
 //reacts when someone cheered more then 100 bits
-client.on("cheer", (channel, userstate, message) => {
+clientTWI.on("cheer", (channel, userstate, message) => {
     if(userstate.bits < 100) {
         return;
     }
@@ -772,13 +787,13 @@ client.on("cheer", (channel, userstate, message) => {
 });
 
 //reacts when someone subscribed
-client.on("subscription", (channel, username, method, message, userstate) => {
+clientTWI.on("subscription", (channel, username, method, message, userstate) => {
     clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just subscribed! redfur4Love redfur4Love ");
     clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just subscribed during Redfur's stream <:Red_Love:703246776781635674> <:Red_Love:703246776781635674>");
 });
 
 //reacts when someone gifted a subscription
-client.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
+clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
 
     if(numbOfSubs == 1) {
@@ -792,7 +807,7 @@ client.on("subgift", (channel, username, streakMonths, recipient, methods, users
 });
 
 //reacts when someone gifted a mystery-subscription
-client.on("submysterygift", (channel, username, numbOfSubs, methods, userstate) => {
+clientTWI.on("submysterygift", (channel, username, numbOfSubs, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
 
     if(numbOfSubs == 1) {
@@ -805,7 +820,7 @@ client.on("submysterygift", (channel, username, numbOfSubs, methods, userstate) 
     }
 });
 
-client.on("resub", (channel, username, months, message, userstate, methods) => {
+clientTWI.on("resub", (channel, username, months, message, userstate, methods) => {
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
 
     clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + months + " months redfur4Love redfur4Love ");
