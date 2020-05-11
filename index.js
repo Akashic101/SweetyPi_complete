@@ -1,8 +1,43 @@
+//---------------------------------- OTHER SETUP ---------------------------------
+
+require('dotenv').config();
+var pjson = require('./package.json');
+const winston = require('winston');
+
+const customLevels = {
+    levels: {
+        error: 0,
+        warn: 1,
+        command: 2,
+        info: 3,
+        debug: 4,
+        message: 5
+    },
+    colors: {
+        error: 'red',
+        warn: 'magenta',
+        command: 'yellow',
+        info: 'cyan',
+        debug: 'grey',
+        message: 'white',
+    }
+};
+
+winston.addColors(customLevels.colors);
+
+const logger = winston.createLogger({
+    levels: customLevels.levels,
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({ filename: './log/combined.log' })
+    ]
+})
+
 //---------------------------------- DISCORD SETUP ---------------------------------
 
 const Discord = require('discord.js');
-require('dotenv').config();
-var pjson = require('./package.json');
+
+
 const clientDIS = new Discord.Client();
 const Sequelize = require('sequelize');
 
@@ -91,11 +126,18 @@ clientDIS.once('ready', () => {
 //Once the bot is running he writes a message with the current time into the server-log-channel
 clientDIS.on('ready', () =>{
 
-    var date = new Date();
-    console.log('SweetyPi is back online at ' + date);
+    var d = new Date();
+
+    logger.log({
+        level: 'info',
+        version: pjson.version,
+        date: d
+    });
+    
+    console.log('SweetyPi is back online at ' + d);
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**ready**');
-    readyEmbed.setDescription('SweetyPi is back online at ' + date);
+    readyEmbed.setDescription('SweetyPi is back online at ' + d);
     readyEmbed.setColor("009a92");
     readyEmbed.setTimestamp();
     readyEmbed.setFooter('Server Log');
@@ -103,7 +145,10 @@ clientDIS.on('ready', () =>{
 });
 
 //Gets called whenever a user joins the server
-clientDIS.on('guildMemberAdd', (member) => {      
+clientDIS.on('guildMemberAdd', (member) => {
+    
+    
+
     var date = new Date();
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member joined**');
@@ -116,6 +161,9 @@ clientDIS.on('guildMemberAdd', (member) => {
 
 //Gets called whenever a user leaves the server
 clientDIS.on('guildMemberRemove',(member) => {
+
+    
+
     var date = new Date();
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member left**');
@@ -129,6 +177,17 @@ clientDIS.on('guildMemberRemove',(member) => {
 
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
+
+    var d = new Date();
+
+    logger.log({
+        level: 'message',
+        user: message.member.user.tag,
+        message: message.content,
+        channel: message.channel,
+        date: d
+    });
+
 	let args = message.content.substring(prefix.length).split(" ");
 
 //In case the message is written inside the critique-your-art-channel and has at least one attachement the bot will automatically react to it with 👍 and 👎
@@ -522,6 +581,16 @@ switch(args[0]){
 //Grabs a random link from the SweetyPictures-database and posts it as a message
     case 'sweety' :
 
+        var d = new Date();
+
+        logger.log({
+            level: 'info',
+            user: message.member.user.tag,
+            message: message.content,
+            channel: message.channel.name,
+            date: d
+        });
+
         sendLog("sweety", message.member.user.tag, message.content, "FF0000");
 
         try {
@@ -695,8 +764,15 @@ clientTWI.connect();
 
 //Send a message whenever the bot connected to the stream
 clientTWI.on('connected', (address, port) => {
-    clientTWI.action('Redfur_13', 'SweetyBot has awoken from her slumber');
+    clientTWI.action('Redfur_13', 'SweetyBot has awoken from her slumber')
+    setInterval(() => {
+        messageInterval();
+    }, 1800000);
 });
+
+function messageInterval() {
+    clientTWI.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://www.discord.gg/invite/qRVjEgg");
+}
 
 //listens to incoming chat-messages
 clientTWI.on('chat', async (channel, user, message, self) => {
