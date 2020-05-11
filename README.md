@@ -34,9 +34,7 @@ The bot also automatically adds a `👍` and `👎` to the critique-your-work-ch
 The bot can just like on Discord be used to get links to all platforms Redfur13 is using. It's also used to notify every viewer per chat if someone followed, subscribed or gifted subs/bits.
 
 ## How to Install
-First you need to install [Node](https://nodejs.org/en/). After that, create and go into the folder where the bot should be in, for example with   
-`mkdir -p Discord-bot && cd Discord-bot`.  
-Next you can clone the necessary code with  
+First you need to install [Node](https://nodejs.org/en/). After that, create and go into the folder where the bot should be in, and clone the necessary code with  
 `git clone https://github.com/Akashic101/SweetyPi_complete.git`  
 When that is done you can use `npm install` to install all necessary dependencies.
 
@@ -111,4 +109,8 @@ And mod-only commands are:
  If you want SweetyPi to automatically boot whenever your system is starting you can use [pm2](https://www.npmjs.com/package/pm2) for this. Simply install it with `npm install pm2`, but instead of launching SweetyPi with `node .` or `node index.js`, use `pm2 start index.js`. SweetyPi is now daemonized, monitored and kept alive forever. If you want to see how many resources SweetyPi is using, enter `pm2 list` or `pm2 monit` for more in-depth information
  
  ## TO DO
- 
+* Add proper logging with [WinstonJs](https://github.com/winstonjs/winston)
+* Add more commands and features to the Twitch-version
+* Add more mod-commands to both versions
+* Enable Spotify-support using [Spotify-Web-Api_Node](https://github.com/thelinmichael/spotify-web-api-node)
+* Add birthday-feature for Discord
