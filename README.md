@@ -18,7 +18,7 @@ ___
 * [TO DO](#to-do)
 
 ## General Info
-This bot was made for the Discord and [Twitch[(https://www.twitch.tv/Redfur_13) of [Redfur13](https://www.instagram.com/sweetycomics/), with the goal to make it easier for people to link their social-media-platforms since her Discord is heavily art-focused. This enables others to easier find channels they would be interested in. This bot also functions as a bridge between her Discord and Twitch to enable more communication between both platforms
+This bot was made for the Discord and [Twitch](https://www.twitch.tv/Redfur_13) of [Redfur13](https://www.instagram.com/sweetycomics/), with the goal to make it easier for people to link their social-media-platforms since her Discord is heavily art-focused. This enables others to easier find channels they would be interested in. This bot also functions as a bridge between her Discord and Twitch to enable more communication between both platforms
 
 ## Features
 ### Discord
