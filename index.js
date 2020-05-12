@@ -149,6 +149,18 @@ clientDIS.on('ready', () =>{
 clientDIS.on('guildMemberAdd', (member) => {
 
     var date = new Date();
+
+    logger.log({
+        level: 'member',
+        user: ({
+            action: 'joined',
+            tag: member.user.tag,
+            bot: member.user.bot,
+            created: member.user.createdAt
+        }),
+        date: date
+    });
+
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member joined**');
     readyEmbed.setDescription(`**${member.user.tag}** has joined the server at ` + date);
@@ -166,9 +178,10 @@ clientDIS.on('guildMemberRemove',(member) => {
     logger.log({
         level: 'member',
         user: ({
-            tag: message.member.user.tag,
-            bot: message.member.user.bot,
-            created: message.member.user.createdAt
+            action: 'left',
+            tag: member.user.tag,
+            bot: member.user.bot,
+            created: member.user.createdAt
         }),
         date: date
     });
