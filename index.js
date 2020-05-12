@@ -9,9 +9,10 @@ const customLevels = {
         error: 0,
         warn: 1,
         command: 2,
-        info: 3,
-        debug: 4,
-        message: 5
+        member: 3,
+        info: 4,
+        debug: 5,
+        message: 6
     },
     colors: {
         error: 'red',
@@ -20,6 +21,7 @@ const customLevels = {
         info: 'cyan',
         debug: 'grey',
         message: 'white',
+        member: 'white'
     }
 };
 
@@ -36,7 +38,6 @@ const logger = winston.createLogger({
 //---------------------------------- DISCORD SETUP ---------------------------------
 
 const Discord = require('discord.js');
-
 
 const clientDIS = new Discord.Client();
 const Sequelize = require('sequelize');
@@ -141,13 +142,11 @@ clientDIS.on('ready', () =>{
     readyEmbed.setColor("009a92");
     readyEmbed.setTimestamp();
     readyEmbed.setFooter('Server Log');
-    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
+    //clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
 
 //Gets called whenever a user joins the server
 clientDIS.on('guildMemberAdd', (member) => {
-    
-    
 
     var date = new Date();
     let readyEmbed = new Discord.MessageEmbed();
@@ -162,9 +161,18 @@ clientDIS.on('guildMemberAdd', (member) => {
 //Gets called whenever a user leaves the server
 clientDIS.on('guildMemberRemove',(member) => {
 
-    
-
     var date = new Date();
+
+    logger.log({
+        level: 'member',
+        user: ({
+            tag: message.member.user.tag,
+            bot: message.member.user.bot,
+            created: message.member.user.createdAt
+        }),
+        date: date
+    });
+
     let readyEmbed = new Discord.MessageEmbed();
     readyEmbed.setTitle('**Member left**');
     readyEmbed.setDescription(`**${member.user.tag}** has left the server at ` + date);
@@ -173,7 +181,6 @@ clientDIS.on('guildMemberRemove',(member) => {
     readyEmbed.setFooter('Server Log');
     clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
-
 
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
@@ -203,6 +210,25 @@ switch(args[0]){
 //When someone uses !link with 3 arguments (!link <platform> <link.to.website>), a rich message gets created and posted into the approval-channel
 //The bot will also react with a 👍 to the message and send the author a private message
 //If the message does not contains 3 arguments an error gets called
+
+    case 'test' :
+
+        var date = new Date();
+
+        logger.log({
+            level: 'member',
+            user: ({
+                tag: message.member.user.tag,
+                id: message.member.user.id,
+                bot: message.member.user.bot,
+                created: message.member.user.createdAt,
+                'last message':  message.member.user.lastMessage,
+                avatar: message.member.user.displayAvatarURL()
+            }),
+            date: date
+        });
+        break;
+
     case 'link' :
 
         sendLog("link", message.member.user.tag, message.content, "6f5d57");
@@ -558,6 +584,13 @@ switch(args[0]){
 //The second argument will get added to the SweetyPictures-database
     case 'addSweety' :
 
+        logger.log({
+            level: 'command',
+            command: 'addSweety',
+            link: args[1],
+            date: d
+        });
+
         sendLog("addSweety", message.member.user.tag, message.content, "cb876f");
 
         if (args.length != 2 ||!message.member.roles.cache.has('641618875846492170')) {
@@ -636,7 +669,7 @@ switch(args[0]){
             }
         }
 
-//Writes a help-message explaining helpful commands and what to do when encountering a bug or requesting a feature
+//Writes a help-message explaining helpful commands and what to !do when encountering a bug or requesting a feature
     case 'help' :
 
         sendLog("help", message.member.user.tag, message.content, "000000");
@@ -857,7 +890,7 @@ clientTWI.on("cheer", (channel, userstate, message) => {
         return;
     }
     else {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.display-name + " has cheered " + userstate.bits + " redfur4Love redfur4Love");
+        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.name + " has cheered " + userstate.bits + " redfur4Love redfur4Love");
         clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + userstate.display-name + " has cheered " + userstate.bits + " during Redfur's stream <:Red_Love:703246776781635674> <:Red_Love:703246776781635674>");
     }
 });
@@ -871,35 +904,21 @@ clientTWI.on("subscription", (channel, username, method, message, userstate) => 
 //reacts when someone gifted a subscription
 clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-
-    if(numbOfSubs == 1) {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted 1 subscription to " + recipient + ". He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just gifted 1 subscription to " + recipient + ". He gifted in total " + senderCount + " <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
-    }
-    else {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
-    }
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send(username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subs");
 });
 
 //reacts when someone gifted a mystery-subscription
 clientTWI.on("submysterygift", (channel, username, numbOfSubs, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-
-    if(numbOfSubs == 1) {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted 1 mystery-subscription. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just gifted 1 mystery-subscription. He gifted in total " + senderCount + " <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
-    }
-    else {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
-    }
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send(username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions");
 });
 
 clientTWI.on("resub", (channel, username, months, message, userstate, methods) => {
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
 
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + months + " months redfur4Love redfur4Love ");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months redfur4Love redfur4Love ");
     clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just continued his subscription. He is now subscribed since " + months + " months <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
 });
 
