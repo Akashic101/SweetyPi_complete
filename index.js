@@ -224,24 +224,6 @@ switch(args[0]){
 //The bot will also react with a 👍 to the message and send the author a private message
 //If the message does not contains 3 arguments an error gets called
 
-    case 'test' :
-
-        var date = new Date();
-
-        logger.log({
-            level: 'member',
-            user: ({
-                tag: message.member.user.tag,
-                id: message.member.user.id,
-                bot: message.member.user.bot,
-                created: message.member.user.createdAt,
-                'last message':  message.member.user.lastMessage,
-                avatar: message.member.user.displayAvatarURL()
-            }),
-            date: date
-        });
-        break;
-
     case 'link' :
 
         sendLog("link", message.member.user.tag, message.content, "6f5d57");
@@ -307,7 +289,11 @@ switch(args[0]){
 
         sendLog("twitch", message.member.user.tag, message.content, "6441a5");
 
-		if(args.length != 2) return;
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Twitch here: https://www.twitch.tv/redfur_13');
+        }
+
+		else if(args.length != 2) return;
 		else {
 			try {
 				const match = await SocialMedia.findOne({where: {platform: "twitch", username: args[1]}});
@@ -330,8 +316,10 @@ switch(args[0]){
     case 'instagram' :
 
         sendLog("instagram", message.member.user.tag, message.content, "3f729b");
-
-		if(args.length != 2) return;
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s instagram here: https://www.instagram.com/SweetyComics/');
+        }
+		else if(args.length != 2) return;
 		else {
 			try {
 				const match = await SocialMedia.findOne({where: {platform: "instagram", username: args[1]}});
@@ -365,7 +353,11 @@ switch(args[0]){
         webtoonsEmbed.setFooter('Server Log');
         clientDIS.channels.cache.get(serverLogChannel).send(webtoonsEmbed);
 
-		if(args.length != 2) return;
+		sendLog("instagram", message.member.user.tag, message.content, "3f729b");
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Webtoons here: https://www.webtoons.com/en/challenge/life-of-sweety/list?title_no=389966');
+        }
+		else if(args.length != 2) return;
 		else {
 			try {
 				const match = await SocialMedia.findOne({where: {platform: "webtoons", username: args[1]}});
@@ -389,7 +381,10 @@ switch(args[0]){
 
         sendLog("patreon", message.member.user.tag, message.content, "f96854");
 
-		if(args.length != 2) return;
+		if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Patreon here: https://www.patreon.com/redfur13');
+        }
+		else if(args.length != 2) return;
 		else {
 			try {
 				const match = await SocialMedia.findOne({where: {platform: "patreon", username: args[1]}});
@@ -413,7 +408,10 @@ switch(args[0]){
 
         sendLog("twitter", message.member.user.tag, message.content, "00acee");
 
-        if(args.length != 2) return;
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Twitter here: https://twitter.com/redfur13');
+        }
+		else if(args.length != 2) return;
         else {
             try {
                 const match = await SocialMedia.findOne({where: {platform: "twitter", username: args[1]}});
@@ -437,7 +435,10 @@ switch(args[0]){
 
         sendLog("facebook", message.member.user.tag, message.content, "39569c");
 
-        if(args.length != 2) return;
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Facebook here: https://www.facebook.com/Redfur13-2323949451264229/?ref=aymt_homepage_panel&eid=ARBQBOOYhk572IzVWcoV08jK4-y8bf8sSRWQ-KRxqrryne0yGezIFTfZzgmEUg78Xn3D0VU15YKeTW2A');
+        }
+		else if(args.length != 2) return;
         else {
             try {
                 const match = await SocialMedia.findOne({where: {platform: "facebook", username: args[1]}});
@@ -461,7 +462,10 @@ switch(args[0]){
 
         sendLog("etsy", message.member.user.tag, message.content, "eb6d20");
 
-        if(args.length != 2) return;
+        if(args[1] === undefined) {
+            return message.channel.send('You can find Redfur\'\s Etsy here: https://twitter.com/redfur13');
+        }
+		else if(args.length != 2) return;
             else {
                 try {
                     const match = await SocialMedia.findOne({where: {platform: "twitter", username: args[1]}});
