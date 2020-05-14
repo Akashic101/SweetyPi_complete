@@ -834,7 +834,7 @@ clientTWI.on('chat', async (channel, user, message, self) => {
     }
 
     if (commandmessage === '!discord') {
-        clientTWI.say('Redfur_13', 'https://discordapp.com/invite/U4rymnU')
+        clientTWI.say('Redfur_13', 'https://discordapp.com/invite/KTFBR8A')
     }
 
     if (commandmessage === '!facebook' || commandmessage === '!fb') {
