@@ -198,6 +198,16 @@ clientDIS.on('guildMemberRemove',(member) => {
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
 
+    var d = new Date();
+
+    logger.log({
+        level: 'message',
+        user: message.member.user.tag,
+        message: message.content,
+        channel: message.channel,
+        date: d
+    });
+
 	let args = message.content.substring(prefix.length).split(" ");
 
 //In case the message is written inside the critique-your-art-channel and has at least one attachement the bot will automatically react to it with 👍 and 👎
@@ -618,6 +628,14 @@ switch(args[0]){
     case 'sweety' :
 
         var d = new Date();
+
+        logger.log({
+            level: 'info',
+            user: message.member.user.tag,
+            message: message.content,
+            channel: message.channel.name,
+            date: d
+        });
 
         sendLog("sweety", message.member.user.tag, message.content, "FF0000");
 
