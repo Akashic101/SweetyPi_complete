@@ -196,7 +196,7 @@ clientDIS.on('guildMemberRemove',(member) => {
 });
 
 clientDIS.on('messageReactionAdd', (reaction, user) => {
-    if(reaction.message.channel.id == '685192557226885155' && reaction.emoji.name === '✅') {
+    if(reaction.message.channel.id == '641680374098952192' && reaction.emoji.name === '✅') {
         reaction.message.guild.members.fetch(user).then(result => {
             result.roles.add('712001337440862269').catch(console.error);
         }).catch(err => {
