@@ -195,6 +195,16 @@ clientDIS.on('guildMemberRemove',(member) => {
     clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
 
+clientDIS.on('messageReactionAdd', (reaction, user) => {
+    if(reaction.message.channel.id == '685192557226885155' && reaction.emoji.name === '✅') {
+        reaction.message.guild.members.fetch(user).then(result => {
+            result.roles.add('712001337440862269').catch(console.error);
+        }).catch(err => {
+
+        });
+    }
+})
+
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
 
