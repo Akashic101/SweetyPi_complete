@@ -831,7 +831,7 @@ clientTWI.on('connected', (address, port) => {
 });
 
 function messageInterval() {
-    clientTWI.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/invite/KTFBR8A");
+    clientTWI.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/invite/KTFBR8A. I also published new video, you can watch it here: https://youtu.be/I34-cuyKilQ");
 }
 
 //listens to incoming chat-messages
