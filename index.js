@@ -111,6 +111,9 @@ var artFeedbackChannel = process.env.ART_FEEDBACK_CHANNEL;
 var approvalChannel = process.env.APPROVAL_CHANNEL;
 var chitchatChannel = process.env.CHITCHAT_CHANNEL; 
 
+let channel_id = "641680374098952192"; 
+let message_id = "712781048504647791";
+
 //logs the bot in with the provided token
 clientDIS.login(token);
 
@@ -126,6 +129,13 @@ clientDIS.once('ready', () => {
 
 //Once the bot is running he writes a message with the current time into the server-log-channel
 clientDIS.on('ready', () =>{
+
+    clientDIS.channels.cache.get(channel_id).messages.fetch(message_id).then(m => {
+        console.log("Cached reaction message.");
+    }).catch(e => {
+    console.error("Error loading message.");
+    console.error(e);
+    });
 
     var d = new Date();
 
@@ -195,15 +205,25 @@ clientDIS.on('guildMemberRemove',(member) => {
     clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
 });
 
-clientDIS.on('messageReactionAdd', (reaction, user) => {
-    if(reaction.message.channel.id == '641680374098952192' && reaction.emoji.name === '✅') {
-        reaction.message.guild.members.fetch(user).then(result => {
-            result.roles.add('712001337440862269').catch(console.error);
-        }).catch(err => {
-
+clientDIS.on("messageReactionAdd", (reaction, user) => {
+    var d = new Date();
+    if(reaction.message.id === message_id) {
+        reaction.message.guild.members.fetch(user) // fetch the user that reacted
+        .then((member) => {
+            member.roles.add('712001337440862269').catch(console.error)
+            .then(() => {
+                let readyEmbed = new Discord.MessageEmbed();
+                readyEmbed.setTitle('**Member agreed to rules**');
+                readyEmbed.setDescription(`**${member.user.tag}** agreed to the rules at ` + d + ". He is in the server since " + Math.round((d - member.joinedAt) / 1000) + " seconds");
+                readyEmbed.setColor("7F0000");
+                readyEmbed.setTimestamp();
+                readyEmbed.setFooter('Server Log');
+                clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
+                }
+            );
         });
     }
-})
+});
 
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
@@ -755,7 +775,7 @@ switch(args[0]){
         'Red really needs to up her treat-payment'
         ]
 
-        message.channel.send('SweetyPi worked without a break since ' + msToTime(clientDIS.uptime)  + ' hours. ' + (sentences[Math.floor(Math.random() * sentences.length)]));
+        message.channel.send('SweetyPi worked without a break since ' + sToTime(clientDIS.uptime)  + ' hours. ' + (sentences[Math.floor(Math.random() * sentences.length)]));
         break;
 
 //Writes a message with the name of the author, the current version and a link to the repository
@@ -768,8 +788,10 @@ switch(args[0]){
         message.channel.send('You can find the code of this bot here: https://akashic101.github.io/SweetyPI/');
         break;
 
+
+
 //function that calculates how many hours, minutes and seconds are in a defined amount of seconds (s)
-function msToTime(s) {
+function sToTime(s) {
     var ms = s % 1000;
     s = (s - ms) / 1000;
     var secs = s % 60;
