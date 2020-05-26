@@ -939,36 +939,36 @@ clientTWI.on("cheer", (channel, userstate, message) => {
         return;
     }
     else {
-        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.name + " has cheered " + userstate.bits + " redfur4Love redfur4Love");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + userstate.name + " has cheered " + userstate.bits + " during Redfur's stream <:Red_Love:703246776781635674> <:Red_Love:703246776781635674>");
+        clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " bits redfur4Love redfur4Love");
+        clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + userstate.username + " has cheered " + userstate.bits + " bits during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
     }
 });
 
 //reacts when someone subscribed
 clientTWI.on("subscription", (channel, username, method, message, userstate) => {
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just subscribed! redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just subscribed during Redfur's stream <:Red_Love:703246776781635674> <:Red_Love:703246776781635674>");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just subscribed! redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just subscribed during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //reacts when someone gifted a subscription
 clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send(username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subs");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subs <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //reacts when someone gifted a mystery-subscription
 clientTWI.on("submysterygift", (channel, username, numbOfSubs, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send(username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just gifted " + numbOfSubs + " mystery-subscriptions. He gifted in total " + senderCount + " subscriptions <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 clientTWI.on("resub", (channel, username, months, message, userstate, methods) => {
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
 
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send("<:Red_Love:703246776781635674> <:Red_Love:703246776781635674> " + username + " just continued his subscription. He is now subscribed since " + months + " months <:Red_Love:703246776781635674> <:Red_Love:703246776781635674> ");
+    clientTWI.say('Redfur_13', "<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + userstate.username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just continued his subscription. He is now subscribed since " + months + " months <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //----------------------------------------------------------------------------------
