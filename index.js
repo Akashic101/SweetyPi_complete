@@ -954,7 +954,7 @@ clientTWI.on("subscription", (channel, username, method, message, userstate) => 
 clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
     clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just gifted a subscription to " + recipient + ". He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subs <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just gifted a subscription to " + recipient  + " He gifted in total " + senderCount + " subs <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //reacts when someone gifted a mystery-subscription
