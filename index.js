@@ -942,7 +942,7 @@ clientTWI.on('chat', async (channel, user, message, self) => {
 
             var message = messages[Math.floor(Math.random() * messages.length)];
 
-        clientTWI.say('Redfur_13', message + user.username);
+        clientTWI.say('Redfur_13', message + " " + user.username);
     }
 });
 
