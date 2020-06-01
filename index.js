@@ -931,6 +931,19 @@ clientTWI.on('chat', async (channel, user, message, self) => {
             clientTWI.say("error: " + e);
         }
     }
+
+    if(commandmessage === '!thanks') {
+        var messages = [
+            "No problem",
+            "Glad to help",
+            "Just doing my job",
+            "What can I say except you're welcome",
+            "Meow Meow"]
+
+            var message = messages[Math.floor(Math.random() * messages.length)];
+
+        clientTWI.say('Redfur_13', message + user.username);
+    }
 });
 
 //reacts when someone cheered more then 100 bits
