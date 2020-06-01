@@ -601,15 +601,6 @@ switch(args[0]){
 
         sendLog("poll", message.member.user.tag, message.content, "FF0000");
         
-        var date = new Date();
-        let pollEmbed = new Discord.MessageEmbed();
-        pollEmbed.setTitle('**poll**');
-        pollEmbed.setDescription(message.member.user.tag + ' used ' + message.content + ' at ' + date);
-        pollEmbed.setColor("FF0000");
-        pollEmbed.setTimestamp();
-        pollEmbed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(pollEmbed);
-
         messageContent = message.content;
 
         try {
