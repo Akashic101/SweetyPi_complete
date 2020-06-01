@@ -724,7 +724,7 @@ switch(args[0]){
         var date = new Date();
         let helpEmbed = new Discord.MessageEmbed();
         helpEmbed.setTitle('**help**');
-        helpEmbed.setDescription(message.member.user.tag + ' used ' + messageContent + ' at ' + date);
+        helpEmbed.setDescription(message.member.user.tag + ' used ' + message.content + ' at ' + date);
         helpEmbed.setColor("000000");
         helpEmbed.setTimestamp();
         helpEmbed.setFooter('Server Log');
@@ -950,10 +950,10 @@ clientTWI.on("subscription", (channel, username, method, message, userstate) => 
     clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just subscribed during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
-//reacts when someone gifted a subscription
+//Username gifted a subscription to recipient in a channel.
 clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just gifted a subscription to " + recipient + ". He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
     clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username.display-name + " just gifted " + numbOfSubs + " subscriptions. He gifted in total " + senderCount + " subs <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
