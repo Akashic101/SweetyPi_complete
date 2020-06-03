@@ -42,11 +42,12 @@ Just to bring everything up-to-date, run `npm update` and `npm fund` after this.
 
 Next, create a new file in the root-directory and name it `.env`. In that file, enter following lines and change them to your liking:  
 ```
-DISCORD_TOKEN= <your token here>  
-SERVER_LOG_CHANNEL= <id here>  
-ART_FEEDBACK_CHANNEL= <id here>  
-APPROVAL_CHANNEL= <id here>
-IDENTITY_PASSWORD0 <password here>
+DISCORD_TOKEN= 'your token here'  
+SERVER_LOG_CHANNEL= 'id here'  
+CHITCHAT_CHANNEL= 'id here'  
+ART_FEEDBACK_CHANNEL= 'id here'  
+APPROVAL_CHANNEL= 'id here'
+IDENTITY_PASSWORD0 'password here'
 ```   
 
 You can get the ID of a channel by enabling Developer Mode in Discord and right-clicking on a channel, there you can copy the ID. Remember to enter them all as a String with \` at the start and the end. You can get the IDENTITY_PASSWORD by signing into your bot-account and go to https://twitchapps.com/tmi/, there click on `Connect` and copy the token.
