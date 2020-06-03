@@ -783,7 +783,8 @@ function getTimeRemaining(endtime){
         '_Add your link to the list_\nIf you want to link your account so they can be called, please enter !link <platform> <link>. The mods will add your account to the list as soon as possible\n' + 
         '_Sweety pics and gifs_\nIf you want a random image of Sweety simply enter !sweety\n' + 
         '_Uptime_\nTo see since when the bot is running you can display it with !uptime\n' +
-        '_Info_\nIf you want to know who wrote this bot and more you can enter !info\n');
+        '_Info_\nIf you want to know who wrote this bot and more you can enter !info\n' +
+        '_Schedule_\nTo list the current schedule of Redfur and a timer until her next stream you can use !schedule');
         message.delete();
         break;
 
