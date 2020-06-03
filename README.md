@@ -80,7 +80,8 @@ Other commands are:
 * `uptime`
 * `info`
 * `commands`
-* `poll <text>`
+* `poll <text>`  
+* `schedule`
 
 And mod-only commands are:
  * `add <platform> <accountName> <link.to.website>`
