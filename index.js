@@ -595,6 +595,51 @@ switch(args[0]){
             break;
         }
 
+function getTimeRemaining(endtime){
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor( (total/1000) % 60 );
+    const minutes = Math.floor( (total/1000/60) % 60 );
+    const hours = Math.floor( (total/(1000*60*60)) % 24 );
+    const days = Math.floor( total/(1000*60*60*24) );
+  
+    return {
+      total,
+      days,
+      hours,
+      minutes,
+      seconds
+    };
+  }
+
+    case 'schedule' :
+        
+        var d = new Date();
+        var nextStream = new Date();
+
+        if(d.getDay() == 0 || d.getDay() == 5 || d.getDay() == 6 || d.getDay() == 1) {
+            nextStream.setDate(nextStream.getDate() + (1+(7-nextStream.getDay())) % 7);
+        }
+        else if(d.getDay() == 2 || d.getDay() == 3 || d.getDay() == 4) {
+            nextStream.setDate(nextStream.getDate() + (4+(7-nextStream.getDay())) % 7);
+        }
+
+        nextStream.setHours(12);
+        nextStream.setMinutes(0);
+        
+        var TimeToNextStream = getTimeRemaining(nextStream);
+
+        const nextStreamEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('Schedule')
+        .setURL('https://www.twitch.tv/redfur_13')
+        .addFields(
+            { name: 'Monday', value: '12PM - 6PM GMT+2'},
+            { name: 'Thursday', value: '12PM - 6PM GMT+2'},
+            { name: 'Countdown to next Stream', value: 'd:' + TimeToNextStream.days + ' h:' + TimeToNextStream.hours + ' m:' + TimeToNextStream.minutes}
+        );
+        clientDIS.channels.cache.get('685192557226885155').send(nextStreamEmbed);
+        break;
+
 //Creates a rich message where the text after the second argument is the question. The rich message always has a random color
 //and 👍 and 👎 as a reaction
     case 'poll' :
