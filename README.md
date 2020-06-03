@@ -1,3 +1,5 @@
+[![GitHub issues](https://img.shields.io/github/issues/Akashic101/SweetyPi)](https://github.com/Akashic101/SweetyPi/issues)  [![GitHub license](https://img.shields.io/github/license/Akashic101/SweetyPi)](https://github.com/Akashic101/SweetyPi/blob/master/LICENSE) [![Version](https://img.shields.io/badge/Version-1.4.3-blue)]() ![GitHub repo size](https://img.shields.io/github/repo-size/Akashic101/SweetyPi?color=blueviolet)
+
 ``` 
  ____                   _         ____  _
 / _____      _____  ___| |_ _   _|  _ \(_)
