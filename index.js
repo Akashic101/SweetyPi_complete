@@ -637,7 +637,7 @@ function getTimeRemaining(endtime){
             { name: 'Thursday', value: '12PM - 6PM GMT+2'},
             { name: 'Countdown to next Stream', value: 'd:' + TimeToNextStream.days + ' h:' + TimeToNextStream.hours + ' m:' + TimeToNextStream.minutes}
         );
-        clientDIS.channels.cache.get('685192557226885155').send(nextStreamEmbed);
+        message.channel.send(nextStreamEmbed);
         break;
 
 //Creates a rich message where the text after the second argument is the question. The rich message always has a random color
