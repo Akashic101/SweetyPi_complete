@@ -130,6 +130,15 @@ clientDIS.once('ready', () => {
 //Once the bot is running he writes a message with the current time into the server-log-channel
 clientDIS.on('ready', () =>{
 
+    clientDIS.user.setPresence({
+        activity: {
+            name: '!help | !commands' },
+            status: 'idle',
+            url: 'https://www.github/Akashic101/SweetyPi'})
+        .then(console.log)
+        .catch(console.error);
+
+
     clientDIS.channels.cache.get(channel_id).messages.fetch(message_id).then(m => {
         console.log("Cached reaction message.");
     }).catch(e => {
