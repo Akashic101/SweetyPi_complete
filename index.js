@@ -137,22 +137,26 @@ clientDIS.on('ready', () =>{
     console.error(e);
     });
 
-    var d = new Date();
+    var date = new Date();
 
     logger.log({
         level: 'info',
         version: pjson.version,
-        date: d
+        date: date
     });
-    
-    console.log('SweetyPi is back online at ' + d);
-    let readyEmbed = new Discord.MessageEmbed();
-    readyEmbed.setTitle('**ready**');
-    readyEmbed.setDescription('SweetyPi is back online at ' + d);
-    readyEmbed.setColor("009a92");
-    readyEmbed.setTimestamp();
-    readyEmbed.setFooter('Server Log');
-    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
+
+    const onlineEmbed = new Discord.MessageEmbed()
+    .setColor('#b1d322')
+    .setTitle('Online')
+    .setURL('https://github.com/Akashic101/SweetyPi')
+    .addFields(
+        { name: 'date', value: date},
+        { name: 'version', value: pjson.version}
+    )
+    .setTimestamp()
+	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    clientDIS.channels.cache.get(serverLogChannel).send(onlineEmbed);
+
 });
 
 //Gets called whenever a user joins the server
@@ -171,13 +175,18 @@ clientDIS.on('guildMemberAdd', (member) => {
         date: date
     });
 
-    let readyEmbed = new Discord.MessageEmbed();
-    readyEmbed.setTitle('**Member joined**');
-    readyEmbed.setDescription(`**${member.user.tag}** has joined the server at ` + date);
-    readyEmbed.setColor("ffffff");
-    readyEmbed.setTimestamp();
-    readyEmbed.setFooter('Server Log');
-    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
+    const memberJoinedEmbed = new Discord.MessageEmbed()
+    .setColor('#cf8d1c')
+    .setTitle('Member joined')
+    .addFields(
+        { name: 'Username', value: member.user.tag},
+        { name: 'Joined at', value: date},
+        { name: 'Account created at', value: member.user.createdAt}
+    )
+    .setThumbnail(member.user.displayAvatarURL({ format: 'jpg' }))
+    .setTimestamp()
+	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    clientDIS.channels.cache.get(serverLogChannel).send(memberJoinedEmbed);
   });
 
 //Gets called whenever a user leaves the server
@@ -196,13 +205,17 @@ clientDIS.on('guildMemberRemove',(member) => {
         date: date
     });
 
-    let readyEmbed = new Discord.MessageEmbed();
-    readyEmbed.setTitle('**Member left**');
-    readyEmbed.setDescription(`**${member.user.tag}** has left the server at ` + date);
-    readyEmbed.setColor("000000");
-    readyEmbed.setTimestamp();
-    readyEmbed.setFooter('Server Log');
-    clientDIS.channels.cache.get(serverLogChannel).send(readyEmbed);
+    const memberLeftEmbed = new Discord.MessageEmbed()
+    .setColor('#f14e43')
+    .setTitle('Member left')
+    .addFields(
+        { name: 'Username', value: member.user.tag},
+        { name: 'Left at', value: date}
+    )
+    .setThumbnail(member.user.displayAvatarURL({ format: 'jpg' }))
+    .setTimestamp()
+	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    clientDIS.channels.cache.get(serverLogChannel).send(memberLeftEmbed);
 });
 
 clientDIS.on("messageReactionAdd", (reaction, user) => {
@@ -256,7 +269,7 @@ switch(args[0]){
 
     case 'link' :
 
-        sendLog("link", message.member.user.tag, message.content, "6f5d57");
+        sendLog("link", "6f5d57");
 
         if(args.length != 3) {
             message.channel.send('You\'ve got something wrong there. Please remember that the right command is **!link <platform> <link>** or else it won\'t work');
@@ -286,7 +299,7 @@ switch(args[0]){
 //If the link already exists, there are more or less then 4 arguments or the author is not a mod an error gets called
     case 'add' :
 
-        sendLog("add", message.member.user.tag, message.content, "aadddd");
+        sendLog("add", "aadddd");
 
         if (args.length != 4 && !message.member.roles.cache.has('641618875846492170')) {
             message.channel.send("I'm sorry, you don't have permission to do that");
@@ -317,7 +330,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'twitch' :
 
-        sendLog("twitch", message.member.user.tag, message.content, "6441a5");
+        sendLog("twitch","6441a5");
 
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Twitch here: https://www.twitch.tv/redfur_13');
@@ -329,7 +342,7 @@ switch(args[0]){
 				const match = await SocialMedia.findOne({where: {platform: "twitch", username: args[1]}});
 				if(match) {
 					match.increment('usage_count');
-					return message.channel.send('You can find the ' + match.platform + ' of ' + match.username + ' here: ' + match.link);
+					return message.channel.send('You can find the ' + match.latform + ' of ' + match.username + ' here: ' + match.link);
 				}
 				else {
 					return message.channel.send('I could not find that profile on that platform');
@@ -345,7 +358,8 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'instagram' :
 
-        sendLog("instagram", message.member.user.tag, message.content, "3f729b");
+        sendLog("instagram","3f729b");
+
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s instagram here: https://www.instagram.com/SweetyComics/');
         }
@@ -372,18 +386,8 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'webtoons' :
 
-        sendLog("webtoons", message.member.user.tag, message.content, "00d564");
+        sendLog("webtoons","00d564");
 
-        var date = new Date();
-        let webtoonsEmbed = new Discord.MessageEmbed();
-        webtoonsEmbed.setTitle('**webtoons**');
-        webtoonsEmbed.setDescription(message.member.user.tag + ' used ' + message.content + ' at ' + date);
-        webtoonsEmbed.setColor("00d564");
-        webtoonsEmbed.setTimestamp();
-        webtoonsEmbed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(webtoonsEmbed);
-
-		sendLog("instagram", message.member.user.tag, message.content, "3f729b");
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Webtoons here: https://www.webtoons.com/en/challenge/life-of-sweety/list?title_no=389966');
         }
@@ -409,7 +413,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'patreon' :
 
-        sendLog("patreon", message.member.user.tag, message.content, "f96854");
+        sendLog("patreon","f96854");
 
 		if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Patreon here: https://www.patreon.com/redfur13');
@@ -436,7 +440,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'twitter' :
 
-        sendLog("twitter", message.member.user.tag, message.content, "00acee");
+        sendLog("twitter","00acee");
 
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Twitter here: https://twitter.com/redfur13');
@@ -463,7 +467,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'facebook' :
 
-        sendLog("facebook", message.member.user.tag, message.content, "39569c");
+        sendLog("facebook","39569c");
 
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Facebook here: https://www.facebook.com/Redfur13-2323949451264229/?ref=aymt_homepage_panel&eid=ARBQBOOYhk572IzVWcoV08jK4-y8bf8sSRWQ-KRxqrryne0yGezIFTfZzgmEUg78Xn3D0VU15YKeTW2A');
@@ -490,7 +494,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'etsy' :
 
-        sendLog("etsy", message.member.user.tag, message.content, "eb6d20");
+        sendLog("etsy","eb6d20");
 
         if(args[1] === undefined) {
             return message.channel.send('You can find Redfur\'\s Etsy here: https://twitter.com/redfur13');
@@ -517,16 +521,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'website' :
 
-        sendLog("website", message.member.user.tag, message.content, "ffffff");
-
-        var date = new Date();
-        let websiteEmbed = new Discord.MessageEmbed();
-        websiteEmbed.setTitle('**website**');
-        websiteEmbed.setDescription(message.member.user.tag + ' used ' + message.content + ' at ' + date);
-        websiteEmbed.setColor("ffffff");
-        websiteEmbed.setTimestamp();
-        websiteEmbed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(websiteEmbed);
+        sendLog("website","ffffff");
             
         if(args.length != 2) return;
         else {
@@ -550,7 +545,7 @@ switch(args[0]){
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
     case 'github' :
 
-        sendLog("github", message.member.user.tag, message.content, "24292e");
+        sendLog("github","24292e");
         
         if(args.length != 2) return;
         else {
@@ -576,7 +571,7 @@ switch(args[0]){
 //If three arguments are used the min is the second argument and the max is the third argument
     case 'roll' :
 
-        sendLog("roll", message.member.user.tag, message.content, "FF0000");
+        sendLog("roll","FF0000");
 
         if(args.length == 3) {
             message.channel.send('Your random number is: ' + Math.floor((Math.random() * args[2]) + args[1]));
@@ -644,7 +639,7 @@ function getTimeRemaining(endtime){
 //and 👍 and 👎 as a reaction
     case 'poll' :
 
-        sendLog("poll", message.member.user.tag, message.content, "FF0000");
+        sendLog("poll","FF0000");
         
         messageContent = message.content;
 
@@ -674,7 +669,7 @@ function getTimeRemaining(endtime){
             date: d
         });
 
-        sendLog("addSweety", message.member.user.tag, message.content, "cb876f");
+        sendLog("addSweety","cb876f");
 
         if (args.length != 2 ||!message.member.roles.cache.has('641618875846492170')) {
             message.channel.send("I'm sorry, you don't have permission to do that");
@@ -707,7 +702,7 @@ function getTimeRemaining(endtime){
             date: d
         });
 
-        sendLog("sweety", message.member.user.tag, message.content, "FF0000");
+        sendLog("sweety","c468d1");
 
         try {
             const match = await SweetyImages.findOne({ order: Sequelize.literal('random()') })
@@ -726,7 +721,7 @@ function getTimeRemaining(endtime){
 //More info: https://discordjs.guide/sequelize/#mu-deleting-a-tag
     case 'delSweety' :
 
-        sendLog("delSweety", message.member.user.tag, message.content, "FF0000");
+        sendLog("delSweety","FF0000");
 
         if (args.length != 2 || !message.member.roles.cache.has('641618875846492170')) {
             message.channel.send("I'm sorry, you don't have permission to do that");
@@ -755,16 +750,7 @@ function getTimeRemaining(endtime){
 //Writes a help-message explaining helpful commands and what to !do when encountering a bug or requesting a feature
     case 'help' :
 
-        sendLog("help", message.member.user.tag, message.content, "000000");
-
-        var date = new Date();
-        let helpEmbed = new Discord.MessageEmbed();
-        helpEmbed.setTitle('**help**');
-        helpEmbed.setDescription(message.member.user.tag + ' used ' + message.content + ' at ' + date);
-        helpEmbed.setColor("000000");
-        helpEmbed.setTimestamp();
-        helpEmbed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(helpEmbed);
+        sendLog("help","000000");
 
         if(args[1] === undefined) {
             message.channel.send('**commands** \nTo get a list with all available commands you can use !commands.\n' +
@@ -775,9 +761,9 @@ function getTimeRemaining(endtime){
 //Lists every command
     case 'commands' :
 
-        sendLog("commands", message.member.user.tag, message.content, "007bb8");
+        sendLog("commands","007bb8");
 
-        message.author.send('**Social Media** \nIf you want someones Social Media-links to see more of their work you can type in !<platform> <account-name> to get a link \n_Available platforms_ \n!twitch\n!webtoon(s)\n!twitter\n!facebook\n!reddit\n!etsy\n!patreon\n!instagram\n!website\n\n' +
+        message.channel.send('**Social Media** \nIf you want someones Social Media-links to see more of their work you can type in !<platform> <account-name> to get a link \n_Available platforms_ \n!twitch\n!webtoon(s)\n!twitter\n!facebook\n!reddit\n!etsy\n!patreon\n!instagram\n!website\n\n' +
         '**HOW TO USE IT**\n' +
         '_Redfur\'s links_\nTo get a link to Redfur\'\s accounts just type in !<platform> and you will get a link\n' +
         '_Add your link to the list_\nIf you want to link your account so they can be called, please enter !link <platform> <link>. The mods will add your account to the list as soon as possible\n' + 
@@ -785,22 +771,12 @@ function getTimeRemaining(endtime){
         '_Uptime_\nTo see since when the bot is running you can display it with !uptime\n' +
         '_Info_\nIf you want to know who wrote this bot and more you can enter !info\n' +
         '_Schedule_\nTo list the current schedule of Redfur and a timer until her next stream you can use !schedule');
-        message.delete();
         break;
 
 //Calculated the time since the bot is online, written in hh:mm:ss. Adds a random message from an array to the end
     case 'uptime' : 
 
-        sendLog("uptime", message.member.user.tag, message.content, "f9f4df");
-
-        var date = new Date();
-        let uptimeEmbed = new Discord.MessageEmbed();
-        uptimeEmbed.setTitle('**commands**');
-        uptimeEmbed.setDescription(message.member.user.tag + ' used ' + messageContent + ' at ' + date);
-        uptimeEmbed.setColor("f9f4df");
-        uptimeEmbed.setTimestamp();
-        uptimeEmbed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(uptimeEmbed);
+        sendLog("uptime",'f9f4df');
 
     const sentences = [
         'Maybe she should take a break soon',
@@ -818,14 +794,12 @@ function getTimeRemaining(endtime){
 //Writes a message with the name of the author, the current version and a link to the repository
     case 'info' :
 
-        sendLog("info", message.member.user.tag, message.content, "d63d7b");
+        sendLog("info", "d63d7b");
 
         message.channel.send(author);
         message.channel.send('This bot has reached version ' + version);
         message.channel.send('You can find the code of this bot here: https://akashic101.github.io/SweetyPI/');
         break;
-
-
 
 //function that calculates how many hours, minutes and seconds are in a defined amount of seconds (s)
 function sToTime(s) {
@@ -842,13 +816,19 @@ function sToTime(s) {
 //TODO Link to channel message was send in: clientDIS.channels.cache.get(`${message.channel}`)
 function sendLog(platform, color) {
     var date = new Date();
-        let embed = new Discord.MessageEmbed();
-        embed.setTitle(`**${platform}**`);
-        embed.setDescription(`**${message.member.user.tag}**` + ' used ' + message.content + ' at ' + date);
-        embed.setColor(color);
-        embed.setTimestamp();
-        embed.setFooter('Server Log');
-        clientDIS.channels.cache.get(serverLogChannel).send(embed);
+
+    const embed = new Discord.MessageEmbed()
+    .setColor(color)
+    .setTitle(`**${platform}**`)
+    .addFields(
+        { name: 'Username', value: message.member.user.tag},
+        { name: 'Command', value: message.content},
+        { name: 'Date', value: date}
+    )
+    .setThumbnail(message.member.user.displayAvatarURL({ format: 'jpg' }))
+    .setTimestamp()
+	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    clientDIS.channels.cache.get(serverLogChannel).send(embed);
 }
 
 }});
