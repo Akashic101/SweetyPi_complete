@@ -131,6 +131,8 @@ Entering those commands will always link to the corresponding plattform of Redfu
 
 ## TO DO
 
+* Add custom status to SweetyPi
+* Rework "Member joined"
 * Add proper logging with [WinstonJs](https://github.com/winstonjs/winston)
 * Add more commands and features to the Twitch-version
 * Add more mod-commands to both versions
