@@ -701,6 +701,8 @@ function getTimeRemaining(endtime){
 
     case 'quote' :
 
+        sendLog("quote","FF4500");
+
         var randomQuote = Quote.getQuote()
 
         let quoteEmbed = new Discord.MessageEmbed()
