@@ -46,8 +46,8 @@ The bot can just like on Discord be used to get links to all platforms Redfur13 
 ## How to Install
 
 First you need to install [Node](https://nodejs.org/en/). After that, create and go into the folder where the bot should be in, and clone the necessary code with  
-`git clone https://github.com/Akashic101/SweetyPi_complete.git`  
-When that is done you can use `npm install` to install all necessary dependencies.
+`git clone https://github.com/Akashic101/SweetyPi.git`  
+When that is done, move into the directory of SweetyPi with `cd SweetyPi` use `npm install` to install all necessary dependencies.
 
 Just to bring everything up-to-date, run `npm update` and `npm fund` after this. This is not necessary, but bringing everything up to the newest version is always a good idea.
 
@@ -131,6 +131,8 @@ Entering those commands will always link to the corresponding plattform of Redfu
 
 ## TO DO
 
+* Add custom status to SweetyPi
+* Rework "Member joined"
 * Add proper logging with [WinstonJs](https://github.com/winstonjs/winston)
 * Add more commands and features to the Twitch-version
 * Add more mod-commands to both versions
