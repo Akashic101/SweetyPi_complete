@@ -250,6 +250,8 @@ clientDIS.on("messageReactionAdd", (reaction, user) => {
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
 
+    if (message.author.bot) return;
+
     var d = new Date();
 
     logger.log({
