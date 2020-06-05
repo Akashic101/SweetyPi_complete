@@ -3,6 +3,7 @@
 require('dotenv').config();
 var pjson = require('./package.json');
 const winston = require('winston');
+const Quote = require('inspirational-quotes');
 
 const customLevels = {
     levels: {
@@ -135,9 +136,7 @@ clientDIS.on('ready', () =>{
             name: '!help | !commands' },
             status: 'idle',
             url: 'https://www.github/Akashic101/SweetyPi'})
-        .then(console.log)
         .catch(console.error);
-
 
     clientDIS.channels.cache.get(channel_id).messages.fetch(message_id).then(m => {
         console.log("Cached reaction message.");
@@ -164,7 +163,7 @@ clientDIS.on('ready', () =>{
     )
     .setTimestamp()
 	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
-    clientDIS.channels.cache.get(serverLogChannel).send(onlineEmbed);
+    //clientDIS.channels.cache.get(serverLogChannel).send(onlineEmbed);
 
 });
 
@@ -758,30 +757,57 @@ function getTimeRemaining(endtime){
             }
         }
 
-//Writes a help-message explaining helpful commands and what to !do when encountering a bug or requesting a feature
+//Writes a help-message explaining helpful commands and what to do when encountering a bug or requesting a feature
     case 'help' :
 
         sendLog("help","000000");
 
-        if(args[1] === undefined) {
-            message.channel.send('**commands** \nTo get a list with all available commands you can use !commands.\n' +
-            '**problems & ideas**\nIf you have ideas for feautures to make this bot even better, or something is not working as expected, feel free to dm <@320574128568401920>');
+        let helpEmbed = new Discord.MessageEmbed()
+            .setTitle('Help')
+            .setURL('https://github.com/Akashic101/SweetyPI#features')
+			.setColor((Math.random()*0xFFFFFF<<0).toString(16))
+			.addFields(
+                { name: 'Commands', value: 'To get a list with all commands avalaible please use **!commands**'},
+                { name: 'Rules', value: 'If you see something that breaks the rules please use the corresponding emote, for example :six: when someone breaks Rule 6'},
+                { name: 'Questions', value: 'In case you have questions about rules, this bot or other similar please don\'t hesitate to contact an Admin'}
+            )
+            .setTimestamp()
+            .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+            message.channel.send(helpEmbed);
             break;
-        }
 
 //Lists every command
     case 'commands' :
 
         sendLog("commands","007bb8");
 
-        message.channel.send('**Social Media** \nIf you want someones Social Media-links to see more of their work you can type in !<platform> <account-name> to get a link \n_Available platforms_ \n!twitch\n!webtoon(s)\n!twitter\n!facebook\n!reddit\n!etsy\n!patreon\n!instagram\n!website\n\n' +
-        '**HOW TO USE IT**\n' +
-        '_Redfur\'s links_\nTo get a link to Redfur\'\s accounts just type in !<platform> and you will get a link\n' +
-        '_Add your link to the list_\nIf you want to link your account so they can be called, please enter !link <platform> <link>. The mods will add your account to the list as soon as possible\n' + 
-        '_Sweety pics and gifs_\nIf you want a random image of Sweety simply enter !sweety\n' + 
-        '_Uptime_\nTo see since when the bot is running you can display it with !uptime\n' +
-        '_Info_\nIf you want to know who wrote this bot and more you can enter !info\n' +
-        '_Schedule_\nTo list the current schedule of Redfur and a timer until her next stream you can use !schedule');
+        let commandEmbed = new Discord.MessageEmbed()
+        .setTitle('Commands')
+        .setDescription('Every social-media command has two versions. If you just write the command itself you get a link to Redfur\'s platform there. If you however use !platform accountName you get a link to the corresponding account if that person added it to our database')
+        .setURL('https://github.com/Akashic101/SweetyPi#commands')
+        .setColor((Math.random()*0xFFFFFF<<0).toString(16))
+        .addFields(
+            { name: '!instagram', value: 'For instagram-profiles'},
+            { name: '!twitch', value: 'For twitch-profiles'},
+            { name: '!patreon', value: 'For patreon-profiles'},
+            { name: '!twitter', value: 'For twitter-profiles'},
+            { name: '!facebook', value: 'For facebook-profiles'},
+            { name: '!reddit', value: 'For reddit-profiles'},
+            { name: '!website', value: 'For website-profiles'},
+            { name: '!github', value: 'For github-profiles'},
+            { name: '\u200b', value: '\u200b', },
+            { name: '!link <platform> <link.to.website>', value: 'Adds your account to our database'},
+            { name: '!sweety', value: 'Sends you a random pic/video of Sweety'},
+            { name: '!uptime', value: 'Displays how long SweetyPi is online'},
+            { name: '!info', value: 'Shows general info'},
+            { name: '!commands', value: 'Lists every command avalaible'},
+            { name: '!poll <text>', value: 'Creates a poll members can vote on using :thumbsup: or :thumbsdown: '},
+            { name: '!schedule', value: 'Shows when Redfur streams and how long until her next stream'},
+        )
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+        message.channel.send(commandEmbed);
+
         break;
 
 //Calculated the time since the bot is online, written in hh:mm:ss. Adds a random message from an array to the end
@@ -805,12 +831,23 @@ function getTimeRemaining(endtime){
 //Writes a message with the name of the author, the current version and a link to the repository
     case 'info' :
 
+        var quote = Quote.getQuote()
+
         sendLog("info", "d63d7b");
 
-        message.channel.send(author);
-        message.channel.send('This bot has reached version ' + version);
-        message.channel.send('You can find the code of this bot here: https://akashic101.github.io/SweetyPI/');
-        break;
+        let infoEmbed = new Discord.MessageEmbed()
+        .setTitle('info')
+        .setDescription('This bot was made for the Discord and Twitch of Redfur13, with the goal to make it easier for people to link their social-media-platforms since her Discord is heavily art-focused. This enables others to easier find channels they would be interested in. This bot also functions as a bridge between her Discord and Twitch to enable more communication between both platforms')
+        .setURL('https://github.com/Akashic101/SweetyPi')
+        .setColor((Math.random()*0xFFFFFF<<0).toString(16))
+        .addFields(
+            { name: 'Creator', value: author},
+            { name: 'Version', value: pjson.version},
+            { name: 'Todays Fortune', value: quote.text + " ~ " + quote.author},
+        )
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+        message.channel.send(infoEmbed);
 
 //function that calculates how many hours, minutes and seconds are in a defined amount of seconds (s)
 function sToTime(s) {
