@@ -699,6 +699,22 @@ function getTimeRemaining(endtime){
             }
         }
 
+    case 'quote' :
+
+        var randomQuote = Quote.getQuote()
+
+        let quoteEmbed = new Discord.MessageEmbed()
+        .setTitle('Todays Quote')
+        .setColor((Math.random()*0xFFFFFF<<0).toString(16))
+        .addFields(
+            { name: 'Quote', value: randomQuote.text},
+            { name: 'By', value: randomQuote.author},
+        )
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+        message.channel.send(quoteEmbed);
+        break;
+
 //Grabs a random link from the SweetyPictures-database and posts it as a message
     case 'sweety' :
 
