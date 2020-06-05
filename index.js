@@ -163,7 +163,7 @@ clientDIS.on('ready', () =>{
     )
     .setTimestamp()
 	.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
-    //clientDIS.channels.cache.get(serverLogChannel).send(onlineEmbed);
+    clientDIS.channels.cache.get(serverLogChannel).send(onlineEmbed);
 
 });
 
