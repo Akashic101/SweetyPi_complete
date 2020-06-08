@@ -50,6 +50,29 @@ const token = process.env.DISCORD_TOKEN;
 const prefix = '!';
 
 //Stores the connection information to the Social-Media-Database. More info: https://discordjs.guide/sequelize/#alpha-connection-information
+const strikeListSeq = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	storage: 'strikeList.sqlite',
+});
+
+const strikeList = strikeListSeq.define('strikeList', {
+	user: {
+		type: Sequelize.STRING,
+	},
+	strikeOne: {
+		type: Sequelize.STRING,
+	},
+	strikeTwo: {
+		type: Sequelize.STRING,
+	},
+	strikeThree: {
+		type: Sequelize.STRING,
+	},
+});
+
+//Stores the connection information to the Social-Media-Database. More info: https://discordjs.guide/sequelize/#alpha-connection-information
 const socialMediaSeq = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
@@ -104,7 +127,6 @@ const SweetyImages = sweetyImagesSeq.define('sweetyImages', {
 });
 
 var author = 'This bot is made by ' + pjson.author;
-var version = pjson.version;
 
 //Variables for the various channels of the Discord-channel, that get stored in the .env-file
 var serverLogChannel = process.env.SERVER_LOG_CHANNEL;
@@ -126,6 +148,7 @@ clientDIS.login(token);
 clientDIS.once('ready', () => {
     SocialMedia.sync();
     SweetyImages.sync();
+    strikeList.sync();
 });
 
 //Once the bot is running he writes a message with the current time into the server-log-channel
@@ -273,13 +296,118 @@ if (message.channel.id == artFeedbackChannel) {
 
 switch(args[0]){
 
+    case 'addStrike' :
+
+    if (!message.member.roles.cache.has('641618875846492170')) {
+        message.channel.send("I'm sorry, you don't have permission to do that");
+        break;
+    }
+    else {
+        try {
+            const match = await strikeList.create({
+                user: args[1],
+                strikeOne: args[2],
+                strikeTwo: "-",
+                strikeThree: "-"
+            });
+            
+        message.reply(`The User ${args[1]} has been added to the database.`);
+        break;
+    }
+    catch (e) {
+        if (e.name === 'SequelizeUniqueConstraintError') {				
+            message.reply('That User already exists');
+            break;
+        }
+        else {
+            clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
+            break;
+            }
+        }
+    }
+
+    case 'updateStrike' :
+
+    if (!message.member.roles.cache.has('641618875846492170')) {
+        message.channel.send("I'm sorry, you don't have permission to do that");
+        break;
+    }
+    else {
+        try {            
+            if( args[2] == 1) {
+                const match = await strikeList.update({ strikeOne: args[3] }, { where: { user: args[1] } });
+                break;
+            }
+
+            if( args[2] == 2) {
+                const match = await strikeList.update({ strikeTwo: args[3] }, { where: { user: args[1] } });
+                break;
+            }
+
+            if( args[2] == 3) {
+                const match = await strikeList.update({ strikeThree: args[3] }, { where: { user: args[1] } });
+                break;
+            }
+    }
+    catch (e) {
+        clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
+        break;
+        }
+    }
+
+    case 'getStrike' :
+
+        if (!message.member.roles.cache.has('641618875846492170')) {
+            message.channel.send("I'm sorry, you don't have permission to do that");
+            break;
+        }
+        else {
+            const match = await strikeList.findOne({ where: { user: args[1] } });
+            if (match) {
+                const strikeEmbed = new Discord.MessageEmbed()
+                    .setColor('746991')
+                    .setTitle(`Strike info`)
+                    .addFields(
+                        { name: 'Username', value: match.user},
+                        { name: 'Strike 1', value: match.strikeOne},
+                        { name: 'Strike 2', value: match.strikeTwo},
+                        { name: 'Strike 3', value: match.strikeThree},
+                    )
+                    .setTimestamp()
+                    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+                message.channel.send(strikeEmbed);
+                break;
+        }
+    }
+
+    case 'helpStrike' :
+
+        if (!message.member.roles.cache.has('641618875846492170')) {
+            message.channel.send("I'm sorry, you don't have permission to do that");
+            break;
+        }
+        else {
+        const helpStrikeEmbed = new Discord.MessageEmbed()
+                .setColor('746991')
+                .setTitle(`Strike help`)
+                .setDescription('Please keep the reason for strike as one word right now or use - or _, no spaces')
+                .addFields(
+                    { name: '!addStrike', value: '!addStrike <username> <reason for strike>'},
+                    { name: '!updateStrike', value: '!updateStrike <username> <number> <reason for strike>'},
+                    { name: '!getStrike', value: '!getStrike <username>'},
+                )
+                .setTimestamp()
+                .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+            message.channel.send(helpStrikeEmbed);
+            break;
+        }
+
 //When someone uses !link with 3 arguments (!link <platform> <link.to.website>), a rich message gets created and posted into the approval-channel
 //The bot will also react with a 👍 to the message and send the author a private message
 //If the message does not contains 3 arguments an error gets called
-
     case 'link' :
 
-        sendLog("link", "6f5d57");
+    sendLog("link", "6f5d57");
 
         if(args.length != 3) {
             message.channel.send('You\'ve got something wrong there. Please remember that the right command is **!link <platform> <link>** or else it won\'t work');
