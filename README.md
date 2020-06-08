@@ -95,12 +95,16 @@ Other commands are:
 * `commands`
 * `poll <text>`  
 * `schedule`
+* `quote`
 
 And mod-only commands are:
 
 * `add <platform> <accountName> <link.to.website>`
 * `addSweety <link>`
 * `delSweety <link>`
+* `addStrike <username>`
+* `updateStrike <username> <1-3> <reason>`
+* `getStrike <username>`
 
 ### Twitch
 
