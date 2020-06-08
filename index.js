@@ -311,12 +311,12 @@ switch(args[0]){
                 strikeThree: "-"
             });
             
-        message.reply(`The User ${args[1]} has been added to the database.`);
+            message.channel.send(`The User ${args[1]} has recieved his first strike.`);
         break;
     }
     catch (e) {
         if (e.name === 'SequelizeUniqueConstraintError') {				
-            message.reply('That User already exists');
+            message.channel.send('That User already exists');
             break;
         }
         else {
@@ -450,12 +450,12 @@ switch(args[0]){
                     link: args[3]
                 });
                 
-            message.reply(`The command !${match.platform} ${match.username} has been added to the database.`);
+                message.channel.send(`The command !${match.platform} ${match.username} has been added to the database.`);
             break;
         }
         catch (e) {
             if (e.name === 'SequelizeUniqueConstraintError') {				
-            message.reply('That link already exists');
+                message.channel.send('That link already exists');
             break;
             }
             else {
@@ -487,7 +487,7 @@ switch(args[0]){
 				}
 			}
 			catch (e) {
-				message.reply('Could not find tag');
+				message.channel.send('Could not find tag');
 				return console.log(e);
 			}
 		}
@@ -514,7 +514,7 @@ switch(args[0]){
 				}
 			}
 			catch (e) {
-				message.reply('Could not find tag');
+				message.channel.send('Could not find tag');
 				return console.log(e);
 			}
 			
@@ -542,7 +542,7 @@ switch(args[0]){
 				}
 			}
 			catch (e) {
-				message.reply('Could not find tag');
+				message.channel.send('Could not find tag');
 				return console.log(e);
 			}
         }
@@ -569,7 +569,7 @@ switch(args[0]){
 				}
 			}
 			catch (e) {
-				message.reply('Could not find tag');
+				message.channel.send('Could not find tag');
 				return console.log(e);
 			}
 		}
@@ -596,7 +596,7 @@ switch(args[0]){
                 }
             }
             catch (e) {
-                message.reply('Could not find tag');
+                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
         }
@@ -623,7 +623,7 @@ switch(args[0]){
                 }
             }
             catch (e) {
-                message.reply('Could not find tag');
+                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
         }
@@ -650,7 +650,7 @@ switch(args[0]){
                     }
                 }
                 catch (e) {
-                    message.reply('Could not find tag');
+                    message.channel.send('Could not find tag');
                     return console.log(e);
                 }  
             }
@@ -674,7 +674,7 @@ switch(args[0]){
                 }
             }
             catch (e) {
-                message.reply('Could not find tag');
+                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
         }
@@ -698,7 +698,7 @@ switch(args[0]){
                 }
             }
             catch (e) {
-                message.reply('Could not find tag');
+                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
         }
@@ -818,12 +818,12 @@ function getTimeRemaining(endtime){
                 const add = await SweetyImages.create({
                     link: args[1]
                 });
-                return message.reply(`Link ${add.link} added.`);
+                return message.channel.send(`Link ${add.link} added.`);
             } catch (e) {
                 if (e.link === 'SequelizeUniqueConstraintError') {
-                    return message.reply('That link already exists.');
+                    return message.channel.send('That link already exists.');
                 }
-                return message.reply('Something went wrong with adding a link.');
+                return message.channel.send('Something went wrong with adding a link.');
             }
         }
 
@@ -890,11 +890,11 @@ function getTimeRemaining(endtime){
                 const rowCount = await SweetyImages.destroy({ where: { link: match } });
 
                 if (!rowCount) {
-                    message.reply('That link did not exist.');
+                    message.channel.send('That link did not exist.');
                     break;
                 }
                 else {
-                    message.reply('Link ' + args[1] + ' deleted.');
+                    message.channel.send('Link ' + args[1] + ' deleted.');
                     break;
                 }
                 
