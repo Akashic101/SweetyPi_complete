@@ -1190,8 +1190,8 @@ clientTWI.on("submysterygift", (channel, username, numbOfSubs, methods, userstat
 
 clientTWI.on("resub", (channel, username, months, message, userstate, methods) => {
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months redfur4Love redfur4Love");
-    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just continued his subscription. He is now subscribed since " + months + " months <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months redfur4Love redfur4Love");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //----------------------------------------------------------------------------------
