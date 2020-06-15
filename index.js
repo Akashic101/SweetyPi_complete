@@ -1099,6 +1099,14 @@ clientTWI.on('chat', async (channel, user, message, self) => {
           clientTWI.say('Redfur_13', getRandomJoke.body)
     }
 
+    if (commandmessage === '!social' || commandmessage === '!socials') {
+        clientTWI.say('Redfur_13', 'Instagram: https://www.instagram.com/sweetycomics, Discord: https://discordapp.com/invite/KTFBR8A, Webtoons: https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966')
+    }
+
+    if (commandmessage === '!tapas') {
+        clientTWI.say('Redfur_13', 'https://tapas.io/series/Sweety-Comics')
+    }
+
     if (commandmessage === '!instagram' || commandmessage === '!insta') {
         clientTWI.say('Redfur_13', 'https://www.instagram.com/sweetycomics')
     }
