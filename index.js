@@ -39,9 +39,10 @@ const logger = winston.createLogger({
 //---------------------------------- DISCORD SETUP ---------------------------------
 
 const Discord = require('discord.js');
-
 const clientDIS = new Discord.Client();
 const Sequelize = require('sequelize');
+
+var oneLinerJoke = require('one-liner-joke');
 
 //Bot-Token that is stored in the .env-file
 const token = process.env.DISCORD_TOKEN;
@@ -827,6 +828,25 @@ function getTimeRemaining(endtime){
             }
         }
 
+    case 'joke' :
+
+        sendLog("pun","ADCBED");
+
+        var getRandomJoke = oneLinerJoke.getRandomJoke({
+            'exclude_tags': ['dirty', 'racist', 'sexist']
+          });
+
+          let jokeEmbed = new Discord.MessageEmbed()
+          .setTitle('Todays joke')
+          .setColor((Math.random()*0xFFFFFF<<0).toString(16))
+          .addFields(
+              { name: 'Joke', value: getRandomJoke.body},
+          )
+          .setTimestamp()
+          .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+          message.channel.send(jokeEmbed);
+          break;
+
     case 'quote' :
 
         sendLog("quote","FF4500");
@@ -1071,6 +1091,13 @@ function messageInterval() {
 clientTWI.on('chat', async (channel, user, message, self) => {
     if(self) return;
     const commandmessage = message.trim().toLowerCase();
+
+    if (commandmessage === '!joke' || commandmessage === '!pun' || commandmessage === '!punish') {
+        var getRandomJoke = oneLinerJoke.getRandomJoke({
+            'exclude_tags': ['dirty', 'racist', 'sexist']
+          });
+          clientTWI.say('Redfur_13', getRandomJoke.body)
+    }
 
     if (commandmessage === '!instagram' || commandmessage === '!insta') {
         clientTWI.say('Redfur_13', 'https://www.instagram.com/sweetycomics')
