@@ -5,7 +5,7 @@
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Akashic101/SweetyPi) 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Akashic101/SweetyPi?color=blueviolet) 
 ![Discord](https://img.shields.io/discord/641609707848728587?color=7289DA) 
-![GitHub last commit](https://img.shields.io/github/last-commit/Akashic101/theGameMaster) 
+![GitHub last commit](https://img.shields.io/github/last-commit/Akashic101/SweetyPi) 
 
 ```bash
  ____                   _         ____  _
