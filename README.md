@@ -1,6 +1,6 @@
 #
 
-[![GitHub issues](https://img.shields.io/github/issues/Akashic101/SweetyPi)](https://github.com/Akashic101/SweetyPi/issues)  
+[![GitHub issues](https://img.shields.io/github/issues/Akashic101/SweetyPi)](https://github.com/Akashic101/SweetyPi/issues) 
 [![GitHub license](https://img.shields.io/github/license/Akashic101/SweetyPi)](https://github.com/Akashic101/SweetyPi/blob/master/LICENSE) 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Akashic101/SweetyPi) 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Akashic101/SweetyPi?color=blueviolet) 
