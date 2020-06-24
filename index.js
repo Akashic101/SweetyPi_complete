@@ -698,10 +698,14 @@ switch(args[0]){
 
         if(checkAdminright()) {
             try {
-                const add = await SweetyImages.create({
-                    link: args[1]
-                });
-                return message.channel.send(`Link ${add.link} added.`);
+                for(var i = 1; i < args.length; i++) {
+                    const add = await SweetyImages.create({
+                        link: args[i]
+                    });
+                    message.channel.send(`Link ${add.link} added.`);
+                }
+                break;
+                
             } catch (e) {
                 if (e.link === 'SequelizeUniqueConstraintError') {
                     return message.channel.send('That link already exists.');
@@ -778,25 +782,21 @@ switch(args[0]){
 
         if(checkAdminright()) {
             try {
-                const match = args[1];
-                // equivalent to: DELETE from tags WHERE name = ?;
-                const rowCount = await SweetyImages.destroy({ where: { link: match } });
-
-                if (!rowCount) {
-                    message.channel.send('That link did not exist.');
-                    break;
+                for(var i = 1; i < args.length; i++) {
+                    // equivalent to: DELETE from tags WHERE name = ?;
+                    const rowCount = await SweetyImages.destroy({ where: { link: args[i] } });
+    
+                    if (!rowCount) {
+                        message.channel.send('That link did not exist.');
+                    }
+                    else {
+                        message.channel.send('Link ' + args[i] + ' deleted.');
+                    }
                 }
-                else {
-                    message.channel.send('Link ' + args[1] + ' deleted.');
-                    break;
-                }
-                
+                break;
             } catch (e) {
                 break;
             }
-        }
-        else {
-            break;
         }
 
 //Writes a help-message explaining helpful commands and what to do when encountering a bug or requesting a feature
