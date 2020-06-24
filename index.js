@@ -2,39 +2,7 @@
 
 require('dotenv').config();
 var pjson = require('./package.json');
-const winston = require('winston');
 const Quote = require('inspirational-quotes');
-
-const customLevels = {
-    levels: {
-        error: 0,
-        warn: 1,
-        command: 2,
-        member: 3,
-        info: 4,
-        debug: 5,
-        message: 6
-    },
-    colors: {
-        error: 'red',
-        warn: 'magenta',
-        command: 'yellow',
-        info: 'cyan',
-        debug: 'grey',
-        message: 'white',
-        member: 'white'
-    }
-};
-
-winston.addColors(customLevels.colors);
-
-const logger = winston.createLogger({
-    levels: customLevels.levels,
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({ filename: './log/combined.log' })
-    ]
-})
 
 //---------------------------------- DISCORD SETUP ---------------------------------
 
@@ -171,12 +139,6 @@ clientDIS.on('ready', () =>{
 
     var date = new Date();
 
-    logger.log({
-        level: 'info',
-        version: pjson.version,
-        date: date
-    });
-
     const onlineEmbed = new Discord.MessageEmbed()
     .setColor('#b1d322')
     .setTitle('Online')
@@ -195,17 +157,6 @@ clientDIS.on('ready', () =>{
 clientDIS.on('guildMemberAdd', (member) => {
 
     var date = new Date();
-
-    logger.log({
-        level: 'member',
-        user: ({
-            action: 'joined',
-            tag: member.user.tag,
-            bot: member.user.bot,
-            created: member.user.createdAt
-        }),
-        date: date
-    });
 
     const memberJoinedEmbed = new Discord.MessageEmbed()
     .setColor('#cf8d1c')
@@ -226,17 +177,6 @@ clientDIS.on('guildMemberRemove',(member) => {
 
     var date = new Date();
 
-    logger.log({
-        level: 'member',
-        user: ({
-            action: 'left',
-            tag: member.user.tag,
-            bot: member.user.bot,
-            created: member.user.createdAt
-        }),
-        date: date
-    });
-
     const memberLeftEmbed = new Discord.MessageEmbed()
     .setColor('#f14e43')
     .setTitle('Member left')
@@ -253,7 +193,7 @@ clientDIS.on('guildMemberRemove',(member) => {
 clientDIS.on("messageReactionAdd", (reaction, user) => {
     var d = new Date();
     if(reaction.message.id === message_id) {
-        reaction.message.guild.members.fetch(user) // fetch the user that reacted
+        reaction.message.guild.members.fetch(user)
         .then((member) => {
             member.roles.add('712001337440862269').catch(console.error)
             .then(() => {
@@ -273,17 +213,9 @@ clientDIS.on("messageReactionAdd", (reaction, user) => {
 //Get's called when a message is written and changes args into the first word minus the prefix
 clientDIS.on('message', async message => {
 
-    if (message.author.bot) return;
+    if (message.author.bot || message.author.self) return;
 
     var d = new Date();
-
-    logger.log({
-        level: 'message',
-        user: message.member.user.tag,
-        message: message.content,
-        channel: message.channel,
-        date: d
-    });
 
 	let args = message.content.substring(prefix.length).split(" ");
 
@@ -298,71 +230,61 @@ if (message.channel.id == artFeedbackChannel) {
 switch(args[0]){
 
     case 'addStrike' :
-
-    if (!message.member.roles.cache.has('641618875846492170')) {
-        message.channel.send("I'm sorry, you don't have permission to do that");
-        break;
-    }
-    else {
-        try {
-            const match = await strikeList.create({
-                user: args[1],
-                strikeOne: args[2],
-                strikeTwo: "-",
-                strikeThree: "-"
-            });
-            
-            message.channel.send(`The User ${args[1]} has recieved his first strike.`);
-        break;
-    }
-    catch (e) {
-        if (e.name === 'SequelizeUniqueConstraintError') {				
-            message.channel.send('That User already exists');
+        if(checkAdminright()) {
+            try {
+                const match = await strikeList.create({
+                    user: args[1],
+                    strikeOne: args[2],
+                    strikeTwo: "-",
+                    strikeThree: "-"
+                });
+                
+                message.channel.send(`The User ${match.user} has recieved his first strike.`);
             break;
         }
-        else {
-            clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
-            break;
+        catch (e) {
+            if (e.name === 'SequelizeUniqueConstraintError') {				
+                message.channel.send('That User already exists');
+                break;
+            }
+            else {
+                clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
+                break;
+                }
             }
         }
-    }
 
     case 'updateStrike' :
 
-    if (!message.member.roles.cache.has('641618875846492170')) {
-        message.channel.send("I'm sorry, you don't have permission to do that");
-        break;
-    }
-    else {
-        try {            
-            if( args[2] == 1) {
-                const match = await strikeList.update({ strikeOne: args[3] }, { where: { user: args[1] } });
-                break;
-            }
+        if(checkAdminright()) {
+            try {            
+                if( args[2] == 1) {
+                    const match = await strikeList.update({ strikeOne: args[3] }, { where: { user: args[1] } });
+                    message.channel.send(`Strike 1 of ${match.user} has beeen updated`)
+                    break;
+                }
 
-            if( args[2] == 2) {
-                const match = await strikeList.update({ strikeTwo: args[3] }, { where: { user: args[1] } });
-                break;
-            }
+                if( args[2] == 2) {
+                    const match = await strikeList.update({ strikeTwo: args[3] }, { where: { user: args[1] } });
+                    message.channel.send(`Strike 2 of ${match.user} has beeen updated`);
+                    break;
+                }
 
-            if( args[2] == 3) {
-                const match = await strikeList.update({ strikeThree: args[3] }, { where: { user: args[1] } });
+                if( args[2] == 3) {
+                    const match = await strikeList.update({ strikeThree: args[3] }, { where: { user: args[1] } });
+                    message.channel.send(`Strike 3 of ${match.user} has beeen updated`);
+                    break;
+                }
+            }
+            catch (e) {
+                clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
                 break;
             }
-    }
-    catch (e) {
-        clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
-        break;
         }
-    }
 
     case 'getStrike' :
 
-        if (!message.member.roles.cache.has('641618875846492170')) {
-            message.channel.send("I'm sorry, you don't have permission to do that");
-            break;
-        }
-        else {
+        if(checkAdminright()) {
             const match = await strikeList.findOne({ where: { user: args[1] } });
             if (match) {
                 const strikeEmbed = new Discord.MessageEmbed()
@@ -378,17 +300,13 @@ switch(args[0]){
                     .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
                 message.channel.send(strikeEmbed);
                 break;
+            }
         }
-    }
 
     case 'helpStrike' :
 
-        if (!message.member.roles.cache.has('641618875846492170')) {
-            message.channel.send("I'm sorry, you don't have permission to do that");
-            break;
-        }
-        else {
-        const helpStrikeEmbed = new Discord.MessageEmbed()
+        if(checkAdminright()) {
+            const helpStrikeEmbed = new Discord.MessageEmbed()
                 .setColor('746991')
                 .setTitle(`Strike help`)
                 .setDescription('Please keep the reason for strike as one word right now or use - or _, no spaces')
@@ -408,24 +326,20 @@ switch(args[0]){
 //If the message does not contains 3 arguments an error gets called
     case 'link' :
 
-    sendLog("link", "6f5d57");
+        sendLog("link", "6f5d57");
 
-        if(args.length != 3) {
-            message.channel.send('You\'ve got something wrong there. Please remember that the right command is **!link <platform> <link>** or else it won\'t work');
-            break;
-        }
-		else {
+        if(checkArgumentLength(3)) {
 			try {
                 message.author.send('Your link has been sent in for approval. Once approved it will be accessible with !' + args[1] + ' ' + message.author.username + '. If there is a problem one of the mods will message you privately');
                 message.delete();
 				let embed = new Discord.MessageEmbed();
-				embed.setTitle('**New Appoval requested**');
-				embed.setDescription('User: ' + message.author.username + ' (' + message.author.id + ')\n' +
-				'platform: ' + args[1] + '\n' +
-				'Link: ' + args[2]);
-				embed.setColor("ff0000");
-				embed.setTimestamp();
-				embed.setFooter('Approval System V1')
+				    embed.setTitle('**New Appoval requested**');
+				    embed.setDescription('User: ' + message.author.username + ' (' + message.author.id + ')\n' +
+				        'platform: ' + args[1] + '\n' +
+				        'Link: ' + args[2]);
+				    embed.setColor("ff0000");
+				    embed.setTimestamp();
+				    embed.setFooter('Approval System V1')
 				clientDIS.channels.cache.get(approvalChannel).send(embed).then
 				(message => message.react('👍'))
 				break;
@@ -440,10 +354,7 @@ switch(args[0]){
 
         sendLog("add", "aadddd");
 
-        if (args.length != 4 && !message.member.roles.cache.has('641618875846492170')) {
-            message.channel.send("I'm sorry, you don't have permission to do that");
-        }
-        else {
+        if(checkAdminright && checkArgumentLength(4)) {
             try {
                 const match = await SocialMedia.create({
                     platform: args[1],
@@ -452,18 +363,18 @@ switch(args[0]){
                 });
                 
                 message.channel.send(`The command !${match.platform} ${match.username} has been added to the database.`);
-            break;
-        }
-        catch (e) {
-            if (e.name === 'SequelizeUniqueConstraintError') {				
-                message.channel.send('That link already exists');
-            break;
+                break;
             }
-            else {
-                clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
+            catch (e) {
+                if (e.name === 'SequelizeUniqueConstraintError') {				
+                    message.channel.send('That link already exists');
+                break;
+                }
+                else {
+                    clientDIS.users.cache.get('320574128568401920').send('error: ' + e);
+                }
             }
         }
-    }
 
 //This will search through the database for Twitch accounts with the provived username and write a message with the link into the chat
 //If the profile does not exist or there are more or less then 2 arguments provided an error gets called
@@ -662,8 +573,7 @@ switch(args[0]){
 
         sendLog("website","ffffff");
             
-        if(args.length != 2) return;
-        else {
+        if(checkArgumentLength(2)) {
             try {
                 const match = await SocialMedia.findOne({where: {platform: "website", username: args[1]}});
                 if(match) {
@@ -675,7 +585,6 @@ switch(args[0]){
                 }
             }
             catch (e) {
-                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
         }
@@ -686,23 +595,23 @@ switch(args[0]){
 
         sendLog("github","24292e");
         
-        if(args.length != 2) return;
-        else {
+        if(checkArgumentLength(2)) {
             try {
                 const match = await SocialMedia.findOne({where: {platform: "github", username: args[1]}});
                 if(match) {
                     match.increment('usage_count');
-                    return message.channel.send('You can find the ' + match.platform + ' of ' + match.username + ' here: ' + match.link);
+                    message.channel.send('You can find the ' + match.platform + ' of ' + match.username + ' here: ' + match.link);
+                    break;
                 }
                 else {
-                    return message.channel.send('I could not find that profile on that platform');
+                    message.channel.send('I could not find that profile on that platform');
+                    break;
                 }
             }
             catch (e) {
-                message.channel.send('Could not find tag');
                 return console.log(e);
             }  
-        }
+    }
 
 //This command will roll a random number, where the min and max are determined by the number of arguments
 //If one argument is used the min is 1 and the max is 6
@@ -727,23 +636,7 @@ switch(args[0]){
         else {
             message.channel.send('Something broke and I don\'t know what. Please try again');
             break;
-        }
-
-function getTimeRemaining(endtime){
-    const total = Date.parse(endtime) - Date.parse(new Date());
-    const seconds = Math.floor( (total/1000) % 60 );
-    const minutes = Math.floor( (total/1000/60) % 60 );
-    const hours = Math.floor( (total/(1000*60*60)) % 24 );
-    const days = Math.floor( total/(1000*60*60*24) );
-  
-    return {
-      total,
-      days,
-      hours,
-      minutes,
-      seconds
-    };
-  }
+    }
 
     case 'schedule' :
         
@@ -795,26 +688,15 @@ function getTimeRemaining(endtime){
             break;
         } catch (e) {
             message.send.channel(e);
-        }
+    }
 
 //If the author is not a mod,less or more then 2 arguments are provided or the link already exists an error gets called
 //The second argument will get added to the SweetyPictures-database
     case 'addSweety' :
 
-        logger.log({
-            level: 'command',
-            command: 'addSweety',
-            link: args[1],
-            date: d
-        });
-
         sendLog("addSweety","cb876f");
 
-        if (args.length != 2 ||!message.member.roles.cache.has('641618875846492170')) {
-            message.channel.send("I'm sorry, you don't have permission to do that");
-            break;
-        }
-        else {
+        if(checkAdminright()) {
             try {
                 const add = await SweetyImages.create({
                     link: args[1]
@@ -826,6 +708,9 @@ function getTimeRemaining(endtime){
                 }
                 return message.channel.send('Something went wrong with adding a link.');
             }
+        }
+        else {
+            break;
         }
 
     case 'joke' :
@@ -870,14 +755,6 @@ function getTimeRemaining(endtime){
 
         var d = new Date();
 
-        logger.log({
-            level: 'info',
-            user: message.member.user.tag,
-            message: message.content,
-            channel: message.channel.name,
-            date: d
-        });
-
         sendLog("sweety","c468d1");
 
         try {
@@ -899,11 +776,7 @@ function getTimeRemaining(endtime){
 
         sendLog("delSweety","FF0000");
 
-        if (args.length != 2 || !message.member.roles.cache.has('641618875846492170')) {
-            message.channel.send("I'm sorry, you don't have permission to do that");
-            break;
-        }
-        else {
+        if(checkAdminright()) {
             try {
                 const match = args[1];
                 // equivalent to: DELETE from tags WHERE name = ?;
@@ -922,6 +795,9 @@ function getTimeRemaining(endtime){
                 break;
             }
         }
+        else {
+            break;
+        }
 
 //Writes a help-message explaining helpful commands and what to do when encountering a bug or requesting a feature
     case 'help' :
@@ -935,7 +811,8 @@ function getTimeRemaining(endtime){
 			.addFields(
                 { name: 'Commands', value: 'To get a list with all commands avalaible please use **!commands**'},
                 { name: 'Rules', value: 'If you see something that breaks the rules please use the corresponding emote, for example :six: when someone breaks Rule 6'},
-                { name: 'Questions', value: 'In case you have questions about rules, this bot or other similar please don\'t hesitate to contact an Admin'}
+                { name: 'Questions', value: 'In case you have questions about rules or other topics regarding this server please don\'t hesitate to contact an Admin'},
+                { name: 'SweetyPi', value: 'In case you have questions this bot, feel free to DM <@320574128568401920>'}
             )
             .setTimestamp()
             .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
@@ -1014,6 +891,25 @@ function getTimeRemaining(endtime){
         .setTimestamp()
         .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
         message.channel.send(infoEmbed);
+        break;
+    }
+    
+
+function getTimeRemaining(endtime){
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor( (total/1000) % 60 );
+    const minutes = Math.floor( (total/1000/60) % 60 );
+    const hours = Math.floor( (total/(1000*60*60)) % 24 );
+    const days = Math.floor( total/(1000*60*60*24) );
+      
+    return {
+        total,
+        days,
+        hours,
+        minutes,
+        seconds
+    };
+}
 
 //function that calculates how many hours, minutes and seconds are in a defined amount of seconds (s)
 function sToTime(s) {
@@ -1027,7 +923,26 @@ function sToTime(s) {
     return hrs + ':' + mins + ':' + secs;
 }
 
-//TODO Link to channel message was send in: clientDIS.channels.cache.get(`${message.channel}`)
+function checkAdminright() {
+    if (!message.member.roles.cache.has('641618875846492170')) {
+        message.channel.send("I'm sorry, you do not have the permissions to do that. If you think this was a mistake please contact <@320574128568401920>")
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function checkArgumentLength(arguments) {
+    if (args.length != arguments) {
+        message.channel.send("I'm sorry, it seems like you entered the command wrong. Please check if you entered it correcty or use !commands to see how your command should look like. If you believe there is an error, please contact <@320574128568401920>")
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function sendLog(platform, color) {
     var date = new Date();
 
@@ -1045,7 +960,7 @@ function sendLog(platform, color) {
     clientDIS.channels.cache.get(serverLogChannel).send(embed);
 }
 
-}});
+});
 
 //---------------------------------- TWITCH SETUP ----------------------------------
 
