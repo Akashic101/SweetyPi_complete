@@ -101,12 +101,16 @@ Other commands are:
 * `poll <text>`  
 * `schedule`
 * `quote`
+* `joke`
 
 And mod-only commands are:
 
 * `add <platform> <accountName> <link.to.website>`
 * `addSweety <link>`
 * `delSweety <link>`
+
+For `addSweety` and `delSweety` it is possible to add or delete multiple images at once by seperating them with a space, for example `addSweety link1 link2 link3`
+
 * `addStrike <username>`
 * `updateStrike <username> <1-3> <reason>`
 * `getStrike <username>`
