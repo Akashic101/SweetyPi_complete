@@ -30,7 +30,7 @@ ___
 
 ## General Info
 
-This bot was made for the Discord and [Twitch](https://www.twitch.tv/Redfur_13) of [Redfur13](https://www.instagram.com/sweetycomics/), with the goal to make it easier for people to link their social-media-platforms since her Discord is heavily art-focused. This enables others to easier find channels they would be interested in. This bot also functions as a bridge between her Discord and Twitch to enable more communication between both platforms
+This bot was made for the Discord and [Twitch](https://www.twitch.tv/Redfur_13) of [SweetyComics(Redfur13)](https://www.instagram.com/sweetycomics/), with the goal to make it easier for people to link their social-media-platforms since her Discord is heavily art-focused. This enables others to easier find channels they would be interested in. This bot also functions as a bridge between her Discord and Twitch to enable more communication between both platforms
 
 ## Features
 
@@ -140,14 +140,11 @@ Entering those commands will always link to the corresponding plattform of Redfu
 
 ## Auto Launch
 
- If you want SweetyPi to automatically boot whenever your system is starting you can use [pm2](https://www.npmjs.com/package/pm2) for this. Simply install it with `npm install pm2`, but instead of launching SweetyPi with `node .` or `node index.js`, use `pm2 start index.js`. SweetyPi is now daemonized, monitored and kept alive forever. If you want to see how many resources SweetyPi is using, enter `pm2 list` or `pm2 monit` for more in-depth information
+ If you want SweetyPi to automatically boot whenever your system is starting you can use [pm2](https://www.npmjs.com/package/pm2) for this. Simply install it with `npm install pm2`, but instead of launching SweetyPi with `node .` or `node index.js`, use `pm2 start index.js --watch --name SweetyPi`. SweetyPi is now daemonized, monitored and kept alive forever. If you want to see how many resources SweetyPi is using, enter `pm2 list` or `pm2 monit` for more in-depth information
 
 ## TO DO
 
 * ~~Add custom status to SweetyPi~~Fixed in [#2](https://github.com/Akashic101/SweetyPI/issues/2)
 * ~~Rework "Member joined"~~ Fixed in [#3](https://github.com/Akashic101/SweetyPI/issues/3)
-* Add proper logging with [WinstonJs](https://github.com/winstonjs/winston)
 * Add more commands and features to the Twitch-version
 * Add more mod-commands to both versions
-* Enable Spotify-support using [Spotify-Web-Api_Node](https://github.com/thelinmichael/spotify-web-api-node)
-* Add birthday-feature for Discord
