@@ -95,6 +95,31 @@ const SweetyImages = sweetyImagesSeq.define('sweetyImages', {
 	},
 });
 
+const comicsSeq = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'scomics.sqlite',
+});
+
+const comics = comicsSeq.define('comics', {
+	id: {
+        primaryKey: true,
+		type: Sequelize.INTEGER,
+        unique: true,
+    },
+    link: {
+        type: Sequelize.STRING,
+        unique: true,
+    },
+    usage_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+});
+
 var author = 'This bot is made by ' + pjson.author;
 
 //Variables for the various channels of the Discord-channel, that get stored in the .env-file
@@ -892,7 +917,24 @@ switch(args[0]){
         .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
         message.channel.send(infoEmbed);
         break;
+
+
+
+    case 'comic' :
+
+        sendLog("comic", "d63d7b");
+        
+        let comicEmbed = new Discord.MessageEmbed()
+        .setTitle('comic')
+        .setDescription('https://www.instagram.com/p/CCBvoJOJYIS/')
+        .setImage('https://i.imgur.com/datWwlj.png')
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+        message.channel.send(comicEmbed);
+        break;    
     }
+
+
     
 
 function getTimeRemaining(endtime){
@@ -1127,8 +1169,8 @@ clientTWI.on("subscription", (channel, username, method, message, userstate) => 
 //Username gifted a subscription to recipient in a channel.
 clientTWI.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
     let senderCount = ~~userstate["msg-param-sender-count"];
-    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted a subscription to " + recipient + ". He gifted in total " + senderCount + " subscriptions redfur4Love redfur4Love ");
-    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just gifted a subscription to " + recipient  + " He gifted in total " + senderCount + " subs <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+    clientTWI.say('Redfur_13', "redfur4Love redfur4Love " + username + " just gifted a subscription to " + recipient + " redfur4Love redfur4Love ");
+    clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just gifted a subscription to " + recipient  + " <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
 });
 
 //reacts when someone gifted a mystery-subscription
