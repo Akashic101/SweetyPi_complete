@@ -109,14 +109,13 @@ const comics = comicsSeq.define('comics', {
 		type: Sequelize.INTEGER,
         unique: true,
     },
-    link: {
+    image: {
         type: Sequelize.STRING,
         unique: true,
     },
-    usage_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
+    instagram: {
+		type: Sequelize.STRING,
+        unique: true,
 	},
 });
 
@@ -143,6 +142,7 @@ clientDIS.once('ready', () => {
     SocialMedia.sync();
     SweetyImages.sync();
     strikeList.sync();
+    comics.sync();
 });
 
 //Once the bot is running he writes a message with the current time into the server-log-channel
@@ -918,21 +918,52 @@ switch(args[0]){
         message.channel.send(infoEmbed);
         break;
 
+        case 'addComic' :
 
+            sendLog("addComic","8ab99a");
+    
+            if(checkAdminright()) {
+                try {
+                    const add = await comics.create({
+                        image: args[1],
+                        instagram: args[2]
+                    });
+                    message.channel.send(`Comic ${add.image} with link ${add.instagram} added.`);
+                    break;
+                    
+                } catch (e) {
+                    if (e.image === 'SequelizeUniqueConstraintError') {
+                        return message.channel.send('That comic already exists.');
+                    }
+                    return message.channel.send('Something went wrong with adding a link.');
+                }
+            }
+            else {
+                break;
+            }
 
     case 'comic' :
 
-        sendLog("comic", "d63d7b");
-        
-        let comicEmbed = new Discord.MessageEmbed()
-        .setTitle('comic')
-        .setDescription('https://www.instagram.com/p/CCBvoJOJYIS/')
-        .setImage('https://i.imgur.com/datWwlj.png')
-        .setTimestamp()
-        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
-        message.channel.send(comicEmbed);
-        break;    
-    }
+        sendLog("comic", "70e938");
+
+        try {
+            const match = await comics.findOne({ order: Sequelize.literal('random()') })
+            if(match) {
+                let comicEmbed = new Discord.MessageEmbed()
+                    .setTitle('comic')
+                    .setDescription(match.instagram)
+                    .setImage(match.image)
+                    .setTimestamp()
+                    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
+                return message.channel.send(comicEmbed)
+            }
+            else {
+                return message.channel.send('error');
+            }
+        } catch (e) {
+            message.channel.send("error: " + e);
+    }  
+}
 
 
     
