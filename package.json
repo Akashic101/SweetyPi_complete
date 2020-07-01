@@ -1,6 +1,6 @@
 {
   "name": "sweetypi",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "A Discord- and Twitch-bot for Redfur13(SweetyComics)",
   "main": "index.js",
   "scripts": {
