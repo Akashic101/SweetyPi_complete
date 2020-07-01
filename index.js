@@ -1040,6 +1040,8 @@ function sendLog(platform, color) {
 const tmi = require('tmi.js');
 require('dotenv').config();
 
+var botMessage = false;
+
 const options = {
     options: {
         debug: true,
@@ -1072,7 +1074,14 @@ clientTWI.on('connected', (address, port) => {
 });
 
 function messageInterval() {
-    clientTWI.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/invite/KTFBR8A. I also published new video, you can watch it here: https://youtu.be/I34-cuyKilQ");
+    if(botMessage) {
+        clientTWI.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A. I also published new video, you can watch it here: https://youtu.be/I34-cuyKilQ");
+        botMessage = false;
+    }
+    if(!botMessage) {
+        clientTWI.say("Redfur_13", "Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A")
+        botMessage = true;
+    }
 }
 
 //listens to incoming chat-messages
