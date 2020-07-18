@@ -1,7 +1,4 @@
 const Sequelize = require('sequelize');
-const Discord = require('discord.js');
-const client = new Discord.Client();
-var pjson = require('../package.json');
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
@@ -43,7 +40,7 @@ module.exports = {
                 return message.channel.send('error');
             }
         } catch (e) {
-            message.channel.send("error: " + e);
-    }
+            return message.channel.send("error: " + e);
+        }
 	}
 };
