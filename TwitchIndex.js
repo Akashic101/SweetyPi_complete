@@ -75,7 +75,6 @@ client.connect();
 
 //Send a message whenever the bot connected to the stream
 client.on('connected', (address, port) => {
-    client.action('Redfur_13', 'SweetyBot has awoken from her slumber')
     setInterval(() => {
         messageInterval();
     }, 1800000);
