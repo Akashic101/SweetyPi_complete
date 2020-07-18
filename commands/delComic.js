@@ -51,9 +51,8 @@ module.exports = {
                         message.channel.send('Comic ' + args[i] + ' deleted.');
                     }
                 }
-                break;
             } catch (e) {
-                break;
+                console.log(e)
             }
         }
 	},
