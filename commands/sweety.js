@@ -33,14 +33,14 @@ module.exports = {
         try {
             const match = await SweetyImages.findOne({ order: Sequelize.literal('random()') })
             if(match) {
-                match.increment('usage_count');
-                return message.channel.send(match.link);
+                match.increment('usage_count')
+                return message.channel.send(match.link)
             }
             else {
-                return message.channel.send('error');
+                return message.channel.send('error')
             }
         } catch (e) {
-            return message.channel.send("error: " + e);
+            return message.channel.send("error: " + e)
         }
 	}
 };
