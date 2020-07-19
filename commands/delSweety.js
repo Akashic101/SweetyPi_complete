@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const Discord = require('discord.js');
+var pjson = require('../package.json');
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
@@ -31,6 +32,20 @@ module.exports = {
 	name: 'delsweety',
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
+
+        const delSweetyEmbed = new Discord.MessageEmbed()
+        .setColor('#eda325')
+        .setTitle(`**Sweety deleted**`)
+        .addFields(
+            { name: 'Username', value: message.member.user.tag},
+            { name: 'Command', value: message.content},
+            { name: 'Date', value: date}
+        )
+        .setThumbnail(message.member.user.displayAvatarURL({ format: 'jpg' }))
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+        const channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+        channel.send(delSweetyEmbed);
 
         if (!message.member.roles.cache.has('641618875846492170')) {
             return message.channel.send("I'm sorry, you do not have the permissions to do that. If you think this was a mistake please contact <@320574128568401920>")

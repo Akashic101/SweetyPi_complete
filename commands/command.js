@@ -5,6 +5,23 @@ module.exports = {
 	name: 'command',
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	execute(message, args) {
+
+        var date = new Date();
+
+        const commandLogEmbed = new Discord.MessageEmbed()
+        .setColor('#73547e')
+        .setTitle(`**Command**`)
+        .addFields(
+            { name: 'Username', value: message.member.user.tag},
+            { name: 'Command', value: message.content},
+            { name: 'Date', value: date}
+        )
+        .setThumbnail(message.member.user.displayAvatarURL({ format: 'jpg' }))
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+        const channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+        channel.send(commandLogEmbed);
+
         let commandEmbed = new Discord.MessageEmbed()
             .setTitle('Commands')
             .setDescription('Every social-media command has two versions. If you just write the command itself you get a link to Redfur\'s platform there. If you however use !platform accountName you get a link to the corresponding account if that person added it to our database')

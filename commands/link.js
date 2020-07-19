@@ -34,6 +34,20 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+		const linkAdded = new Discord.MessageEmbed()
+			.setTitle('**New Appoval requested**')
+			.setDescription('User: ' + message.author.username + ' (' + message.author.id + ')\n' +
+				'platform: ' + args[0] + '\n' +
+				'Link: ' + args[1])
+			.setColor("#ff0000")
+			.setTimestamp()
+			.setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+		(message => message.react('👍'))
+		const approvalChannel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+		approvalChannel.send(linkAdded);
+		const logChannel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+		logChannel.send(linkAdded);
+
         if (args.length != 2) {
             return message.channel.send("I'm sorry, it seems like you entered the command wrong. Please check if you entered it correcty or use !commands to see how your command should look like. If you believe there is an error, please contact <@320574128568401920>")
         }

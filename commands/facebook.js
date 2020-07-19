@@ -34,6 +34,21 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+		const facebookEmbed = new Discord.MessageEmbed()
+        .setColor('#445b3b')
+        .setTitle(`**Facebook**`)
+        .addFields(
+            { name: 'Username', value: message.member.user.tag},
+            { name: 'Command', value: message.content},
+			{ name: 'Date', value: date},
+			{ name: 'User', value: args[0]}
+        )
+        .setThumbnail(message.member.user.displayAvatarURL({ format: 'jpg' }))
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+        const channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+        channel.send(facebookEmbed);
+
         if (args.length != 1) {
             return message.channel.send("I'm sorry, it seems like you entered the command wrong. Please check if you entered it correcty or use !commands to see how your command should look like. If you believe there is an error, please contact <@320574128568401920>") 
         }

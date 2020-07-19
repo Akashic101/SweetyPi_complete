@@ -12,6 +12,23 @@ module.exports = {
 	description: 'Delivers current information about corona-cases in someones country',
 	execute(message, args) {
 
+        var date = new Date();
+
+        const coronaEmbed = new Discord.MessageEmbed()
+        .setColor('#5f847b')
+        .setTitle(`**Corona**`)
+        .addFields(
+            { name: 'Username', value: message.member.user.tag},
+            { name: 'Command', value: message.content},
+            { name: 'Date', value: date},
+            { name: 'Country', value: args[0]}
+        )
+        .setThumbnail(message.member.user.displayAvatarURL({ format: 'jpg' }))
+        .setTimestamp()
+        .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+        const channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+        channel.send(coronaEmbed);
+        
         if(args.length != 1) {
             return message.channel.send('Please specify which country you want to recieve informations about, i.e ".corona Germany"')
         }
