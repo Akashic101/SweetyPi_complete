@@ -11,7 +11,7 @@ module.exports = {
             .setURL('https://github.com/Akashic101/SweetyPI#features')
 			.setColor((Math.random()*0xFFFFFF<<0).toString(16))
 			.addFields(
-                { name: 'Commands', value: 'To get a list with all commands avalaible please use **!commands**'},
+                { name: 'Command', value: 'To get a list with all commands avalaible please use **!commands**'},
                 { name: 'Rules', value: 'If you see something that breaks the rules please use the corresponding emote, for example :six: when someone breaks Rule 6'},
                 { name: 'Questions', value: 'In case you have questions about rules or other topics regarding this server please don\'t hesitate to contact an Admin'},
                 { name: 'SweetyPi', value: 'In case you have questions this bot, feel free to DM <@320574128568401920>'}
