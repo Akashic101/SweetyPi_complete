@@ -140,7 +140,7 @@ Entering those commands will always link to the corresponding plattform of Redfu
 
 ## Auto Launch
 
- If you want SweetyPi to automatically boot whenever your system is starting you can use [pm2](https://www.npmjs.com/package/pm2) for this. Simply install it with `npm install pm2`, but instead of launching SweetyPi with `node .` or `node index.js`, use `pm2 start index.js --watch --name SweetyPi`. SweetyPi is now daemonized, monitored and kept alive forever. If you want to see how many resources SweetyPi is using, enter `pm2 list` or `pm2 monit` for more in-depth information
+ If you want SweetyPi to automatically boot whenever your system is starting you can use [pm2](https://www.npmjs.com/package/pm2) for this. Simply install it with `npm install pm2`, but instead of launching SweetyPi with `node .` or `node index.js`, use `pm2 start DiscordIndex.js --watch --name SweetyPi - Discord` to launch the Discord-bot and `pm2 start TwitchIndex.js --watch --name SweetyPi - Twitch` for the Twitch-Version. SweetyPi is now daemonized, monitored and kept alive forever. If you want to see how many resources SweetyPi is using, enter `pm2 list` or `pm2 monit` for more in-depth information
 
 ## TO DO
 
