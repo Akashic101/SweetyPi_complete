@@ -16,7 +16,7 @@ module.exports = {
         const sentences = [
             'Maybe she should take a break soon',
             'Crazy how time flies when you are having fun',
-            'And she isn\'t even braking a sweat',
+            'And she isn\'t even breaking a sweat',
             'She really needs a nap right now',
             'Let\'s cheer her on',
             'All of that and her fur is still flawless',
