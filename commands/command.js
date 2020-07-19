@@ -30,7 +30,8 @@ module.exports = {
                 { name: '!info', value: 'Shows general info', inline: true},
                 { name: '!command', value: 'Lists every command avalaible', inline: true},
                 { name: '!help', value: 'Givey you a general idea where to find assistance', inline: true},
-                { name: '!poll <text>', value: 'Creates a poll members can vote on using :thumbsup: or :thumbsdown: ', inline: true}
+                { name: '!poll <text>', value: 'Creates a poll members can vote on using :thumbsup: or :thumbsdown: ', inline: true},
+                { name: '!corona <country>', value: 'Lists the current informations available about the specified country ', inline: true}
             )
             .setTimestamp()
             .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png')
