@@ -7,7 +7,7 @@ const comicsSeq = new Sequelize('database', 'user', 'password', {
 	dialect: 'sqlite',
 	logging: false,
 	// SQLite only
-	storage: 'scomics.sqlite',
+	storage: 'comics.sqlite',
 });
 
 const comics = comicsSeq.define('comics', {
