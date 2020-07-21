@@ -82,7 +82,7 @@ client.on('connected', (address, port) => {
 
 function messageInterval() {
     if(botMessage) {
-        client.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A. I also published new video, you can watch it here: https://youtu.be/I34-cuyKilQ");
+        client.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A");
         botMessage = false;
     }
     if(!botMessage) {
