@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
 		const instagramEmbed = new Discord.MessageEmbed()
         .setColor('#f50c3e')
         .setTitle(`**Instagram**`)

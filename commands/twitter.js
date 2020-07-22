@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
 		const twitterEmbed = new Discord.MessageEmbed()
         .setColor('#f21d31')
         .setTitle(`**Twitter**`)

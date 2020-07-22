@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
 		const githubEmbed = new Discord.MessageEmbed()
         .setColor('#c82b8b')
         .setTitle(`**Github**`)

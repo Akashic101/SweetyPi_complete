@@ -6,6 +6,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	execute(message, args) {
 
+        var date = new Date();
+
         const rollEmbed = new Discord.MessageEmbed()
             .setColor('#928d58')
             .setTitle(`**Roll**`)

@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
 		const facebookEmbed = new Discord.MessageEmbed()
         .setColor('#445b3b')
         .setTitle(`**Facebook**`)

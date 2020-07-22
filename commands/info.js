@@ -6,6 +6,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	execute(message, args) {
 
+        var date = new Date();
+
         const helpEmbed = new Discord.MessageEmbed()
             .setColor('#f21d31')
             .setTitle(`**help**`)

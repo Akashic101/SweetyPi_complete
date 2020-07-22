@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
 		const etsyEmbed = new Discord.MessageEmbed()
         .setColor('#df91d4')
         .setTitle(`**Etsy**`)

@@ -31,6 +31,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+        var date = new Date();
+
         const delComicEmbed = new Discord.MessageEmbed()
         .setColor('#991bad')
         .setTitle(`**Comic deleted**`)

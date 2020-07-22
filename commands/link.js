@@ -34,6 +34,8 @@ module.exports = {
 	description: 'Send info about the current Hot-Lap-Challenge!',
 	async execute(message, args) {
 
+		var date = new Date();
+
 		const linkAddedEmbed = new Discord.MessageEmbed()
 			.setTitle('**New Appoval requested**')
 			.setDescription('User: ' + message.author.username + ' (' + message.author.id + ')\n' +
