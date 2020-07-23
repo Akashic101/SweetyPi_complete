@@ -160,6 +160,14 @@ client.on('chat', async (channel, user, message, self) => {
         client.say('Redfur_13', 'not without a treat')
     }
 
+    if(commandmessage === '!lurk') {
+        client.say('Redfur_13', 'redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk ')
+    }
+
+    if(commandmessage === '!love') {
+        client.say('Redfur_13', 'redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love ')
+    }
+
     if(commandmessage === '!sweety') {
         try {
             const match = await SweetyImages.findOne({ order: Sequelize.literal('random()') })
