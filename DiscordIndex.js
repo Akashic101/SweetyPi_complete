@@ -44,7 +44,7 @@ const level = levelSeq.define('level', {
   }
 });
 
-const xp = levelSeq.define('xp', {
+const levelTable = levelSeq.define('levelTable', {
 	id: {
         primaryKey: true,
 	    type: Sequelize.INTEGER,
@@ -54,22 +54,17 @@ const xp = levelSeq.define('xp', {
         type: Sequelize.INTEGER,
         unique: true,
     },
-    minimum: {
-		  type: Sequelize.INTEGER,
-		  defaultValue: 0,
-		  allowNull: false,
-    },
-    maximum: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+    xp_needed: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
     }
 });
 
 client.on('ready', () =>{
 
   level.sync()
-  xp.sync()
+  levelTable.sync()
 
   console.log('Ready!');
   client.user.setPresence({
@@ -306,10 +301,10 @@ client.on('message', async message => {
       increment = 1
       break;
     case '641623885065879582' : //vip-chat
-      increment = 2
+      increment = 1
       break;
     case '735979384653217872' : //rich-people-club
-      increment = 3
+      increment = 1.5
       break;
     case '641674237811097629' : //chitchat
       increment = 1
@@ -349,13 +344,16 @@ client.on('message', async message => {
       break;
   }
 
+  if (message.member.roles.cache.some(role => role.name === 'Patreon' || role.name === 'MEGA Floof T'  || role.name === 'MEGA Floof P'  || role.name === 'Big Floof T'  || role.name === 'Big Floof P' || role.name === 'Small Floof T' || role.name === 'Small Floof P' || role.name === 'Twitch Subs')) {
+    increment * 2
+  }
+
   if (message.author.bot || message.author.self ) return;
 
   try {
     const match = await level.findOne({where: {user_id: message.author.id}});
     if(match) {
         match.increment('xp', { by: increment });
-        console.log(`${message.guild.members.cache.get(match.user_id).displayName} now has ${match.xp} xp`)
     }
     else {
       const match = await level.create({
