@@ -48,7 +48,7 @@ module.exports = {
                     level: i,
                     xp_needed: min
                 });
-                console.log(`Level ${levelTable.level} needs ${levelTable.xp_needed} XP`);
+                console.log(`Level ${level.level} needs ${level.xp_needed} XP`);
             }
         } catch (e) {
             console.log(e)
