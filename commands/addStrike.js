@@ -58,7 +58,6 @@ module.exports = {
         }
         else {
             try {
-                message.channel.send(args.length)
                 const match = await strikeList.create({
                     user: args[0],
                     strikeOne: args[1],
