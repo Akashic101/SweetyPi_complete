@@ -6,3 +6,4 @@ package-lock.json
 log
 *.code-workspace
 commands/test.js
+commands/levelCreator.js
