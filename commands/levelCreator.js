@@ -50,6 +50,7 @@ module.exports = {
                 });
                 console.log(`Level ${levelTable.level} needs ${levelTable.xp_needed} XP`);
             }
+            message.channel.send(`All levels have been succesfully added`)
         } catch (e) {
             console.log(e)
         }
