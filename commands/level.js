@@ -68,7 +68,7 @@ module.exports = {
             .setTimestamp()
             .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
         const channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
-        //channel.send(logEmbed);
+        channel.send(logEmbed);
 
         try {
             //Find the user by searching through the database with the id
