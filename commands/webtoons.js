@@ -52,7 +52,7 @@ module.exports = {
         channel.send(webtoonsEmbed);
 
         if (args.length != 1) {
-            return message.channel.send("I'm sorry, it seems like you entered the command wrong. Please check if you entered it correcty or use !commands to see how your command should look like. If you believe there is an error, please contact <@320574128568401920>") 
+            return message.channel.send("https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966") 
         }
         else {
             try {
