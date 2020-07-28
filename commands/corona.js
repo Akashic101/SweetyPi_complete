@@ -54,7 +54,7 @@ module.exports = {
                     { name: '\u200B', value: '\u200B' },
                     { name: 'Cases per Person', value: `1 in ${numeral(result.oneCasePerPeople).format('0,0')}`, inline: true },
                     { name: 'Deaths per Person', value: `1 in ${numeral(result.oneDeathPerPeople).format('0,0')}`, inline: true },
-                    { name: 'Tests per Person', value: `${result.oneTestPerPeople}/1`, inline: true },
+                    { name: 'Tests per Person', value: `1/${result.oneTestPerPeople}`, inline: true },
                 )
                 .setTimestamp()
                 .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
