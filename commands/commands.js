@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: 'commands',
 	description: 'Sends a list about every available command',
-	execute(message, args) {
+	execute(client, message, args) {
 
         var date = new Date();
 

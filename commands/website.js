@@ -32,7 +32,7 @@ const SocialMedia = socialMediaSeq.define('socialmedia', {
 module.exports = {
 	name: 'website',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	async execute(message, args) {
+	async execute(client, message, args) {
 
         var date = new Date();
 

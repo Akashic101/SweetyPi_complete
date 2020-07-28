@@ -15,7 +15,7 @@ function sToTime(s) {
 module.exports = {
 	name: 'uptime',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	execute(message, args) {
+	execute(client, message, args) {
 
         var date = new Date();
 

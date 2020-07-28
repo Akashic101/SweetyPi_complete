@@ -10,7 +10,7 @@ api.settings({
 module.exports = {
 	name: 'corona',
 	description: 'Delivers current information about corona-cases in someones country',
-	execute(message, args) {
+	execute(client, message, args) {
 
         var date = new Date();
 

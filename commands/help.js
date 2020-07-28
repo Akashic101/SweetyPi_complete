@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: 'help',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	execute(message, args) {
+	execute(client, message, args) {
 
         var date = new Date();
 

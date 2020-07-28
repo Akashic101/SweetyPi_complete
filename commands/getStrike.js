@@ -27,7 +27,7 @@ const strikeList = strikeListSeq.define('strikeList', {
 module.exports = {
 	name: 'getstrike',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	async execute(message, args) {
+	async execute(client, message, args) {
 
         var date = new Date()
 

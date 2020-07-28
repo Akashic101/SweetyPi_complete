@@ -31,7 +31,7 @@ const SweetyImages = sweetyImagesSeq.define('sweetyImages', {
 module.exports = {
 	name: 'delsweety',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	async execute(message, args) {
+	async execute(client, message, args) {
 
         var date = new Date()
 

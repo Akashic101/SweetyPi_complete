@@ -30,7 +30,7 @@ const comics = comicsSeq.define('comics', {
 module.exports = {
 	name: 'addcomic',
 	description: 'Send info about the current Hot-Lap-Challenge!',
-	async execute(message, args) {
+	async execute(client, message, args) {
 
         var date = new Date();
 

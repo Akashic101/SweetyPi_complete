@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: 'giphy',
 	description: 'Lets the user search the giphy-database',
-	async execute(message, args) {
+	async execute(client, message, args) {
         if (args[0] >= 10) {
             return message.channel.send("I'm sorry, it seems like you entered the command wrong. Please check if you entered it correcty or use !commands to see how your command should look like. If you believe there is an error, please contact <@320574128568401920>") 
         } 
