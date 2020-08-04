@@ -51,7 +51,8 @@ module.exports = {
 	name: 'getlevel',
 	description: 'Sends the current level of another user',
 	async execute(client, message, args) {
-
+        var username = message.mentions.users.first().username
+        var userID = message.mentions.users.first().id
         var date = new Date();
 
         const logEmbed = new Discord.MessageEmbed()
@@ -69,8 +70,7 @@ module.exports = {
         channel.send(logEmbed);
 
         try {
-            var username = message.mentions.users.first().username
-            var userID = message.mentions.users.first().id
+            
             //Find the user by searching through the database with the id
             const match = await level.findOne({where: {user_id: userID}});
 
