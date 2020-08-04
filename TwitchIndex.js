@@ -217,8 +217,8 @@ client.on("cheer", (channel, userstate, message) => {
         return;
     }
     else {
-        client.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " beenz redfur4Love redfur4Love");
-        clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + userstate.username + " has cheered " + userstate.bits + " beenz during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+        client.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " beans redfur4Love redfur4Love");
+        clientDIS.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + userstate.username + " has cheered " + userstate.bits + " beans during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
     }
 });
 
