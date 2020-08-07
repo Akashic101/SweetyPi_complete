@@ -82,7 +82,7 @@ client.on('connected', (address, port) => {
 
 function messageInterval() {
     if(botMessage) {
-        client.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A");
+        client.say("Redfur_13", "https://donate.tiltify.com/@redfur_13/lebanon-relief-aid");
         botMessage = false;
     }
     if(!botMessage) {
@@ -142,6 +142,10 @@ client.on('chat', async (channel, user, message, self) => {
     
     if(commandmessage === '!spotify') {
         client.say('Redfur_13', 'Favorites: https://open.spotify.com/playlist/3UME90dv7wKZyPzF8dZR1T?si=ldE-69ntRGKEQ_Dko9tWzg    Soundtracks: https://open.spotify.com/playlist/0UjcGDnWcOLUnevCTqtpEh?si=Bv7ojc8XRSqeiYnrjqK6_Q')
+    }
+
+    if(commandmessage === '!dpnate') {
+        client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
     }
 
     if(commandmessage === '!hi') {
