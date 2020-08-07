@@ -139,10 +139,24 @@ client.on('chat', async (channel, user, message, self) => {
     if(commandmessage === '!uptime') {
         client.say('Redfur_13', 'The hell do I know, I\'m a cat')
     }
-    
-    if(commandmessage === '!spotify') {
-        client.say('Redfur_13', 'Favorites: https://open.spotify.com/playlist/3UME90dv7wKZyPzF8dZR1T?si=ldE-69ntRGKEQ_Dko9tWzg    Soundtracks: https://open.spotify.com/playlist/0UjcGDnWcOLUnevCTqtpEh?si=Bv7ojc8XRSqeiYnrjqK6_Q')
+
+    if(commandmessage === '!hyello') {
+
+        var message = 'Hyello, welcome to my stream';
+        var newMessage = '';
+        
+        for (var i = 0; i < message.length; i++) {
+            var random_number = Math.round(Math.random() * 10 + 1);
+            if(random_number % 2 == 0) {
+                newMessage += message.charAt(i).toUpperCase();
+            }else{
+                newMessage += message.charAt(i);
+            }
+        }
+        client.say('Redfur_13', newMessage)
     }
+    
+    
 
     if(commandmessage === '!donate') {
         client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
