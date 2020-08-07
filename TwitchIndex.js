@@ -1,6 +1,5 @@
 const tmi = require('tmi.js');
 const Sequelize = require('sequelize');
-const client = new tmi.client(options);
 require('dotenv').config();
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
@@ -53,6 +52,8 @@ const comics = comicsSeq.define('comics', {
 	},
 })
 
+var botMessage = false;
+
 const options = {
     options: {
         debug: true,
@@ -68,7 +69,7 @@ const options = {
     channels: ['Redfur_13'],
 };
 
-var botMessage = false;
+const client = new tmi.client(options);
 
 client.connect();
 
