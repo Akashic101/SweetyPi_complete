@@ -144,7 +144,7 @@ client.on('chat', async (channel, user, message, self) => {
         client.say('Redfur_13', 'Favorites: https://open.spotify.com/playlist/3UME90dv7wKZyPzF8dZR1T?si=ldE-69ntRGKEQ_Dko9tWzg    Soundtracks: https://open.spotify.com/playlist/0UjcGDnWcOLUnevCTqtpEh?si=Bv7ojc8XRSqeiYnrjqK6_Q')
     }
 
-    if(commandmessage === '!dpnate') {
+    if(commandmessage === '!donate') {
         client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
     }
 
