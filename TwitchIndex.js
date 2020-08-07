@@ -1,5 +1,6 @@
 const tmi = require('tmi.js');
 const Sequelize = require('sequelize');
+const client = new tmi.client(options);
 require('dotenv').config();
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
@@ -52,8 +53,6 @@ const comics = comicsSeq.define('comics', {
 	},
 })
 
-var botMessage = false;
-
 const options = {
     options: {
         debug: true,
@@ -69,7 +68,7 @@ const options = {
     channels: ['Redfur_13'],
 };
 
-const client = new tmi.client(options);
+var botMessage = false;
 
 client.connect();
 
@@ -150,13 +149,11 @@ client.on('chat', async (channel, user, message, self) => {
             if(random_number % 2 == 0) {
                 newMessage += message.charAt(i).toUpperCase();
             }else{
-                newMessage += message.charAt(i);
+                newMessage += message.charAt(i).toLowerCase();
             }
         }
         client.say('Redfur_13', newMessage)
     }
-    
-    
 
     if(commandmessage === '!donate') {
         client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
