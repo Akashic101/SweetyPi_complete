@@ -82,7 +82,7 @@ client.on('connected', (address, port) => {
 
 function messageInterval() {
     if(botMessage) {
-        client.say("Redfur_13", "https://donate.tiltify.com/@redfur_13/lebanon-relief-aid");
+        client.say("Redfur_13", "Want to help the the people in Lebanon after the Beirut explosion? Donate here: https://donate.tiltify.com/@redfur_13/lebanon-relief-aid");
         botMessage = false;
     }
     if(!botMessage) {
