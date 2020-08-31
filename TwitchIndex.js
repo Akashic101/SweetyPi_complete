@@ -173,7 +173,32 @@ client.on('chat', async (channel, user, message, self) => {
     }
 
     if (commandmessage === '!shake') {
-        client.say('Redfur_13', 'not without a treat')
+
+        var successMessage = [
+            'Shakes paw',
+            'Lifts paw'
+        ]
+
+        var failureMessage = [
+            'Stares into your soul',
+            'Does nothing',
+            'Meows',
+            'Headbutts',
+            'Demands a treat',
+            'Screams',
+            'Walks away',
+            'Ignores you',
+            'Stares',
+            'demands headscratches'
+        ]
+
+        var randomNumber = Math.floor((Math.random() * 100) + 1);
+        if (randomNumber >= 1 && randomNumber <= 20) {
+                client.say('Redfur_13', `/me ${successMessage[randomNumber]}`)
+        } else {
+            var randomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
+            client.say('Redfur_13', `/me ${failureMessage[randomNumber]}`)
+        }
     }
 
     if (commandmessage === '!lurk') {
