@@ -3,18 +3,18 @@ const Sequelize = require('sequelize');
 require('dotenv').config();
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'sweetyImages.sqlite',
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    // SQLite only
+    storage: 'sweetyImages.sqlite',
 });
 
 //Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
 const SweetyImages = sweetyImagesSeq.define('sweetyImages', {
-	id: {
+    id: {
         primaryKey: true,
-		type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         unique: true,
     },
     link: {
@@ -22,24 +22,24 @@ const SweetyImages = sweetyImagesSeq.define('sweetyImages', {
         unique: true,
     },
     usage_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+    },
 });
 
 const comicsSeq = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'comics.sqlite',
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    // SQLite only
+    storage: 'comics.sqlite',
 });
 
 const comics = comicsSeq.define('comics', {
-	id: {
+    id: {
         primaryKey: true,
-		type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         unique: true,
     },
     image: {
@@ -47,9 +47,9 @@ const comics = comicsSeq.define('comics', {
         unique: true,
     },
     instagram: {
-		type: Sequelize.STRING,
+        type: Sequelize.STRING,
         unique: true,
-	},
+    },
 })
 
 var botMessage = false;
@@ -81,11 +81,11 @@ client.on('connected', (address, port) => {
 });
 
 function messageInterval() {
-    if(botMessage) {
-        client.say("Redfur_13", "Want to help the the people in Lebanon after the Beirut explosion? Donate here: https://donate.tiltify.com/@redfur_13/lebanon-relief-aid");
+    if (botMessage) {
+        client.say("Redfur_13", "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A");
         botMessage = false;
     }
-    if(!botMessage) {
+    if (!botMessage) {
         client.say("Redfur_13", "Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A")
         botMessage = true;
     }
@@ -93,7 +93,7 @@ function messageInterval() {
 
 //listens to incoming chat-messages
 client.on('chat', async (channel, user, message, self) => {
-    if(self) return;
+    if (self) return;
     const commandmessage = message.trim().toLowerCase();
 
     if (commandmessage === '!social' || commandmessage === '!socials') {
@@ -128,70 +128,71 @@ client.on('chat', async (channel, user, message, self) => {
         client.say('Redfur_13', 'https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966')
     }
 
-    if(commandmessage === '!fiverr') {
+    if (commandmessage === '!fiverr') {
         client.say('Redfur_13', 'https://www.fiverr.com/share/9dNkgd')
     }
 
-    if(commandmessage === '!command' || commandmessage === '!commands') {
+    if (commandmessage === '!command' || commandmessage === '!commands') {
         client.say('Redfur_13', '!instagram, !discord, !facebook, !youtube, !twitter, !webtoon, !fiverr')
     }
 
-    if(commandmessage === '!uptime') {
+    if (commandmessage === '!uptime') {
         client.say('Redfur_13', 'The hell do I know, I\'m a cat')
     }
 
-    if(commandmessage === '!hyello') {
+    if (commandmessage === '!hyello') {
 
         var message = 'Hyello, welcome to my stream';
         var newMessage = '';
-        
+
         for (var i = 0; i < message.length; i++) {
             var random_number = Math.round(Math.random() * 10 + 1);
-            if(random_number % 2 == 0) {
+            if (random_number % 2 == 0) {
                 newMessage += message.charAt(i).toUpperCase();
-            }else{
+            } else {
                 newMessage += message.charAt(i).toLowerCase();
             }
         }
         client.say('Redfur_13', newMessage)
     }
 
-    if(commandmessage === '!donate') {
+    if (commandmessage === '!donate') {
         client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
     }
 
-    if(commandmessage === '!hi') {
+    if (commandmessage === '!hi') {
         client.say('Redfur_13', 'Hello ' + user.username + ' >^ω^<')
     }
 
-    if(commandmessage === '!quit') {
+    if (commandmessage === '!quit') {
         client.say('Redfur_13', `shutting down...`)
     }
 
-    if(commandmessage === '!exit') {
+    if (commandmessage === '!exit') {
         client.say('Redfur_13', `shutting down...`)
     }
 
-    if(commandmessage === '!shake') {
+    if (commandmessage === '!shake') {
         client.say('Redfur_13', 'not without a treat')
     }
 
-    if(commandmessage === '!lurk') {
+    if (commandmessage === '!lurk') {
         client.say('Redfur_13', 'redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk ')
     }
 
-    if(commandmessage === '!love') {
+    if (commandmessage === '!love') {
         client.say('Redfur_13', 'redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love redfur4Love ')
     }
 
-    if(commandmessage === '!sweety') {
+    if (commandmessage === '!sweety') {
         try {
-            const match = await SweetyImages.findOne({ order: Sequelize.literal('random()') })
-            if(match) {
+            const match = await SweetyImages.findOne({
+                order: Sequelize.literal('random()')
+            })
+            if (match) {
                 match.increment('usage_count');
                 return client.say('Redfur_13', "" + match.link);
-            }
-            else {
+            } else {
                 return client.say('something broke and I don\'t know what');
             }
         } catch (e) {
@@ -199,13 +200,14 @@ client.on('chat', async (channel, user, message, self) => {
         }
     }
 
-    if(commandmessage === '!comic') {
+    if (commandmessage === '!comic') {
         try {
-            const match = await comics.findOne({ order: Sequelize.literal('random()') })
-            if(match) {
+            const match = await comics.findOne({
+                order: Sequelize.literal('random()')
+            })
+            if (match) {
                 return client.say('Redfur_13', "" + match.instagram);
-            }
-            else {
+            } else {
                 return client.say('something broke and I don\'t know what');
             }
         } catch (e) {
@@ -213,15 +215,16 @@ client.on('chat', async (channel, user, message, self) => {
         }
     }
 
-    if(commandmessage === '!thanks') {
+    if (commandmessage === '!thanks') {
         var messages = [
             "No problem",
             "Glad to help",
             "Just doing my job",
             "What can I say except you're welcome",
-            "Meow Meow"]
+            "Meow Meow"
+        ]
 
-            var message = messages[Math.floor(Math.random() * messages.length)];
+        var message = messages[Math.floor(Math.random() * messages.length)];
 
         client.say('Redfur_13', message + " " + user.username);
     }
@@ -229,10 +232,9 @@ client.on('chat', async (channel, user, message, self) => {
 
 //reacts when someone cheered more then 100 bits
 client.on("cheer", (channel, userstate, message) => {
-    if(userstate.bits < 100) {
+    if (userstate.bits < 100) {
         return;
-    }
-    else {
+    } else {
         client.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " beans redfur4Love redfur4Love");
         //client.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + userstate.username + " has cheered " + userstate.bits + " beans during Redfur's stream <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
     }
