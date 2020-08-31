@@ -197,7 +197,7 @@ client.on('chat', async (channel, user, message, self) => {
                 client.say('Redfur_13', `/me ${successMessage[randomNumber]}`)
         } else {
             var randomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
-            client.say('Redfur_13', `/me ${failureMessage[randomNumber] - 1}`)
+            client.say('Redfur_13', `/me ${failureMessage[randomNumber- 1]}`)
         }
     }
 
