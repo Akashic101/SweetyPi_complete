@@ -54,7 +54,7 @@ const comics = comicsSeq.define('comics', {
 
 var botMessage = false;
 
-const options = {
+const botOptions = {
     options: {
         debug: true,
     },
@@ -69,7 +69,7 @@ const options = {
     channels: ['Redfur_13'],
 };
 
-const client = new tmi.client(options);
+const client = new tmi.client(botOptions);
 
 client.connect();
 
