@@ -156,6 +156,27 @@ client.on('guildMemberRemove', (member) => {
   client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(memberLeftEmbed);
 });
 
+client.on("messageReactionRemove", async (reaction, user) => {
+
+  if (reaction.partial) {
+    try {
+      await reaction.fetch();
+    } catch (error) {
+      return console.log('Something went wrong when fetching the message: ', error);
+    }
+  }
+
+  if (reaction.message.id = '712781048504647791') {
+    if (reaction.emoji.name == '✅')
+        reaction.message.guild.members.fetch(user)
+        .then((member) => {
+            member.roles.remove('712001337440862269').catch(console.error)
+        })
+}
+
+})
+
+
 client.on("messageReactionAdd", async (reaction, user) => {
 
   if (reaction.partial) {
@@ -170,209 +191,69 @@ client.on("messageReactionAdd", async (reaction, user) => {
     .setTitle('**Report**')
     .setColor('#CC0000')
     .setTimestamp()
-    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    .addFields({
+      name: 'User',
+      value: reaction.message.author,
+      inline: true
+    }, {
+      name: 'Message',
+      value: reaction.message.content,
+      inline: true
+    })
+    .setFooter(`${process.env.BOT_NAME} V${pjson.version}`, process.env.BOT_PFP);
 
   switch (reaction.emoji.name) {
     case '1️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '2️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '3️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '4️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '5️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '6️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '7️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '8️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '9️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
-      return client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
-
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
     case '0️⃣':
-      reportEmbed.addFields({
-        name: 'User',
-        value: reaction.message.author,
-        inline: true
-      }, {
-        name: 'Rule',
-        value: reaction.emoji.name,
-        inline: true
-      }, {
-        name: 'Message',
-        value: reaction.message.content,
-        inline: true
-      }, {
-        name: 'Link',
-        value: `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`,
-        inline: true
-      })
+      reportEmbed.addField('Rule', reaction.emoji.name, true)
+      reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
+      client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
+      break;
   }
-
 
   var d = new Date();
   if (reaction.message.id === '712781048504647791') {
