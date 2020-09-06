@@ -16,6 +16,7 @@
     "giphy-api": "^2.0.1",
     "novelcovid": "^3.0.0",
     "numeral": "^2.0.6",
+    "require-all": "^3.0.0",
     "sequelize": "^5.22.3",
     "sqlite3": "^4.2.0",
     "tmi.js": "^1.5.0"
