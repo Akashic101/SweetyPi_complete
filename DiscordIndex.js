@@ -206,44 +206,43 @@ client.on("messageReactionAdd", async (reaction, user) => {
     }
   }
 
-  switch (reaction.message.id) {
-    case '712781048504647791s':
-      switch (reaction.emoji.name) {
-        case '🧡':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`(he/him) ${member.user.username}`)
-            })
+  if (reaction.message.id == '712781048504647791') {
+    switch (reaction.emoji.name) {
+      case '🧡':
+        reaction.message.guild.members.fetch(user)
+          .then((member) => {
+            member.setNickname(`(he/him) ${member.user.username}`)
+          })
+        break;
+      case '❤️':
+        reaction.message.guild.members.fetch(user)
+          .then((member) => {
+            member.setNickname(`(she/her) ${member.user.username}`)
+          })
+        break;
+      case '💙':
+        reaction.message.guild.members.fetch(user)
+          .then((member) => {
+            member.setNickname(`(they/them) ${member.user.username}`)
+          })
+        break;
+      case '✅':
+        reaction.message.guild.members.fetch(user)
+          .then((member) => {
+            member.roles.add('712001337440862269').catch(console.error)
+              .then(() => {
+                var d = new Date();
+                let readyEmbed = new Discord.MessageEmbed()
+                  .setTitle('**Member agreed to rules**')
+                  .setDescription(`**${member.user.tag}** agreed to the rules at ` + d + ". He is in the server since " + Math.round((d - member.joinedAt) / 1000) + " seconds")
+                  .setColor("7F0000")
+                  .setTimestamp()
+                  .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+                client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(readyEmbed);
+              });
+          });
           break;
-        case '❤️':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`(she/her) ${member.user.username}`)
-            })
-          break;
-        case '💙':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`(they/them) ${member.user.username}`)
-            })
-          break;
-        case '✅':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.roles.add('712001337440862269').catch(console.error)
-                .then(() => {
-                  var d = new Date();
-                  let readyEmbed = new Discord.MessageEmbed()
-                    .setTitle('**Member agreed to rules**')
-                    .setDescription(`**${member.user.tag}** agreed to the rules at ` + d + ". He is in the server since " + Math.round((d - member.joinedAt) / 1000) + " seconds")
-                    .setColor("7F0000")
-                    .setTimestamp()
-                    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
-                  client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(readyEmbed);
-                });
-            });
-      }
-      break;
+    }
   }
 
   let reportEmbed = new Discord.MessageEmbed()
