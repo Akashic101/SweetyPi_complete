@@ -173,28 +173,26 @@ client.on("messageReactionRemove", async (reaction, user) => {
           member.roles.remove('712001337440862269').catch(console.error)
         })
       break;
-    case '752234664076247261':
-      switch (reaction.emoji.name) {
-        case '🧡':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`${member.user.username}`)
-            })
-          break;
-        case '❤️':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`${member.user.username}`)
-            })
-          break;
-        case '💙':
-          reaction.message.guild.members.fetch(user)
-            .then((member) => {
-              member.setNickname(`${member.user.username}`)
-            })
-          break;
-      }
+    case '🧡':
+      reaction.message.guild.members.fetch(user)
+        .then((member) => {
+          member.setNickname(`${member.user.username}`)
+        })
+      break;
+    case '❤️':
+      reaction.message.guild.members.fetch(user)
+        .then((member) => {
+          member.setNickname(`${member.user.username}`)
+        })
+      break;
+    case '💙':
+      reaction.message.guild.members.fetch(user)
+        .then((member) => {
+          member.setNickname(`${member.user.username}`)
+        })
+      break;
   }
+
 })
 
 
@@ -209,7 +207,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
   }
 
   switch (reaction.message.id) {
-    case '752234664076247261':
+    case '712781048504647791s':
       switch (reaction.emoji.name) {
         case '🧡':
           reaction.message.guild.members.fetch(user)
