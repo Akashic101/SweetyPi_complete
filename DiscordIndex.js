@@ -82,7 +82,7 @@ client.on('ready', () => {
     .catch(console.error);
 
   client.channels.cache.get('641680374098952192').messages.fetch('712781048504647791').then(m => {
-    console.log("Cached reaction message.");
+    console.log("Cached reaction and pronoun message.");
   }).catch(e => {
     console.error("Error loading message.");
     console.error(e);
@@ -165,15 +165,36 @@ client.on("messageReactionRemove", async (reaction, user) => {
       return console.log('Something went wrong when fetching the message: ', error);
     }
   }
-
-  if (reaction.message.id = '712781048504647791') {
-    if (reaction.emoji.name == '✅')
+  switch (reaction.message.id) {
+    case '712781048504647791':
+      if (reaction.emoji.name == '✅')
         reaction.message.guild.members.fetch(user)
         .then((member) => {
-            member.roles.remove('712001337440862269').catch(console.error)
+          member.roles.remove('712001337440862269').catch(console.error)
         })
-}
-
+      break;
+    case '752234664076247261':
+      switch (reaction.emoji.name) {
+        case '🧡':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`${member.user.username}`)
+            })
+          break;
+        case '❤️':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`${member.user.username}`)
+            })
+          break;
+        case '💙':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`${member.user.username}`)
+            })
+          break;
+      }
+  }
 })
 
 
@@ -185,6 +206,46 @@ client.on("messageReactionAdd", async (reaction, user) => {
     } catch (error) {
       return console.log('Something went wrong when fetching the message: ', error);
     }
+  }
+
+  switch (reaction.message.id) {
+    case '752234664076247261':
+      switch (reaction.emoji.name) {
+        case '🧡':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`(he/him) ${member.user.username}`)
+            })
+          break;
+        case '❤️':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`(she/her) ${member.user.username}`)
+            })
+          break;
+        case '💙':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.setNickname(`(they/them) ${member.user.username}`)
+            })
+          break;
+        case '✅':
+          reaction.message.guild.members.fetch(user)
+            .then((member) => {
+              member.roles.add('712001337440862269').catch(console.error)
+                .then(() => {
+                  var d = new Date();
+                  let readyEmbed = new Discord.MessageEmbed()
+                    .setTitle('**Member agreed to rules**')
+                    .setDescription(`**${member.user.tag}** agreed to the rules at ` + d + ". He is in the server since " + Math.round((d - member.joinedAt) / 1000) + " seconds")
+                    .setColor("7F0000")
+                    .setTimestamp()
+                    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+                  client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(readyEmbed);
+                });
+            });
+      }
+      break;
   }
 
   let reportEmbed = new Discord.MessageEmbed()
@@ -253,23 +314,6 @@ client.on("messageReactionAdd", async (reaction, user) => {
       reportEmbed.addField('Link', `https://discord.com/channels/${reaction.message.guild.id}/${reaction.message.channel.id}/${reaction.message.id}`, true)
       client.channels.cache.get(process.env.OFFICE).send(reportEmbed);
       break;
-  }
-
-  var d = new Date();
-  if (reaction.message.id === '712781048504647791') {
-    reaction.message.guild.members.fetch(user)
-      .then((member) => {
-        member.roles.add('712001337440862269').catch(console.error)
-          .then(() => {
-            let readyEmbed = new Discord.MessageEmbed()
-              .setTitle('**Member agreed to rules**')
-              .setDescription(`**${member.user.tag}** agreed to the rules at ` + d + ". He is in the server since " + Math.round((d - member.joinedAt) / 1000) + " seconds")
-              .setColor("7F0000")
-              .setTimestamp()
-              .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
-            client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(readyEmbed);
-          });
-      });
   }
 });
 
