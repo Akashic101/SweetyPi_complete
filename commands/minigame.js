@@ -125,10 +125,15 @@ module.exports = {
                             errors: ['time']
                         })
                         .then(collected => {
-                            message.channel.send(`${collected.first().author} got the correct answer!`);
+                            var correctAnswerEmbed = new Discord.MessageEmbed()
+                                .setTitle('**Correct answer**')
+                                .setDescription(item.footnote)
+                                .setColor('RANDOM')
+                                .setTimestamp()
+                                .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+                            message.channel.send(correctAnswerEmbed)
                         })
                         .catch(collected => {
-                            message.channel.send('Looks like nobody got the answer this time.');
                         });
                 });
                 break;
