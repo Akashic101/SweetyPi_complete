@@ -27,6 +27,42 @@
         "question": "What is the nationality of Akashic and Redbeard?",
         "answers": ["German"],
         "footnote": "The mods of this community are from Germany, the Netherlands and America"
+    },
+    {
+        "question": "How many channels are there in the 'Hang out spot'-Category?",
+        "answers": ["15", "fifteen"],
+        "footnote": "There are 21 channels on this server (or are there more? ;))"
+    },
+    {
+        "question": "What is Red's favourite video-game?",
+        "answers": ["Portal"],
+        "footnote": "The cake is still a lie"
+    },
+    {
+        "question": "What is the name of the most seen twitch-highlight of Red?",
+        "answers": ["long cat"],
+        "footnote": "Long cat became a meme resulting in three emotes and a community challenge on Twitch"
+    },
+    {
+        "question": "How many animated emotes are there on this channel?",
+        "answers": ["2", "two"],
+        "footnote": "Those two emotes were not planned and were created out of boredom (no regrets there)"
+    },
+    {
+        "question": "Name one result when you type '!shake' on Red's Twitch",
+        "answers": ["Stares into your soul",
+            "Does nothing",
+            "Meows",
+            "Headbutts",
+            "Demands a treat",
+            "Screams",
+            "Walks away",
+            "Ignores you",
+            "Stares",
+            "demands headscratches",
+            "Shakes paw",
+            "Lifts paw"
+        ],
+        "footnote": "The most used command on Twitch is !hyello"
     }
-    
 ]
