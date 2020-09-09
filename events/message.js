@@ -145,6 +145,40 @@ module.exports = async (client, message) => {
         return console.log(e);
     }
 
+    /*
+    if (message.content.startsWith('lo') && message.content.endsWith('ng')) {
+        var occurence = (message.content.match(/o/g) || []).length
+
+        if (occurence >= 3) {
+            occurence = 3;
+        }
+
+        var bodyLinks = [
+            'https://imgur.com/zastrTO',
+            'https://imgur.com/hrgRcpw',
+            'https://imgur.com/mTiDQ0W',
+            'https://imgur.com/6OapXJg',
+            'https://imgur.com/RP882eQ',
+            'https://imgur.com/e9Fx90q',
+            'https://imgur.com/bi09R53',
+            'https://imgur.com/QACSn7x',
+            'https://imgur.com/1JCqrHA',
+            'https://imgur.com/S4Aq7AM',
+            'https://imgur.com/krTO1jv'
+        ]
+
+        var head = "https://imgur.com/Lvm9NQj";
+        var butt = "https://imgur.com/ExAY4mf";
+
+        for (let i = 0; i < occurence; i++) {
+            var head = head.concat("\n", bodyLinks[i]);
+        }
+
+        var head = head.concat("\n", butt);
+        console.log(head)
+        message.channel.send(head)
+    }
+*/
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
