@@ -156,10 +156,6 @@ client.on('chat', async (channel, user, message, self) => {
         client.say('Redfur_13', newMessage)
     }
 
-    if (commandmessage === '!donate') {
-        client.say('Redfur_13', 'https://donate.tiltify.com/@redfur_13/lebanon-relief-aid')
-    }
-
     if (commandmessage === '!hi') {
         client.say('Redfur_13', 'Hello ' + user.username + ' >^ω^<')
     }
@@ -200,10 +196,6 @@ client.on('chat', async (channel, user, message, self) => {
             var randomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
             client.say('Redfur_13', `/me ${failureMessage[randomNumber- 1]}`)
         }
-    }
-
-    if (commandmessage === '!lurk') {
-        client.say('Redfur_13', 'redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk redfur4Lurk ')
     }
 
     if (commandmessage === '!love') {
