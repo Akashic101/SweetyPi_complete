@@ -1,0 +1,32 @@
+[{
+        "question": "What is Red's Nationality?",
+        "answers": ["Dutch"],
+        "footnote": "Red was born in the Netherlands but lived in many other countries during her life"
+    },
+    {
+        "question": "Who programmed SweetyPi?",
+        "answers": ["Akashic", "David", "@Akashic"],
+        "footnote": "SweetyPi was the first Discord-Bot of Akashic. Since then he programmed many more for others, including DoodleForFood, RedPandaMon and OkBlueComics"
+    },
+    {
+        "question": "What is the breed of Sweety?",
+        "answers": ["Ragdoll"],
+        "footnote": "Red is not the only owner of a Ragdoll in the community. Ektrix also has one"
+    },
+    {
+        "question": "What is the highest role anyone on the server has?",
+        "answers": ["The Queen"],
+        "footnote": "There are currently over 200 Members in this server, making her role even more rarer"
+    },
+    {
+        "question": "What is the correct command to get your level (without the !)",
+        "answers": ["level"],
+        "footnote": "There are currently 33 commands available on this server"
+    },
+    {
+        "question": "What is the nationality of Akashic and Redbeard?",
+        "answers": ["German"],
+        "footnote": "The mods of this community are from Germany, the Netherlands and America"
+    }
+    
+]
