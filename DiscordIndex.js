@@ -1,10 +1,18 @@
+/*-------------------Requierements-------------------*/
+
 require('dotenv').config();
-const Sequelize = require('sequelize');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
-var pjson = require('./package.json');
+const pjson = require('./package.json');
 const requireAll = require('require-all');
+const chalk = require('chalk');
+
+/*-------------------Requierements-------------------*/
+
+/*------------------Command Handler------------------*/
+
+console.log(chalk.blue('Hello') + ' World' + chalk.red('!'));
 
 client.commands = new Discord.Collection();
 
@@ -14,6 +22,10 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+/*------------------Command Handler------------------*/
+
+/*-------------------Event Handler-------------------*/
+
 const files = requireAll({
   dirname: `${__dirname}/events`,
   filter: /^(?!-)(.+)\.js$/
@@ -22,12 +34,20 @@ const files = requireAll({
 for (const name in files) {
   const event = files[name];
   client.on(name, event.bind(null, client));
-  console.log(`Event loaded: ${name}`);
+  console.log(chalk.green('Event loaded: ') + chalk.underline.bold(`${name}`));
 }
+
+/*-------------------Event Handler-------------------*/
+
+/*-----------------------Login-----------------------*/
 
 const token = process.env.DISCORD_TOKEN;
 
 client.login(token)
+
+/*-----------------------Login-----------------------*/
+
+/*---------------messageReactionRemove---------------*/
 
 client.on("messageReactionRemove", async (reaction, user) => {
 
@@ -66,6 +86,10 @@ client.on("messageReactionRemove", async (reaction, user) => {
       break;
   }
 })
+
+/*---------------messageReactionRemove---------------*/
+
+/*-----------------messageReactionAdd-----------------*/
 
 client.on("messageReactionAdd", async (reaction, user) => {
 
@@ -126,7 +150,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
       inline: true
     }, {
       name: 'Message',
-      value: reaction.message.content,
+      value: `** **` + reaction.message.content,
       inline: true
     })
     .setFooter(`${process.env.BOT_NAME} V${pjson.version}`, process.env.BOT_PFP);
@@ -184,3 +208,5 @@ client.on("messageReactionAdd", async (reaction, user) => {
       break;
   }
 });
+
+/*-----------------messageReactionAdd-----------------*/
