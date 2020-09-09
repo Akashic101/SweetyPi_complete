@@ -1,68 +1,88 @@
 [{
-        "question": "What is Red's Nationality?",
-        "answers": ["Dutch"],
-        "footnote": "Red was born in the Netherlands but lived in many other countries during her life"
-    },
-    {
-        "question": "Who programmed SweetyPi?",
-        "answers": ["Akashic", "David", "@Akashic"],
-        "footnote": "SweetyPi was the first Discord-Bot of Akashic. Since then he programmed many more for others, including DoodleForFood, RedPandaMon and OkBlueComics"
-    },
-    {
-        "question": "What is the breed of Sweety?",
-        "answers": ["Ragdoll"],
-        "footnote": "Red is not the only owner of a Ragdoll in the community. Ektrix also has one"
-    },
-    {
-        "question": "What is the highest role anyone on the server has?",
-        "answers": ["The Queen"],
-        "footnote": "There are currently over 200 Members in this server, making her role even more rarer"
-    },
-    {
-        "question": "What is the correct command to get your level (without the !)",
-        "answers": ["level"],
-        "footnote": "There are currently 33 commands available on this server"
-    },
-    {
-        "question": "What is the nationality of Akashic and Redbeard?",
-        "answers": ["German"],
-        "footnote": "The mods of this community are from Germany, the Netherlands and America"
-    },
-    {
-        "question": "How many channels are there in the 'Hang out spot'-Category?",
-        "answers": ["15", "fifteen"],
-        "footnote": "There are 21 channels on this server (or are there more? ;))"
-    },
-    {
-        "question": "What is Red's favourite video-game?",
-        "answers": ["Portal"],
-        "footnote": "The cake is still a lie"
-    },
-    {
-        "question": "What is the name of the most seen twitch-highlight of Red?",
-        "answers": ["long cat"],
-        "footnote": "Long cat became a meme resulting in three emotes and a community challenge on Twitch"
-    },
-    {
-        "question": "How many animated emotes are there on this channel?",
-        "answers": ["2", "two"],
-        "footnote": "Those two emotes were not planned and were created out of boredom (no regrets there)"
-    },
-    {
-        "question": "Name one result when you type '!shake' on Red's Twitch",
-        "answers": ["Stares into your soul",
-            "Does nothing",
-            "Meows",
-            "Headbutts",
-            "Demands a treat",
-            "Screams",
-            "Walks away",
-            "Ignores you",
-            "Stares",
-            "demands headscratches",
-            "Shakes paw",
-            "Lifts paw"
-        ],
-        "footnote": "The most used command on Twitch is !hyello"
-    }
+    "question": "What is Red's Nationality?",
+    "answers": ["Dutch"],
+    "footnote": "Red was born in the Netherlands but lived in many other countries during her life"
+},
+{
+    "question": "Who programmed SweetyPi?",
+    "answers": ["Akashic", "David", "@Akashic"],
+    "footnote": "SweetyPi was the first Discord-Bot of Akashic. Since then he programmed many more for others, including DoodleForFood, RedPandaMon and OkBlueComics"
+},
+{
+    "question": "What breed is Sweety?",
+    "answers": ["Ragdoll"],
+    "footnote": "Ragdolls are named after their tendency to go limp when picked up. Red is not the only owner of a Ragdoll in the community. Ektrix also has one"
+},
+{
+    "question": "What is the highest role anyone on the server has?",
+    "answers": ["The Queen"],
+    "footnote": "There are currently over 200 Members in this server, making her role even more rarer"
+},
+{
+    "question": "What is the correct command to get your level (without the !)",
+    "answers": ["level"],
+    "footnote": "There are currently 33 commands available on this server"
+},
+{
+    "question": "What is the nationality of Akashic and Redbeard?",
+    "answers": ["German"],
+    "footnote": "The mods of this community are from Germany, the Netherlands and America"
+},
+{
+    "question": "How many channels are there in the 'Hang out spot'-Category?",
+    "answers": ["15", "fifteen"],
+    "footnote": "There are 21 channels on this server (or are there more? ;))"
+},
+{
+    "question": "What is Red's favourite video-game?",
+    "answers": ["Portal"],
+    "footnote": "The cake is still a lie"
+},
+{
+    "question": "What is the name of the most seen twitch-highlight of Red?",
+    "answers": ["long cat"],
+    "footnote": "Long cat became a meme resulting in three emotes and a community challenge on Twitch"
+},
+{
+    "question": "How many animated emotes are there on this channel?",
+    "answers": ["2", "two"],
+    "footnote": "Those two emotes were not planned and were created out of boredom (no regrets there)"
+},
+{
+    "question": "Name one result when you type '!shake' on Red's Twitch",
+    "answers": ["Stares into your soul",
+        "Does nothing",
+        "Meows",
+        "Headbutts",
+        "Demands a treat",
+        "Screams",
+        "Walks away",
+        "Ignores you",
+        "Stares",
+        "demands headscratches",
+        "Shakes paw",
+        "Lifts paw"
+    ],
+    "footnote": "The most used command on Twitch is !hyello"
+},
+{
+    "question": "What is Red's favourite colour?",
+    "answers": ["orange"],
+    "footnote": "Surpised it isn't red?"
+},
+{
+    "question": "How old is Sweety?",
+    "answers": ["3", "three"],
+    "footnote": "Her birthday is on the 18th of July!"
+},
+{
+    "question": "How many tricks can Sweety do?",
+    "answers": ["3", "three"],
+    "footnote": "She can do sit, shake, and high-five. Though usually she just thinks 'paw to hand' = treats"
+},
+{
+    "question": "Red used to make comics before those about Sweety, what were these types of comics called?",
+    "answers": ["BTG", "behind the gif", "BTGs", "behind the gifs"],
+    "footnote": "Red used to make Behind the Gif style comics for over a year before she transitioned to Sweety Comics"
+}
 ]
