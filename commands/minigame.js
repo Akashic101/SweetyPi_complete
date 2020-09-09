@@ -119,11 +119,11 @@ module.exports = {
                 };
 
                 var questionEmbed = new Discord.MessageEmbed()
-                                .setTitle('**Quiz**')
-                                .setDescription(item.question)
-                                .setColor('RANDOM')
-                                .setTimestamp()
-                                .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+                    .setTitle('**Quiz**')
+                    .setDescription(item.question)
+                    .setColor('RANDOM')
+                    .setTimestamp()
+                    .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
 
                 message.channel.send(questionEmbed).then(() => {
                     message.channel.awaitMessages(filter, {
@@ -140,8 +140,8 @@ module.exports = {
                                 .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
                             message.channel.send(correctAnswerEmbed)
                         })
-                        .catch(collected => {
-                        });
+
+                        .catch(collected => {});
                 });
                 break;
         }
