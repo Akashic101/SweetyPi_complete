@@ -9,6 +9,7 @@
   "author": "Akashic",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "fetch-gifs": "^0.2.0",
