@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 module.exports = (client) => {
     client.user.setPresence({
             activity: {
@@ -9,9 +11,9 @@ module.exports = (client) => {
         .catch(console.error);
 
     client.channels.cache.get('641680374098952192').messages.fetch('712781048504647791').then(m => {
-        console.log("Cached reaction and pronoun message.");
+        console.log(chalk.bold.green("Successfully cached messages"));
     }).catch(e => {
-        console.error("Error loading message.");
+        console.error(chalk.red("Error loading message"));
         console.error(e);
     });
 };
