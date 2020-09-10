@@ -100,25 +100,27 @@ client.on("messageReactionAdd", async (reaction, user) => {
       return console.log('Something went wrong when fetching the message: ', error);
     }
   }
-
   if (reaction.message.id == '712781048504647791') {
     switch (reaction.emoji.name) {
       case '🧡':
         reaction.message.guild.members.fetch(user)
           .then((member) => {
             member.setNickname(`(he/him) ${member.user.username}`)
+            member.roles.add('753684268282150935').catch(console.error)
           })
         break;
       case '❤️':
         reaction.message.guild.members.fetch(user)
           .then((member) => {
             member.setNickname(`(she/her) ${member.user.username}`)
+            member.roles.add('753684353485373500').catch(console.error)
           })
         break;
       case '💙':
         reaction.message.guild.members.fetch(user)
           .then((member) => {
             member.setNickname(`(they/them) ${member.user.username}`)
+            member.roles.add('753684397844070491').catch(console.error)
           })
         break;
       case '✅':
