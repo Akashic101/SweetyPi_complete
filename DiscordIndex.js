@@ -7,12 +7,11 @@ const fs = require('fs');
 const pjson = require('./package.json');
 const requireAll = require('require-all');
 const chalk = require('chalk');
+var cron = require('node-cron');
 
 /*-------------------Requierements-------------------*/
 
 /*------------------Command Handler------------------*/
-
-console.log(chalk.blue('Hello') + ' World' + chalk.red('!'));
 
 client.commands = new Discord.Collection();
 
@@ -212,3 +211,28 @@ client.on("messageReactionAdd", async (reaction, user) => {
 });
 
 /*-----------------messageReactionAdd-----------------*/
+
+/*-----------------------Other-----------------------*/
+
+cron.schedule('0 0 1-31 * *', () => {
+  const Guild = client.guilds.cache.get("641609707848728587");
+  const Members = Guild.members.cache.map(member => member);
+
+  const babyFloof = Guild.roles.cache.find(role => role.name === 'Baby floof');
+  const teenerFloof = Guild.roles.cache.find(role => role.name === 'Teener floof');
+  const elderFloof = Guild.roles.cache.find(role => role.name === 'Elder Floof');
+
+  Members.forEach(member => {
+
+    if (((new Date) - member.joinedAt) > 15778800000 * 2) {
+      member.roles.add(elderFloof);
+      member.roles.remove(teenerFloof);
+      member.roles.remove(babyFloof);
+    } else if (((new Date) - member.joinedAt) > 15778800000) {
+      member.roles.add(teenerFloof);
+      member.roles.remove(babyFloof);
+    } else if (((new Date) - member.joinedAt) > 2629800000) {
+      member.roles.add(babyFloof);
+    }
+  })
+});
