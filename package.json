@@ -1,6 +1,6 @@
 {
   "name": "sweetypi",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A Discord- and Twitch-bot for Redfur13(SweetyComics)",
   "main": "DiscordIndex.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "fetch-gifs": "^0.2.0",
     "g": "^2.0.1",
     "giphy-api": "^2.0.1",
+    "node-cron": "^2.0.3",
     "novelcovid": "^3.0.0",
     "numeral": "^2.0.6",
     "require-all": "^3.0.0",
