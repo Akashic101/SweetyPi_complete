@@ -225,14 +225,21 @@ cron.schedule('0 0 1-31 * *', () => {
   Members.forEach(member => {
 
     if (((new Date) - member.joinedAt) > 15778800000 * 2) {
-      member.roles.add(elderFloof);
-      member.roles.remove(teenerFloof);
-      member.roles.remove(babyFloof);
+      if (member.roles.cache.some(role => role.name === 'Teener floof')) {
+        member.roles.add(elderFloof);
+        member.roles.remove(teenerFloof);
+        member.roles.remove(babyFloof);
+      }
+
     } else if (((new Date) - member.joinedAt) > 15778800000) {
-      member.roles.add(teenerFloof);
-      member.roles.remove(babyFloof);
+      if (member.roles.cache.some(role => role.name === 'Baby floof')) {
+        member.roles.add(teenerFloof);
+        member.roles.remove(babyFloof);
+      }
     } else if (((new Date) - member.joinedAt) > 2629800000) {
-      member.roles.add(babyFloof);
+      if (member.roles.cache.some(role => role.name === 'Member')) {
+        member.roles.add(babyFloof);
+      }
     }
   })
 });
