@@ -95,6 +95,7 @@ Other commands are:
 
 * `link <platform> <link.to.website>`
 * `sweety`
+* `minigame`
 * `uptime`
 * `info`
 * `commands`
@@ -108,6 +109,7 @@ And mod-only commands are:
 * `add <platform> <accountName> <link.to.website>`
 * `addSweety <link>`
 * `delSweety <link>`
+* `roleinfo @role`
 
 For `addSweety` and `delSweety` it is possible to add or delete multiple images at once by seperating them with a space, for example `addSweety link1 link2 link3`
 
