@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = {
     name: 'info',
     description: 'Sends info about the bot',
