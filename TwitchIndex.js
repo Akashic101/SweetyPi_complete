@@ -1,6 +1,8 @@
 const tmi = require('tmi.js');
 const Sequelize = require('sequelize');
 require('dotenv').config();
+var cron = require('node-cron');
+const fs = require('fs');
 
 const sweetyImagesSeq = new Sequelize('database', 'user', 'password', {
     host: 'localhost',
@@ -95,6 +97,21 @@ function messageInterval() {
 client.on('chat', async (channel, user, message, self) => {
     if (self) return;
     const commandmessage = message.trim().toLowerCase();
+
+    if (commandmessage === '!pun') {
+        fs.readFile('./json/pun.json', 'utf8', function (err, data) {
+            if (err) {
+                return console.log(err);
+            }
+
+            data++;
+            client.say('Redfur_13', `There has been ${data} puns so far`)
+
+            fs.writeFile('./json/pun.json', data, function (err) {
+                if (err) return console.log(err);
+            });
+        });
+    }
 
     if (commandmessage === '!social' || commandmessage === '!socials') {
         client.say('Redfur_13', 'Instagram: https://www.instagram.com/sweetycomics, Discord: https://discordapp.com/invite/KTFBR8A, Webtoons: https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966')
@@ -191,7 +208,7 @@ client.on('chat', async (channel, user, message, self) => {
         var randomNumber = Math.floor((Math.random() * 100) + 1);
         if (randomNumber >= 1 && randomNumber <= 20) {
             var randomMessage = Math.floor((Math.random() * 2) + 1);
-                client.say('Redfur_13', `/me ${successMessage[randomMessage - 1]}`)
+            client.say('Redfur_13', `/me ${successMessage[randomMessage - 1]}`)
         } else {
             var randomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
             client.say('Redfur_13', `/me ${failureMessage[randomNumber- 1]}`)
@@ -282,4 +299,15 @@ client.on("resub", (channel, username, months, message, userstate, methods) => {
     let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
     client.say('Redfur_13', "redfur4Love redfur4Love " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months redfur4Love redfur4Love");
     //client.channels.cache.get(chitchatChannel).send("<:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440> " + username + " just continued his subscription. He is now subscribed since " + cumulativeMonths + " months <:Sweety_scared:713075786713661440> <:Sweety_scared:713075786713661440>");
+});
+
+cron.schedule('0,30 0-23 * * *', () => {
+
+    var messages = [
+        "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A",
+        "Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A",
+    ]
+    var item = messages[Math.floor(Math.random() * messages.length)];
+
+    client.say("Redfur_13", item);
 });
