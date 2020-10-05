@@ -129,6 +129,10 @@ client.on('chat', async (channel, user, message, self) => {
         client.say('Redfur_13', 'https://discordapp.com/invite/KTFBR8A')
     }
 
+    if (commandmessage === '!music') {
+        client.say('Redfur_13', 'Join #Stream Music to listen to some awesome tunes redfur4Love https://discordapp.com/invite/KTFBR8A')
+    }
+
     if (commandmessage === '!facebook' || commandmessage === '!fb') {
         client.say('Redfur_13', 'https://www.facebook.com/Redfur13-2323949451264229/?ref=aymt_homepage_panel&eid=ARBQBOOYhk572IzVWcoV08jK4-y8bf8sSRWQ-KRxqrryne0yGezIFTfZzgmEUg78Xn3D0VU15YKeTW2A')
     }
