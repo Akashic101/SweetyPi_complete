@@ -306,6 +306,8 @@ cron.schedule('0,30 0-23 * * *', () => {
     var messages = [
         "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A",
         "Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A",
+        "Stream is a little quiet isn't it? Join the Discord server voice chat to have some music! https://discordapp.com/KTFBR8A"
+        
     ]
     var item = messages[Math.floor(Math.random() * messages.length)];
 
