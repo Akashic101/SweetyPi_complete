@@ -113,6 +113,10 @@ client.on('chat', async (channel, user, message, self) => {
         });
     }
 
+    if (commandmessage === '!guest') {
+        client.say('Redfur_13', 'redfur4Love https://www.multitwitch.tv/redfur_13/doodleforfood redfur4Love')
+    }
+
     if (commandmessage === '!social' || commandmessage === '!socials') {
         client.say('Redfur_13', 'Instagram: https://www.instagram.com/sweetycomics, Discord: https://discordapp.com/invite/KTFBR8A, Webtoons: https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966')
     }
