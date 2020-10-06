@@ -3,6 +3,8 @@ var pjson = require('../package.json');
 
 module.exports = async (client, message) => {
 
+    if(client.bot) return;
+
     if (!message.guild) return;
     const fetchedLogs = await message.guild.fetchAuditLogs({
         limit: 1,
