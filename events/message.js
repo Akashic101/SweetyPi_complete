@@ -2,59 +2,41 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 const Discord = require('discord.js');
 var pjson = require('../package.json');
+const {
+    args_length
+} = require('../commands/add');
 
 const prefix = '!';
 
-const levelSeq = new Sequelize('database', 'user', 'password', {
-    host: 'localhost',
-    dialect: 'sqlite',
-    logging: false,
-    // SQLite only
-    storage: 'level.sqlite',
-    timestamps: false,
-});
-
-//Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
-const level = levelSeq.define('level', {
-    id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-        unique: true,
-    },
-    user_id: {
-        type: Sequelize.STRING,
-        unique: true,
-    },
-    xp: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    }
-});
-
-const xp = levelSeq.define('xp', {
-    id: {
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-        unique: true,
-    },
-    level: {
-        type: Sequelize.INTEGER,
-        unique: true,
-    },
-    minimum: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    },
-    maximum: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    }
-});
-
 module.exports = async (client, message) => {
+
+    const levelSeq = new Sequelize('database', 'user', 'password', {
+        host: 'localhost',
+        dialect: 'sqlite',
+        logging: false,
+        // SQLite only
+        storage: 'level.sqlite',
+        timestamps: false,
+    });
+
+    //Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
+    const level = levelSeq.define('level', {
+        id: {
+            primaryKey: true,
+            type: Sequelize.INTEGER,
+            unique: true,
+        },
+        user_id: {
+            type: Sequelize.STRING,
+            unique: true,
+        },
+        xp: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0,
+            allowNull: false,
+        }
+    });
+
     var increment = 0
 
     switch (message.channel.id) {
@@ -145,49 +127,76 @@ module.exports = async (client, message) => {
         return console.log(e);
     }
 
-    /*
-    if (message.content.startsWith('lo') && message.content.endsWith('ng')) {
-        var occurence = (message.content.match(/o/g) || []).length
-
-        if (occurence >= 3) {
-            occurence = 3;
-        }
-
-        var bodyLinks = [
-            'https://imgur.com/zastrTO',
-            'https://imgur.com/hrgRcpw',
-            'https://imgur.com/mTiDQ0W',
-            'https://imgur.com/6OapXJg',
-            'https://imgur.com/RP882eQ',
-            'https://imgur.com/e9Fx90q',
-            'https://imgur.com/bi09R53',
-            'https://imgur.com/QACSn7x',
-            'https://imgur.com/1JCqrHA',
-            'https://imgur.com/S4Aq7AM',
-            'https://imgur.com/krTO1jv'
-        ]
-
-        var head = "https://imgur.com/Lvm9NQj";
-        var butt = "https://imgur.com/ExAY4mf";
-
-        for (let i = 0; i < occurence; i++) {
-            var head = head.concat("\n", bodyLinks[i]);
-        }
-
-        var head = head.concat("\n", butt);
-        console.log(head)
-        message.channel.send(head)
-    }
-*/
     const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase();
 
-    if (!message.content.startsWith(prefix) || message.author.bot || message.author.self || !client.commands.has(command)) return;
+    if (!message.content.startsWith(prefix) || message.author.bot || message.author.self || !client.commands.has(commandName)) return;
 
-    try {
-        client.commands.get(command).execute(client, message, args);
-    } catch (error) {
-        console.error(error);
-        message.reply('there was an error trying to execute that command!');
+    const command = client.commands.get(commandName);
+
+    if (command.modOnly) {
+        if (!message.member.roles.cache.some((role) => role.name == '🟢 Moderator')) {
+            return message.reply("This command is only available for moderators. You do not have the permissions to use it")
+        }
     }
-};
+
+    if (command.args) {
+        if (command.args_length != args.length) {
+            return message.reply(`You provided the wrong amount of arguments!`);
+        } else if (!args.length) {
+            return message.reply(`You didn't provide any arguments!`);
+        }
+    }
+
+    if (command.channel) {
+        for (let i = 0; i < command.channel.length; i++) {
+            if (message.channel.name == command.channel[i]) {
+                try {
+                    sendLog(command, message);
+                    return command.execute(client, message, args);
+                } catch (error) {
+                    console.error(error);
+                    message.reply('there was an error trying to execute that command!');
+                }
+            }
+        }
+        var availableChannels = `<#${message.guild.channels.cache.find(channel => channel.name == command.channel[0]).id}>`;
+        for (let i = 1; i < command.channel.length; i++) {
+            if (command.channel[i] == 'test-channel') continue;
+            var availableChannels = availableChannels.concat(` or <#${message.guild.channels.cache.find(channel => channel.name == command.channel[i]).id}>`)
+        }
+        return message.reply(`The command will not work here. \n It will work in ${availableChannels}`);
+    } else {
+        sendLog(command, message);
+        try {
+            return command.execute(client, message, args);
+        } catch (error) {
+            console.error(error);
+            message.reply('there was an error trying to execute that command!');
+        }
+    }
+}
+
+function sendLog(command, message) {
+    var serverLogEmbed = new Discord.MessageEmbed()
+      .setColor(command.color)
+      .setTitle(`**${command.name}**`)
+      .setDescription(command.description)
+      .addFields({
+        name: 'Username',
+        value: message.member.user.tag
+      }, {
+        name: 'Command',
+        value: message.content
+      }, {
+        name: 'Date',
+        value: date = new Date()
+      })
+      .setThumbnail(message.member.user.displayAvatarURL({
+        format: 'jpg'
+      }))
+      .setTimestamp()
+      .setFooter('SweetyPi V' + pjson.version, 'https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png');
+    var channel = message.client.channels.cache.get(process.env.SERVER_LOG_CHANNEL);
+    channel.send(serverLogEmbed);
+  }
