@@ -113,6 +113,10 @@ client.on('chat', async (channel, user, message, self) => {
         });
     }
 
+    if (commandmessage === '!guest') {	
+        client.say('Redfur_13', 'redfur4Love https://www.multitwitch.tv/redfur_13/doodleforfood redfur4Love')	
+    }
+
     if (commandmessage === '!social' || commandmessage === '!socials') {
         client.say('Redfur_13', 'Instagram: https://www.instagram.com/sweetycomics, Discord: https://discordapp.com/invite/KTFBR8A, Webtoons: https://www.webtoons.com/en/challenge/sweety-comics/list?title_no=389966')
     }
@@ -310,7 +314,8 @@ cron.schedule('0,30 0-23 * * *', () => {
     var messages = [
         "If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A",
         "Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A",
-        "Stream is a little quiet isn't it? Join the Discord server voice chat to have some music! https://discordapp.com/KTFBR8A"
+        "Stream is a little quiet isn't it? Join the Discord server voice chat to have some music! https://discordapp.com/KTFBR8A",
+        "Want to watch both streams at the same time? Click here: https://www.multitwitch.tv/redfur_13/doodleforfood"
     ]
     var item = messages[Math.floor(Math.random() * messages.length)];
 
