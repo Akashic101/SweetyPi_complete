@@ -116,13 +116,12 @@ client.on('chat', async (channel, user, message, self) => {
     if (commandmessage === '!roulette') {
         var random_number = Math.round(Math.random() * 6 + 1);
         if (random_number == 1) {
-            if(user.username == "Rarin") {
+            if (user.username == "rarin") {
                 client.say('Redfur_13', `${user.username} got bullied by the bot because he deserves it`)
-                client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
-            }
-            else {
+                client.timeout("Redfur_13", user.username, 60, "BAMM You are dead")
+            } else {
                 client.say('Redfur_13', `${user.username} died. F`)
-                client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
+                client.timeout("Redfur_13", user.username, 60, "BAMM You are dead")
             }
         } else {
             client.say('Redfur_13', `Congratz ${user.username} on surviving. Wanna push your luck and try again?`)
