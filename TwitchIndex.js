@@ -120,8 +120,10 @@ client.on('chat', async (channel, user, message, self) => {
                 client.say('Redfur_13', `${user.username} got bullied by the bot because he deserves it`)
                 client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
             }
-            client.say('Redfur_13', `${user.username} died. F`)
-            client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
+            else {
+                client.say('Redfur_13', `${user.username} died. F`)
+                client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
+            }
         } else {
             client.say('Redfur_13', `Congratz ${user.username} on surviving. Wanna push your luck and try again?`)
         }
