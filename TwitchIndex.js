@@ -113,8 +113,17 @@ client.on('chat', async (channel, user, message, self) => {
         });
     }
 
-    if (commandmessage === '!guest') {	
-        client.say('Redfur_13', 'redfur4Love https://www.multitwitch.tv/redfur_13/doodleforfood redfur4Love')	
+    if (commandmessage === '!roulette') {
+        var random_number = Math.round(Math.random() * 6 + 1);
+        if (random_number == 1) {
+            client.timeout("Redfur_13",  user.username, 60, "BAMM You are dead")
+        } else {
+            client.say('Redfur_13', `Congratz ${user.username} on surviving. Wanna push your luck and try again?`)
+        }
+    }
+
+    if (commandmessage === '!guest') {
+        client.say('Redfur_13', 'redfur4Love https://www.multitwitch.tv/redfur_13/doodleforfood redfur4Love')
     }
 
     if (commandmessage === '!social' || commandmessage === '!socials') {
