@@ -239,7 +239,7 @@ client.on("cheer", (channel, userstate, message) => {
     if (userstate.bits < 100) {
         return;
     } else {
-        client.say('Redfur_13', "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " beans redfur4Love redfur4Love");
+        client.say(channel, "redfur4Love redfur4Love " + userstate.username + " has cheered " + userstate.bits + " beans redfur4Love redfur4Love");
     }
 });
 
