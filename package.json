@@ -20,5 +20,9 @@
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0",
     "tmi.js": "^1.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
