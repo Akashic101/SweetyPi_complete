@@ -36,11 +36,11 @@ module.exports = {
 		ctx.fillStyle = `white`;
 		ctx.fillText(`${message.member.user.tag}!`, canvas.width / 3, canvas.height /3.5);
 
-		ctx.font = `20px Arial`;
+		ctx.font = `25px Arial`;
 		ctx.fillText(`Joined at:`, 250, 95);
 		ctx.fillText(`Account created at:`, 250, 145);
 
-		ctx.font = `15px Arial`;
+		ctx.font = `18px Arial`;
 		ctx.fillText(`${new Date().toUTCString()}`, 250, 115);
 		ctx.fillText(`${message.member.user.createdAt.toUTCString()}`, 250, 165);
 	
