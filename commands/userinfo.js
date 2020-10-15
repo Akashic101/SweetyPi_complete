@@ -29,7 +29,7 @@ module.exports = {
 			return ctx.font;
 		};
 	
-		const background = await Canvas.loadImage(`image\\background.png`);
+		const background = await Canvas.loadImage(`image/background.png`);
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 	
 		ctx.font = applyText(canvas, `${message.member.user.tag}!`);
