@@ -1,11 +1,11 @@
-/* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { client as _client } from "tmi.js";
-import Sequelize, { INTEGER, STRING, literal } from "sequelize";
+/* eslint-disable no-redeclare */
+const tmi = require(`tmi.js`);
+const Sequelize = require(`sequelize`);
 require(`dotenv`).config();
-import { schedule } from "node-cron";
-import { readFile, writeFile } from "fs";
+var cron = require(`node-cron`);
+const fs = require(`fs`);
 
 const sweetyImagesSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
@@ -15,19 +15,19 @@ const sweetyImagesSeq = new Sequelize(`database`, `user`, `password`, {
 	storage: `sweetyImages.sqlite`,
 });
 
-// Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
+//Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
 const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 	id: {
 		primaryKey: true,
-		type: INTEGER,
+		type: Sequelize.INTEGER,
 		unique: true,
 	},
 	link: {
-		type: STRING,
+		type: Sequelize.STRING,
 		unique: true,
 	},
 	usage_count: {
-		type: INTEGER,
+		type: Sequelize.INTEGER,
 		defaultValue: 0,
 		allowNull: false,
 	},
@@ -44,15 +44,15 @@ const comicsSeq = new Sequelize(`database`, `user`, `password`, {
 const comics = comicsSeq.define(`comics`, {
 	id: {
 		primaryKey: true,
-		type: INTEGER,
+		type: Sequelize.INTEGER,
 		unique: true,
 	},
 	image: {
-		type: STRING,
+		type: Sequelize.STRING,
 		unique: true,
 	},
 	instagram: {
-		type: STRING,
+		type: Sequelize.STRING,
 		unique: true,
 	},
 });
@@ -72,11 +72,11 @@ const botOptions = {
 	channels: [`Redfur_13`],
 };
 
-const client = new _client(botOptions);
+const client = new tmi.client(botOptions);
 
 client.connect();
 
-// listens to incoming chat-messages
+//listens to incoming chat-messages
 client.on(`chat`, async (channel, user, message, self) => {
 	if (self || !message.startsWith(`!`)) return;
 
@@ -84,7 +84,7 @@ client.on(`chat`, async (channel, user, message, self) => {
 
 	switch (commandmessage) {
 	case `pun`:
-		readFile(`./json/pun.json`, `utf8`, function(err, data) {
+		fs.readFile(`./json/pun.json`, `utf8`, function (err, data) {
 			if (err) {
 				return console.log(err);
 			}
@@ -92,7 +92,7 @@ client.on(`chat`, async (channel, user, message, self) => {
 			data++;
 			client.say(channel, `There has been ${data} puns so far`);
 
-			writeFile(`./json/pun.json`, data, function(err) {
+			fs.writeFile(`./json/pun.json`, data, function (err) {
 				if (err) return console.log(err);
 			});
 		});
@@ -145,26 +145,26 @@ client.on(`chat`, async (channel, user, message, self) => {
 		client.say(channel, `The hell do I know, I'm a cat`);
 		break;
 	case `hyello`:
-		var hyelloMessage = `Hyello, welcome to my stream`;
+		var message = `Hyello, welcome to my stream`;
 		var newMessage = ``;
 
-		for (let i = 0; i < hyelloMessage.length; i++) {
-			var hyelloRandomNumber = Math.round(Math.random() * 10 + 1);
-			if (hyelloRandomNumber % 2 == 0) {
-				newMessage += hyelloMessage.charAt(i).toUpperCase();
+		for (var i = 0; i < message.length; i++) {
+			var random_number = Math.round(Math.random() * 10 + 1);
+			if (random_number % 2 == 0) {
+				newMessage += message.charAt(i).toUpperCase();
 			} else {
-				newMessage += hyelloMessage.charAt(i).toLowerCase();
+				newMessage += message.charAt(i).toLowerCase();
 			}
 		}
 		client.say(channel, `redfur4Hyello ${newMessage} redfur4Hyello`);
 		break;
 	case `hi`:
-		client.say(channel, `Hello ` + user.username + ` >^ω^<`);
+		client.say(chanel, `Hello ` + user.username + ` >^ω^<`);
 		break;
 	case `shake`:
 		var successMessage = [
 			`Shakes paw`,
-			`Lifts paw`,
+			`Lifts paw`
 		];
 
 		var failureMessage = [
@@ -177,16 +177,16 @@ client.on(`chat`, async (channel, user, message, self) => {
 			`Walks away`,
 			`Ignores you`,
 			`Stares`,
-			`demands headscratches`,
+			`demands headscratches`
 		];
 
-		var ShakeRandomNumber = Math.floor((Math.random() * 100) + 1);
-		if (ShakeRandomNumber >= 1 && ShakeRandomNumber <= 20) {
-			const randomMessage = Math.floor((Math.random() * 2) + 1);
+		var randomNumber = Math.floor((Math.random() * 100) + 1);
+		if (randomNumber >= 1 && randomNumber <= 20) {
+			var randomMessage = Math.floor((Math.random() * 2) + 1);
 			client.say(channel, `/me ${successMessage[randomMessage - 1]}`);
 		} else {
-			var ShakeRandomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
-			client.say(channel, `/me ${failureMessage[ShakeRandomNumber- 1]}`);
+			var randomNumber = Math.floor((Math.random() * failureMessage.length) + 1);
+			client.say(channel, `/me ${failureMessage[randomNumber- 1]}`);
 		}
 		break;
 	case `love`:
@@ -195,7 +195,7 @@ client.on(`chat`, async (channel, user, message, self) => {
 	case `sweety`:
 		try {
 			const match = await SweetyImages.findOne({
-				order: literal(`random()`),
+				order: Sequelize.literal(`random()`)
 			});
 			if (match) {
 				match.increment(`usage_count`);
@@ -210,7 +210,7 @@ client.on(`chat`, async (channel, user, message, self) => {
 	case `comic`:
 		try {
 			const match = await comics.findOne({
-				order: literal(`random()`),
+				order: Sequelize.literal(`random()`)
 			});
 			if (match) {
 				return client.say(channel, `` + match.instagram);
@@ -227,17 +227,17 @@ client.on(`chat`, async (channel, user, message, self) => {
 			`Glad to help`,
 			`Just doing my job`,
 			`What can I say except you're welcome`,
-			`Meow Meow`,
+			`Meow Meow`
 		];
 
-		var thanksMessage = messages[Math.floor(Math.random() * messages.length)];
+		var message = messages[Math.floor(Math.random() * messages.length)];
 
-		client.say(channel, thanksMessage + ` ` + user.username);
+		client.say(channel, message + ` ` + user.username);
 		break;
 	}
 });
 
-// reacts when someone cheered more then 100 bits
+//reacts when someone cheered more then 100 bits
 client.on(`cheer`, (channel, userstate, message) => {
 	if (userstate.bits < 100) {
 		return;
@@ -246,35 +246,36 @@ client.on(`cheer`, (channel, userstate, message) => {
 	}
 });
 
-// reacts when someone subscribed
+//reacts when someone subscribed
 client.on(`subscription`, (channel, username, method, message, userstate) => {
 	client.say(channel, `redfur4Love redfur4Love ` + username + ` just subscribed! redfur4Love redfur4Love `);
 });
 
-// Username gifted a subscription to recipient in a channel.
+//Username gifted a subscription to recipient in a channel.
 client.on(`subgift`, (channel, username, streakMonths, recipient, methods, userstate) => {
-	const senderCount = ~~userstate[`msg-param-sender-count`];
+	let senderCount = ~~userstate[`msg-param-sender-count`];
 	client.say(channel, `redfur4Love redfur4Love ` + username + ` just gifted a subscription to ` + recipient + `. They gifted in total ` + senderCount + ` subscriptions redfur4Love redfur4Love `);
 });
 
-// reacts when someone gifted a mystery-subscription
+//reacts when someone gifted a mystery-subscription
 client.on(`submysterygift`, (channel, username, numbOfSubs, methods, userstate) => {
-	const senderCount = ~~userstate[`msg-param-sender-count`];
+	let senderCount = ~~userstate[`msg-param-sender-count`];
 	client.say(channel, `redfur4Love redfur4Love ` + username + ` just gifted ` + numbOfSubs + ` mystery-subscriptions. They gifted in total ` + senderCount + ` subscriptions redfur4Love redfur4Love `);
 });
 
 client.on(`resub`, (channel, username, months, message, userstate, methods) => {
-	const cumulativeMonths = ~~userstate[`msg-param-cumulative-months`];
+	let cumulativeMonths = ~~userstate[`msg-param-cumulative-months`];
 	client.say(channel, `redfur4Love redfur4Love ` + username + ` just continued his subscription. They are now subscribed since ` + cumulativeMonths + ` months redfur4Love redfur4Love`);
 });
 
-schedule(`0,30 0-23 * * *`, () => {
-	const messages = [
+cron.schedule(`0,30 0-23 * * *`, () => {
+
+	var messages = [
 		`If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A`,
 		`Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A`,
-		`Stream is a little quiet isn't it? Join the Discord server voice chat to have some music! https://discordapp.com/KTFBR8A`,
+		`Stream is a little quiet isn't it? Join the Discord server voice chat to have some music! https://discordapp.com/KTFBR8A`
 	];
-	const item = messages[Math.floor(Math.random() * messages.length)];
+	var item = messages[Math.floor(Math.random() * messages.length)];
 
 	client.say(channel, item);
 });
