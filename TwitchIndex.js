@@ -78,6 +78,7 @@ client.connect();
 
 //listens to incoming chat-messages
 client.on(`chat`, async (channel, user, message, self) => {
+
 	if (self || !message.startsWith(`!`)) return;
 
 	const commandmessage = message.slice(1).trim().toLowerCase();
@@ -143,6 +144,15 @@ client.on(`chat`, async (channel, user, message, self) => {
 		break;
 	case `uptime`:
 		client.say(channel, `The hell do I know, I'm a cat`);
+		break;
+	case `guest`:
+		client.say(channel, `https://multitwitch.tv/redfur_13/doodleforfood/redpandamon`);
+		break;
+	case `quote`:
+		var rawdata = fs.readFileSync(`./json/quotes.json`);
+		var quote = JSON.parse(rawdata);
+		var item = quote.quotes[Math.floor(Math.random() * quote.quotes.length)];
+		client.say(channel, `${item} ~ Redfur13`);
 		break;
 	case `hyello`:
 		var message = `Hyello, welcome to my stream`;
