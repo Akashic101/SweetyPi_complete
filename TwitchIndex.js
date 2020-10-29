@@ -287,5 +287,5 @@ cron.schedule(`0,30 0-23 * * *`, () => {
 	];
 	var item = messages[Math.floor(Math.random() * messages.length)];
 
-	client.say(channel, item);
+	client.say(`redfur_13`, item);
 });
