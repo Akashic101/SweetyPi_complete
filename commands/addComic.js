@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 const Sequelize = require(`sequelize`);
 const Discord = require(`discord.js`);
-const client = new Discord.Client();
 var pjson = require(`../package.json`);
 
 const comicsSeq = new Sequelize(`database`, `user`, `password`, {
@@ -31,7 +30,7 @@ const comics = comicsSeq.define(`comics`, {
 
 module.exports = {
 	name: `addcomic`,
-	description: `Send info about the current Hot-Lap-Challenge!`,
+	description: `Adds a comic to the comic-database`,
 	async execute(client, message, args) {
 
 		var date = new Date();
