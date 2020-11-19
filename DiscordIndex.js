@@ -213,6 +213,70 @@ client.on(`messageReactionAdd`, async (reaction, user) => {
 
 /*-----------------messageReactionAdd-----------------*/
 
+/*--------------------channelCreate--------------------*/
+
+client.on(`channelCreate`, function (channel) {
+	let embed = new Discord.MessageEmbed()
+		.setTitle(`**New channel created**`)
+		.addField(`name`, channel.name, true)
+		.addField(`id`, channel.id, true)
+		.setColor(`1e1a1e`)
+		.setTimestamp()
+		.setFooter(`SweetyPi V` + pjson.version, `https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png`);
+	client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(embed);
+});
+
+/*--------------------channelCreate--------------------*/
+
+/*--------------------channelDelete--------------------*/
+
+client.on(`channelDelete`, function (channel) {
+	let embed = new Discord.MessageEmbed()
+		.setTitle(`**Channel deleted**`)
+		.addField(`name`, channel.name, true)
+		.setColor(`5a5a5a`)
+		.setTimestamp()
+		.setFooter(`SweetyPi V` + pjson.version, `https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png`);
+	client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(embed);
+});
+
+/*-------------------channelDelete-------------------*/
+
+/*---------------------roleCreate---------------------*/
+
+client.on(`roleCreate`, function (role) {
+
+	let embed = new Discord.MessageEmbed()
+		.setTitle(`**New role created**`)
+		.addFields({
+			name: `name`,
+			value: role.name,
+			inline: true
+		}, {
+			name: `id`,
+			value: role.id,
+			inline: true
+		}, {
+			name: `color`,
+			value: role.color,
+			inline: true
+		}, {
+			name: `managed`,
+			value: role.managed,
+			inline: true
+		}, {
+			name: `mentionable`,
+			value: role.mentionable,
+			inline: true
+		})
+		.setColor(`859364`)
+		.setTimestamp()
+		.setFooter(`SweetyPi V` + pjson.version, `https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png`);
+	client.channels.cache.get(process.env.SERVER_LOG_CHANNEL).send(embed);
+});
+
+/*---------------------roleCreate---------------------*/
+
 /*-----------------------Other-----------------------*/
 
 cron.schedule(`0 0 1-31 * *`, () => {
