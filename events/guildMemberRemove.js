@@ -33,7 +33,7 @@ module.exports = async (client, member) => {
 	ctx.fillText(`Account created at:`, 250, 245);
 
 	ctx.font = `18px Arial`;
-	ctx.fillText(`${member.joinedAt.toUTCString()}`, 250, 215);
+	ctx.fillText(`${member.joinedAt}`, 250, 215);
 	ctx.fillText(`${member.user.createdAt.toUTCString()}`, 250, 265);
 
 	ctx.beginPath();
