@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
-const Discord = require(`discord.js`);
-var pjson = require(`../package.json`);
 
 const strikeListSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
@@ -26,8 +25,12 @@ const strikeList = strikeListSeq.define(`strikeList`, {
 });
 
 module.exports = {
-	name: `addstrike`,
-	description: `Adds a strike to a user`,
+	name: `addStrike`,
+	modOnly: true,
+	args: true,
+	args_length: 2,
+	description: `Gives a user their first strike`,
+	color: `#7710de`,
 	async execute(client, message, args) {
 
 		try {

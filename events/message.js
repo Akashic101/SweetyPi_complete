@@ -5,9 +5,6 @@ require(`dotenv`).config();
 const Sequelize = require(`sequelize`);
 const Discord = require(`discord.js`);
 var pjson = require(`../package.json`);
-const {
-	args_length
-} = require(`../commands/add`);
 
 const prefix = `!`;
 
@@ -138,7 +135,7 @@ module.exports = async (client, message) => {
 	const command = client.commands.get(commandName);
 
 	if (command.modOnly) {
-		if (!message.member.roles.cache.some((role) => role.name == `🟢 Moderator`)) {
+		if (!message.member.roles.cache.some((role) => role.id == `641618875846492170`)) {
 			return message.reply(`This command is only available for moderators. You do not have the permissions to use it`);
 		}
 	}
@@ -165,7 +162,7 @@ module.exports = async (client, message) => {
 		}
 		var availableChannels = `<#${message.guild.channels.cache.find(channel => channel.name == command.channel[0]).id}>`;
 		for (let i = 1; i < command.channel.length; i++) {
-			if (command.channel[i] == `test-channel`) continue;
+			if (command.channel[i] == `test-channel` || command.channel[i] == `bot-commands`) continue;
 			var availableChannels = availableChannels.concat(` or <#${message.guild.channels.cache.find(channel => channel.name == command.channel[i]).id}>`);
 		}
 		return message.reply(`The command will not work here. \n It will work in ${availableChannels}`);

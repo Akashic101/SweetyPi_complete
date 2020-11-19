@@ -1,13 +1,17 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const Discord = require(`discord.js`);
 const pjson = require(`../package.json`);
 const quiz = require(`../json/quiz.json`);
 
 module.exports = {
 	name: `minigame`,
-	description: `Let's the user play a random minigame`,
+	modOnly: false,
+	args: false,
+	description: `Sends a random minigame`,
+	color: `#f89716`,
 	async execute(client, message, args) {
 
 		var minigame = Math.floor((Math.random() * 3) + 1);

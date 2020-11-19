@@ -1,16 +1,17 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 var pjson = require(`../package.json`);
 const Discord = require(`discord.js`);
 
 module.exports = {
 	name: `roleinfo`,
-	description: `Sends info about a specific role`,
+	modOnly: true,
 	args: true,
 	args_length: 1,
-	channel: [`test-channel`, `📱commands`],
-	modOnly: false,
-	color: `#2153f5`,
+	channel: [`test-channel`, `bot-commands`],
+	description: `Sends info about a role`,
+	color: `#b887ab`,
 	execute(client, message, args) {
 		let role = message.mentions.roles.first();
 

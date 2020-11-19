@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-var pjson = require(`../package.json`);
+
 const Discord = require(`discord.js`);
 const Canvas = require(`canvas`);
 const fs = require(`fs`);
@@ -57,7 +57,7 @@ module.exports = {
 	args: false,
 	channel: [`test-channel`, `📱commands`],
 	modOnly: false,
-	color: `#3c4b75`,
+	color: `#ea6ecc`,
 	async execute(client, message, args) {
 
 		const canvas = Canvas.createCanvas(700, 200);

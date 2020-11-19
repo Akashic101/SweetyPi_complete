@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
-const Discord = require(`discord.js`);
-var pjson = require(`../package.json`);
 
 const sweetyImagesSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
@@ -32,7 +31,10 @@ const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 
 module.exports = {
 	name: `sweety`,
-	description: `Sends a random image/video of Sweety`,
+	modOnly: false,
+	args: false,
+	description: `Sends a random entry from the sweety-database`,
+	color: `#dfe5d4`,
 	async execute(client, message, args) {
 
 		try {

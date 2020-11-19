@@ -1,17 +1,14 @@
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
-const Discord = require(`discord.js`);
-var pjson = require(`../package.json`);
 
 const sweetyImagesSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
 	dialect: `sqlite`,
 	logging: false,
-	// SQLite only
 	storage: `sweetyImages.sqlite`,
 });
 
-//Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
 const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 	id: {
 		primaryKey: true,
@@ -30,8 +27,13 @@ const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 });
 
 module.exports = {
-	name: `addsweety`,
-	description: `Adds an image of Sweety to the database`,
+	name: `addSweety`,
+	modOnly: true,
+	args: true,
+	args_length: 1,
+	channel: [`test-channel`, `bot-commands`, `office`],
+	description: `Adds a image/video to the sweety-database`,
+	color: `#162fb8`,
 	async execute(client, message, args) {
 
 		try {

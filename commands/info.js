@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const fs = require(`fs`);
 
 module.exports = {
 	name: `info`,
-	description: `Sends info about the bot`,
-	args: false,
 	modOnly: false,
-	color: `#66ffff`,
+	args: false,
+	description: `Sends info about the bot`,
+	color: `#1cf595`,
 	execute(client, message, args) {
 		fs.readdir(`./commands`, (err, files) => {
 			let infoEmbed = new Discord.MessageEmbed()

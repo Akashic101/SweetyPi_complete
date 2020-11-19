@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 module.exports = {
 	name: `invite`,
-	description: `Sends an invite to the Discord-server`,
-	args: false,
 	modOnly: false,
-	color: `#8B9DFF`,
+	args: false,
+	description: `Sends the invite to a user`,
+	color: `#224169`,
 	execute(client, message, args) {
 		message.channel.send(`https://discord.gg/invite/KTFBR8A`);
 	},

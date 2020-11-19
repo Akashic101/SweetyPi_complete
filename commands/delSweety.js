@@ -1,17 +1,14 @@
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
-const Discord = require(`discord.js`);
-var pjson = require(`../package.json`);
 
 const sweetyImagesSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
 	dialect: `sqlite`,
 	logging: false,
-	// SQLite only
 	storage: `sweetyImages.sqlite`,
 });
 
-//Model that defines the structure of the SweetyImages-database: More info: https://discordjs.guide/sequelize/#beta-creating-the-model
 const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 	id: {
 		primaryKey: true,
@@ -30,19 +27,24 @@ const SweetyImages = sweetyImagesSeq.define(`sweetyImages`, {
 });
 
 module.exports = {
-	name: `delsweety`,
-	description: `Deletes an image of Sweety from the database`,
+	name: `delSweety`,
+	modOnly: true,
+	args: true,
+	args_length: 1,
+	channel: [`test-channel`, `bot-commands`],
+	description: `Deletes an image/video from the sweety-database`,
+	color: `#357dc0`,
 	async execute(client, message, args) {
-
 		try {
-			for(var i = 0; i < args.length; i++) {
-				// equivalent to: DELETE from tags WHERE name = ?;
-				const rowCount = await SweetyImages.destroy({ where: { link: args[i] } });
-    
+			for (var i = 0; i < args.length; i++) {
+				const rowCount = await SweetyImages.destroy({
+					where: {
+						link: args[i]
+					}
+				});
 				if (!rowCount) {
 					message.channel.send(`That link did not exist.`);
-				}
-				else {
+				} else {
 					message.channel.send(`Link ` + args[i] + ` deleted.`);
 				}
 			}

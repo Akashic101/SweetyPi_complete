@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
 const Discord = require(`discord.js`);
 var pjson = require(`../package.json`);
@@ -8,7 +9,6 @@ const comicsSeq = new Sequelize(`database`, `user`, `password`, {
 	host: `localhost`,
 	dialect: `sqlite`,
 	logging: false,
-	// SQLite only
 	storage: `comics.sqlite`,
 });
 
@@ -30,7 +30,10 @@ const comics = comicsSeq.define(`comics`, {
 
 module.exports = {
 	name: `comic`,
-	description: `Sends a random comic`,
+	modOnly: false,
+	args: false,
+	description: `Adds a user to the social-media database`,
+	color: `#a46167`,
 	async execute(client, message, args) {
 		try {
 			const match = await comics.findOne({ order: Sequelize.literal(`random()`) });

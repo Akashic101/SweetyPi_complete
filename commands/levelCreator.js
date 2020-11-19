@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 const Sequelize = require(`sequelize`);
 
 const levelSeq = new Sequelize(`database`, `user`, `password`, {
@@ -30,8 +31,12 @@ const levelTable = levelSeq.define(`levelTable`, {
 levelTable.sync();
 
 module.exports = {
-	name: `levelcreator`,
-	description: `creates levels`,
+	name: `fakeuserjoin`,
+	modOnly: true,
+	args: false,
+	channel: [`test-channel`, `bot-commands`],
+	description: `creates every level`,
+	color: `#87a98e`,
 	async execute(client, message, args) {
 
 		const level = await levelTable.create({
