@@ -21,7 +21,7 @@
     {
         "question": "What is the correct command to get your level (without the !)",
         "answers": ["level"],
-        "footnote": "There are currently 33 commands available on this server"
+        "footnote": "There are currently 21 commands available on this server"
     },
     {
         "question": "What is the nationality of Akashic and Redbeard?",
@@ -29,9 +29,9 @@
         "footnote": "The mods of this community are from Germany, the Netherlands and America"
     },
     {
-        "question": "How many channels are there in the 'Hang out spot'-Category?",
-        "answers": ["15", "fifteen"],
-        "footnote": "There are 21 channels on this server (or are there more? ;))"
+        "question": "How many text-channels are there in the 'Hang out spot'-Category?",
+        "answers": ["12", "twelve"],
+        "footnote": "There are 30 channels on this server (or are there more? ;))"
     },
     {
         "question": "What is Red's favourite video-game?",
@@ -45,8 +45,8 @@
     },
     {
         "question": "How many animated emotes are there on this channel?",
-        "answers": ["2", "two"],
-        "footnote": "Those two emotes were not planned and were created out of boredom (no regrets there)"
+        "answers": ["3", "three"],
+        "footnote": "Those  emotes were not planned and were created purely out of boredom (no regrets there)"
     },
     {
         "question": "Name one result when you type '!shake' on Red's Twitch",
