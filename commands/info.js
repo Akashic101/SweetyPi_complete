@@ -2,6 +2,8 @@
 /* eslint-disable no-undef */
 
 const fs = require(`fs`);
+var pjson = require(`../package.json`);
+const Discord = require(`discord.js`);
 
 module.exports = {
 	name: `info`,
