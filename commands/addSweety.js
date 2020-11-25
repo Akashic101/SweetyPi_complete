@@ -31,7 +31,6 @@ module.exports = {
 	modOnly: true,
 	args: true,
 	args_length: 1,
-	channel: [`test-channel`, `bot-commands`, `office`],
 	description: `Adds a image/video to the sweety-database`,
 	color: `#162fb8`,
 	async execute(client, message, args) {
