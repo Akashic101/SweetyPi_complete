@@ -225,6 +225,10 @@ module.exports = async (client, message) => {
 };
 
 function sendLog(command, message) {
+
+	
+	var d = new Date();
+
 	var serverLogEmbed = new Discord.MessageEmbed()
 		.setColor(command.color)
 		.setTitle(`**${command.name}**`)
@@ -236,9 +240,16 @@ function sendLog(command, message) {
 			name: `Command`,
 			value: message.content
 		}, {
+			name: `channel`,
+			value: `<#${message.channel.id}>`
+		}, {
 			name: `Date`,
-			value: date = new Date().toUTCString()
-		})
+			value: `${d.getDate()}.${d.getMonth()}.${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+		}, {
+			name: `link`,
+			value: `https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`
+		}
+		)
 		.setThumbnail(message.member.user.displayAvatarURL({
 			format: `jpg`
 		}))
