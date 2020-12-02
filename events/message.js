@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-redeclare */
+
 require(`dotenv`).config();
 const Sequelize = require(`sequelize`);
 const Discord = require(`discord.js`);
@@ -36,6 +37,30 @@ module.exports = async (client, message) => {
 			allowNull: false,
 		}
 	});
+
+	const messages = levelSeq.define(`messages`, {
+		id: {
+			primaryKey: true,
+			type: Sequelize.INTEGER,
+			unique: true,
+		},
+		user_id: {
+			type: Sequelize.STRING,
+			unique: true,
+		},
+		messages: {
+			type: Sequelize.INTEGER,
+			defaultValue: 0,
+			allowNull: false,
+		},
+		mod: {
+			type: Sequelize.BOOLEAN,
+			defaultValue: false
+		}
+	});
+
+	level.sync();
+	messages.sync();
 
 	var increment = 0;
 
@@ -88,6 +113,28 @@ module.exports = async (client, message) => {
 	}
 
 	if (message.author.bot || message.author.self) return;
+
+	try {
+		const match = await messages.findOne({
+			where: {
+				user_id: message.author.id
+			}
+		});
+		if (match) {
+			match.increment(`messages`, {
+				by: 1
+			});
+		}
+
+		else {
+			const match = await messages.create({
+				user_id: message.author.id,
+				messages: 1
+			});
+		}
+	} catch (e) {
+		return console.log(e);
+	}
 
 	try {
 		const match = await level.findOne({
