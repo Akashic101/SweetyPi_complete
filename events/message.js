@@ -124,13 +124,20 @@ module.exports = async (client, message) => {
 			match.increment(`messages`, {
 				by: 1
 			});
-		}
-
-		else {
-			const match = await messages.create({
-				user_id: message.author.id,
-				messages: 1
-			});
+		} else {
+			const member = message.author;
+			if (member.roles.cache.some(role => role.id === `641618875846492170`)) {
+				const match = await messages.create({
+					user_id: message.author.id,
+					messages: 1,
+					mod: true
+				});
+			} else {
+				const match = await messages.create({
+					user_id: message.author.id,
+					messages: 1,
+				});
+			}
 		}
 	} catch (e) {
 		return console.log(e);
@@ -226,7 +233,6 @@ module.exports = async (client, message) => {
 
 function sendLog(command, message) {
 
-	
 	var d = new Date();
 
 	var serverLogEmbed = new Discord.MessageEmbed()
@@ -248,8 +254,7 @@ function sendLog(command, message) {
 		}, {
 			name: `link`,
 			value: `https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`
-		}
-		)
+		})
 		.setThumbnail(message.member.user.displayAvatarURL({
 			format: `jpg`
 		}))
