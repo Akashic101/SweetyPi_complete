@@ -282,7 +282,7 @@ cron.schedule(`0,30 0-23 * * *`, () => {
 
 	var messages = [
 		`If you're a sub or a patron, you get access to exclusive comics over on the discord server! https://discordapp.com/KTFBR8A`,
-		`Made a clip you want to share? Post it in the #stream-highlights channel on our Discord server! redfur4NoTouch https://discordapp.com/KTFBR8A`
+		`redfur4Love redfur4Love You love Sweety's emotes? 40+ emotes are now also available on Whatsapp https://play.google.com/store/apps/details?id=com.akashic.sweetystickers redfur4Love redfur4Love`
 	];
 	var item = messages[Math.floor(Math.random() * messages.length)];
 
