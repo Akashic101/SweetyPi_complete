@@ -148,6 +148,29 @@ client.on(`chat`, async (channel, user, message, self) => {
 	case `guest`:
 		client.say(channel, `https://multitwitch.tv/redfur_13/doodleforfood/redpandamon`);
 		break;
+	case `lurk`:
+		var messages = [
+			`went to nap in their box`,
+			`now watches from the box`,
+			`went playing with some yarn`,
+			`has snuck away to floaf`,
+			`went to sniff out the treats`,
+			`is off hunting mice`,
+			`went to snack on some catnip and lay down in a trance`,
+			`went to throw stuff from the counter`,
+			`has gone to hide under the blanket`,
+			`is now sitting on the keyboard`,
+			`went to chew on some plants`,
+			`has gone to do zoomies across the house`,
+			`went to chew catnip`,
+			`found a warm sunny spot`,
+			`looks for the next thing to throw off the desk`,
+			`went to chew on the yarn`
+		];
+
+		var message = messages[Math.floor(Math.random() * messages.length)];
+
+		return client.say(channel, `${user.username} ${message}`);
 	case `quote`:
 		var rawdata = fs.readFileSync(`./json/quotes.json`);
 		var quote = JSON.parse(rawdata);
