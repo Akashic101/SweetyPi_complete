@@ -45,7 +45,7 @@ module.exports = {
 	async execute(client, message, args) {
 
 		const role = message.guild.roles.cache.find(role => role.id === `783770770035048471`);
-        
+
 		message.guild.members.cache.forEach(member => {
 			if (member.roles.cache.some(role => role.id === `783770770035048471`)) {
 				member.roles.remove(role);
@@ -54,13 +54,11 @@ module.exports = {
 
 		var messagesCount;
 
-		const result = await messages.findAndCountAll(
-		).then(result => {
+		const result = await messages.findAndCountAll().then(result => {
 
-			if(result.count <= 5) {
+			if (result.count <= 5) {
 				messagesCount = result.count;
-			}
-			else {
+			} else {
 				messagesCount = 5;
 			}
 		});
@@ -71,8 +69,7 @@ module.exports = {
 			},
 			order: [
 				[`messages`, `DESC`],
-			],
-			limit: 5
+			]
 		})
 			.then(result => {
 				var stringbuilder = ``;
@@ -89,6 +86,10 @@ module.exports = {
 					.setFooter(`SweetyPi V` + pjson.version, `https://cdn.discordapp.com/app-icons/683749467304099888/1127276baab40eb23bb680a8a102356b.png`);
 
 				message.channel.send(embed);
+				messages.destroy({
+					where: {},
+					truncate: true
+				});
 			});
 	},
 };
