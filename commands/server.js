@@ -59,7 +59,7 @@ channels.sync();
 
 module.exports = {
 	name: `server`,
-	modOnly: false,
+	modOnly: true,
 	args: false,
 	description: `Sends info about the server`,
 	color: `#a664fe`,
