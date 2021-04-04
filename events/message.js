@@ -50,7 +50,7 @@ module.exports = async (client, message) => {
 		},
 		messages: {
 			type: Sequelize.INTEGER,
-			defaultValue: 0,
+			defaultValue: 1,
 			allowNull: false,
 		},
 		mod: {
@@ -59,8 +59,30 @@ module.exports = async (client, message) => {
 		}
 	});
 
+	const channels = levelSeq.define(`channels`, {
+		id: {
+			primaryKey: true,
+			type: Sequelize.INTEGER,
+			unique: true,
+		},
+		channel_id: {
+			type: Sequelize.STRING,
+			unique: true,
+		},
+		channel_name: {
+			type: Sequelize.STRING,
+			unique: true,
+		},
+		messages: {
+			type: Sequelize.INTEGER,
+			defaultValue: 1,
+			allowNull: false,
+		},
+	});
+
 	level.sync();
 	messages.sync();
+	channels.sync();
 
 	var increment = 0;
 
@@ -115,28 +137,59 @@ module.exports = async (client, message) => {
 	if (message.author.bot || message.author.self) return;
 
 	try {
+		const match = await channels.findOne({
+			where: {
+				channel_id: message.channel.id
+			}
+		});
+
+		if (match) {
+			match.increment(`messages`, {
+				by: 1
+			});
+		} else {
+			const match = await channels.create({
+				channel_id: message.channel.id,
+				channel_name: message.channel.name
+			});
+			console.log(`Created channel match`);
+		}
+	} catch (e) {
+		return console.log(e);
+	}
+
+	try {
 		const match = await messages.findOne({
 			where: {
 				user_id: message.author.id
 			}
 		});
 		if (match) {
+			console.log(`Found match: ` + match.user_id);
 			match.increment(`messages`, {
 				by: 1
 			});
 		} else {
+			console.log(`Did not found a match`);
 			const member = message.author;
-			if (member.roles.cache.some(role => role.id === `641618875846492170`)) {
+
+			if (message.member.roles.cache.has(`641618875846492170`)) {
+
 				const match = await messages.create({
 					user_id: message.author.id,
 					messages: 1,
 					mod: true
 				});
+
+				console.log(`Created mod: ` + match.user_id);
 			} else {
+
 				const match = await messages.create({
 					user_id: message.author.id,
 					messages: 1,
 				});
+
+				console.log(`Created non-mod: ` + match.user_id);
 			}
 		}
 	} catch (e) {
