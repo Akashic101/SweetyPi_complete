@@ -31,7 +31,7 @@ const levelTable = levelSeq.define(`levelTable`, {
 levelTable.sync();
 
 module.exports = {
-	name: `fakeuserjoin`,
+	name: `levelcreator`,
 	modOnly: true,
 	args: false,
 	channel: [`test-channel`, `bot-commands`],
