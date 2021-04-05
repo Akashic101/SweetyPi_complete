@@ -31,6 +31,31 @@ const level = levelSeq.define(`level`, {
 	}
 });
 
+const messages = levelSeq.define(`messages`, {
+	id: {
+		primaryKey: true,
+		type: Sequelize.INTEGER,
+		unique: true,
+	},
+	user_id: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	username: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	messages: {
+		type: Sequelize.INTEGER,
+		defaultValue: 1,
+		allowNull: false,
+	},
+	mod: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false
+	}
+});
+
 const levelTable = levelSeq.define(`levelTable`, {
 	id: {
 		primaryKey: true,
@@ -48,6 +73,7 @@ const levelTable = levelSeq.define(`levelTable`, {
 	}
 });
 
+messages.sync();
 levelTable.sync();
 level.sync();
 

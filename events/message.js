@@ -48,6 +48,10 @@ module.exports = async (client, message) => {
 			type: Sequelize.STRING,
 			unique: true,
 		},
+		username: {
+			type: Sequelize.STRING,
+			unique: true,
+		},
 		messages: {
 			type: Sequelize.INTEGER,
 			defaultValue: 1,
@@ -80,9 +84,9 @@ module.exports = async (client, message) => {
 		},
 	});
 
-	level.sync();
-	messages.sync();
 	channels.sync();
+	messages.sync();
+	level.sync();
 
 	var increment = 0;
 
@@ -177,6 +181,7 @@ module.exports = async (client, message) => {
 
 				const match = await messages.create({
 					user_id: message.author.id,
+					username: message.author.tag,
 					messages: 1,
 					mod: true
 				});
