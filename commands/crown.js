@@ -23,9 +23,13 @@ const messages = levelSeq.define(`messages`, {
 		type: Sequelize.STRING,
 		unique: true,
 	},
+	username: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
 	messages: {
 		type: Sequelize.INTEGER,
-		defaultValue: 0,
+		defaultValue: 1,
 		allowNull: false,
 	},
 	mod: {
